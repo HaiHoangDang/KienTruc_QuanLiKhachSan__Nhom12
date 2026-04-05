@@ -1,0 +1,725 @@
+@model DKS_HotelManager.Models.ViewModels.AccountPageViewModel
+@using System.Linq
+@using System
+@{
+    ViewBag.Title = "Tai khoan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Func<DateTime?, string> FormatBookingDateTime = date => date.HasValue ? date.Value.ToString("dd/MM/yyyy HH:mm") : "-";
+}
+
+<style>
+    .account-page {
+        padding: 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        min-height: calc(100vh - 75px);
+    }
+
+    .account-header {
+        background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+        padding: 50px 0;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .account-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .account-header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .account-header h1 {
+        color: #d4af37;
+        font-size: 42px;
+        font-weight: 900;
+        margin-bottom: 12px;
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        letter-spacing: -0.5px;
+    }
+
+    .account-header p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .account-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px 60px;
+    }
+
+    .account-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 35px;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #d4af37, #b8941f, #d4af37);
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+    }
+
+    @@keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        border-color: #d4af37;
+    }
+
+    .card h3 {
+        margin-top: 0;
+        margin-bottom: 25px;
+        color: #1a1a2e;
+        font-size: 24px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .card h3 i {
+        color: #d4af37;
+        font-size: 28px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        color: #1a1a2e;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-size: 15px;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: #ffffff;
+        color: #1a1a2e;
+        font-weight: 500;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #d4af37;
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+        color: #0a0a1a;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 28px;
+        font-weight: 800;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+    }
+
+    .btn-primary:active {
+        transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+        background: #ffffff;
+        color: #dc3545;
+        border: 2px solid #dc3545;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-secondary:hover {
+        background: #dc3545;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 53, 69, 0.3);
+    }
+
+    .badge {
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 700;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.1));
+        color: #b8941f;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 2px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .bookings-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 35px;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s ease;
+    }
+
+    .bookings-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .bookings-header h3 {
+        margin: 0;
+        color: #1a1a2e;
+        font-size: 24px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .bookings-header h3 i {
+        color: #d4af37;
+        font-size: 28px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 16px;
+        border: 2px solid #e2e8f0;
+    }
+
+    .booking-period {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 13px;
+        color: #475569;
+    }
+
+    .booking-period .period-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .booking-period .period-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: #94a3b8;
+    }
+
+    .booking-period .period-value {
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #ffffff;
+    }
+
+    thead {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+    }
+
+    th {
+        padding: 18px 20px;
+        text-align: left;
+        color: #d4af37;
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+    }
+
+    td {
+        padding: 18px 20px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    tbody tr:hover {
+        background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.02));
+        transform: translateX(5px);
+    }
+
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-block;
+    }
+
+    .status-confirmed {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        color: #065f46;
+        border: 1px solid #34d399;
+    }
+
+    .status-pending {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        color: #92400e;
+        border: 1px solid #fbbf24;
+    }
+
+    .status-cancelled {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #991b1b;
+        border: 1px solid #f87171;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .actions .btn-primary {
+        padding: 10px 18px;
+        font-size: 12px;
+    }
+
+    .alert {
+        padding: 16px 20px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideDown 0.4s ease-out;
+    }
+
+    @@keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .alert.success {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        border: 2px solid #34d399;
+        color: #065f46;
+        box-shadow: 0 4px 15px rgba(52, 211, 153, 0.2);
+    }
+
+    .alert.error {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border: 2px solid #f87171;
+        color: #991b1b;
+        box-shadow: 0 4px 15px rgba(248, 113, 113, 0.2);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #64748b;
+    }
+
+    .empty-state i {
+        font-size: 64px;
+        color: #d4af37;
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+
+    .empty-state p {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        min-width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        color: #1f2937;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .page-btn:hover:not(:disabled) {
+        border-color: #d4af37;
+        color: #d4af37;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .page-btn.active {
+        background: linear-gradient(135deg, #d4af37, #b8941f);
+        color: #0f172a;
+        border-color: transparent;
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.28);
+    }
+
+    @@media (max-width: 1024px) {
+        .account-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .account-header-content,
+        .account-container {
+            padding: 0 20px;
+        }
+
+        .account-header h1 {
+            font-size: 32px;
+        }
+
+        .card,
+        .bookings-card {
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        .table-container {
+            overflow-x: scroll;
+        }
+
+        table {
+            min-width: 800px;
+        }
+    }
+</style>
+
+<div class="account-page">
+    <div class="account-header">
+        <div class="account-header-content">
+            <h1><i class="fas fa-user-circle"></i> Tài khoản của bạn</h1>
+            <p>Cập nhật thông tin cá nhân và quản lý các đặt phòng bạn đã thực hiện</p>
+        </div>
+    </div>
+
+    <div class="account-container">
+        @if (TempData["AccountSuccess"] != null)
+        {
+            <div class="alert success">
+                <i class="fas fa-check-circle"></i> @TempData["AccountSuccess"]
+            </div>
+        }
+        else if (TempData["AccountError"] != null)
+        {
+            <div class="alert error">
+                <i class="fas fa-exclamation-circle"></i> @TempData["AccountError"]
+            </div>
+        }
+
+        <div class="account-grid">
+            <div class="card">
+                <h3><i class="fas fa-user-edit"></i> Cập nhật thông tin</h3>
+                @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Profile.CustomerId)
+                    <div class="form-grid">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.FullName)
+                            @Html.TextBoxFor(m => m.Profile.FullName, new { @class = "form-control", placeholder = "Họ và tên" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.Phone)
+                            @Html.TextBoxFor(m => m.Profile.Phone, new { @class = "form-control", placeholder = "Số điện thoại" })
+                        </div>
+                        <div class="form-group full-width">
+                            @Html.LabelFor(m => m.Profile.Address)
+                            @Html.TextBoxFor(m => m.Profile.Address, new { @class = "form-control", placeholder = "Địa chỉ" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Profile.IdNumber)
+                            @Html.TextBoxFor(m => m.Profile.IdNumber, new { @class = "form-control", placeholder = "CMND/CCCD" })
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Lưu thay đổi
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-key"></i> Đổi mật khẩu</h3>
+                @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password.CurrentPassword, "Mật khẩu hiện tại")
+                        @Html.PasswordFor(m => m.Password.CurrentPassword, new { @class = "form-control", placeholder = "Nhập mật khẩu hiện tại" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password.NewPassword, "Mật khẩu mới")
+                        @Html.PasswordFor(m => m.Password.NewPassword, new { @class = "form-control", placeholder = "Nhập mật khẩu mới" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password.ConfirmPassword, "Xác nhận mật khẩu mới")
+                        @Html.PasswordFor(m => m.Password.ConfirmPassword, new { @class = "form-control", placeholder = "Nhập lại mật khẩu mới" })
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-key"></i> Đổi mật khẩu
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="bookings-card">
+            <div class="bookings-header">
+                <h3><i class="fas fa-calendar-check"></i> Đặt phòng của bạn</h3>
+                <span class="badge">
+                    <i class="fas fa-hotel"></i> @Model.Bookings.Count() đặt phòng
+                </span>
+            </div>
+            @if (Model.Bookings.Any())
+            {
+                var orderedBookings = Model.Bookings
+                    .OrderBy(b => b.CheckIn ?? DateTime.MaxValue)
+                    .ToList();
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã đặt</th>
+                                <th>Khách sạn</th>
+                                <th>Phòng</th>
+                                <th>Nhận/Trả</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                            @for (var i = 0; i < orderedBookings.Count; i++)
+                            {
+                                var b = orderedBookings[i];
+                                <tr data-booking-index="@i">
+                                    <td><strong>@b.BookingCode</strong></td>
+                                    <td>@b.HotelName</td>
+                                    <td>@b.RoomName</td>
+                                    <td>
+                                        <div class="booking-period">
+                                            <div class="period-row">
+                                                <span class="period-label">Nhận</span>
+                                                <span class="period-value">@FormatBookingDateTime(b.CheckIn)</span>
+                                            </div>
+                                            <div class="period-row">
+                                                <span class="period-label">Trả</span>
+                                                <span class="period-value">@FormatBookingDateTime(b.CheckOut)</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var statusClass = "status-pending";
+                                            if (b.Status.Contains("Xác nhận") || b.Status.Contains("Confirmed"))
+                                            {
+                                                statusClass = "status-confirmed";
+                                            }
+                                            else if (b.Status.Contains("Hủy") || b.Status.Contains("Cancelled"))
+                                            {
+                                                statusClass = "status-cancelled";
+                                            }
+                                        }
+                                        <span class="status-badge @statusClass">@b.Status</span>
+                                    </td>
+                                    <td class="actions">
+                                        <a href="@Url.Action("EditBooking", "Account", new { id = b.BookingId })" class="btn-primary">
+                                            <i class="fas fa-edit"></i> Chỉnh sửa
+                                        </a>
+                                        @if (!string.Equals(b.Status, "Đã hủy", StringComparison.OrdinalIgnoreCase) && !string.Equals(b.Status, "Cancelled", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            using (Html.BeginForm("CancelBooking", "Account", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@b.BookingId" />
+                                                <button type="submit" class="btn-secondary" onclick="return confirm('Bạn có chắc chắn muốn hủy đặt phòng này?');">
+                                                    <i class="fas fa-times"></i> Hủy
+                                                </button>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="bookingsPagination"></div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>Bạn chưa có đặt phòng nào.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const ITEMS_PER_PAGE = 10;
+        const tbody = document.getElementById('bookingsTableBody');
+        const pagination = document.getElementById('bookingsPagination');
+        if (!tbody || !pagination) return;
+
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        if (rows.length <= ITEMS_PER_PAGE) {
+            rows.forEach(r => r.style.display = '');
+            pagination.innerHTML = '';
+            return;
+        }
+
+        const pageCount = Math.ceil(rows.length / ITEMS_PER_PAGE);
+        let currentPage = 1;
+
+        function renderPage(page) {
+            currentPage = Math.max(1, Math.min(page, pageCount));
+            rows.forEach((row, idx) => {
+                const show = idx >= (currentPage - 1) * ITEMS_PER_PAGE && idx < currentPage * ITEMS_PER_PAGE;
+                row.style.display = show ? '' : 'none';
+            });
+            renderControls();
+        }
+
+        function createButton(label, targetPage, disabled, isActive) {
+            const btn = document.createElement('button');
+            btn.textContent = label;
+            btn.className = 'page-btn' + (isActive ? ' active' : '');
+            btn.disabled = disabled;
+            btn.addEventListener('click', () => renderPage(targetPage));
+            return btn;
+        }
+
+        function renderControls() {
+            pagination.innerHTML = '';
+            pagination.appendChild(createButton('<', currentPage - 1, currentPage === 1, false));
+            for (let i = 1; i <= pageCount; i++) {
+                pagination.appendChild(createButton(i.toString(), i, false, i === currentPage));
+            }
+            pagination.appendChild(createButton('>', currentPage + 1, currentPage === pageCount, false));
+        }
+
+        renderPage(1);
+    })();
+</script>

@@ -1,0 +1,1071 @@
+@model DKS_HotelManager.Models.ViewModels.HotelBookingPageViewModel
+
+@using System.Linq
+
+@using System.Collections.Generic
+
+@using System.Web.Mvc
+
+@using System.Web.Helpers
+
+@{
+
+    ViewBag.Title = "Đặt phòng " + Model.Name;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var heroImage = string.IsNullOrEmpty(Model.HeroImage)
+
+        ? Url.Content("~/Images/no_image.jpg")
+
+        : Url.Content(Model.HeroImage);
+
+    var bookingSliderImages = (Model.GalleryImages ?? Enumerable.Empty<string>())
+
+        .Select(img => Url.Content(img))
+
+        .ToList();
+
+    if (!bookingSliderImages.Any())
+
+    {
+
+        bookingSliderImages.Add(heroImage);
+
+    }
+
+    var selectedServices = new HashSet<int>(
+
+        Model.BookingForm != null && Model.BookingForm.SelectedServices != null
+
+            ? Model.BookingForm.SelectedServices
+
+            : Enumerable.Empty<int>());
+
+    var roomOptions = Model.RoomOptions ?? Enumerable.Empty<SelectListItem>();
+
+    var topRooms = roomOptions.Take(3).ToList();
+
+    var checkInText = (Model.BookingForm != null && Model.BookingForm.CheckIn.HasValue)
+
+        ? Model.BookingForm.CheckIn.Value.ToString("dd/MM/yyyy")
+
+        : "Chưa chọn";
+
+    var checkOutText = (Model.BookingForm != null && Model.BookingForm.CheckOut.HasValue)
+
+        ? Model.BookingForm.CheckOut.Value.ToString("dd/MM/yyyy")
+
+        : "Chưa chọn";
+
+}
+
+
+
+<style>
+
+    .booking-page {
+
+        padding: 30px 0 60px;
+
+        background: #f8f9fb;
+
+    }
+
+
+
+    .booking-hero {
+
+        position: relative;
+
+        border-radius: 28px;
+
+        overflow: hidden;
+
+        min-height: 280px;
+
+        background-size: cover;
+
+        background-position: center;
+
+        margin-bottom: 30px;
+
+    }
+
+
+
+    .booking-hero__overlay {
+
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.8));
+
+        color: #fff;
+
+        padding: 40px;
+
+        min-height: 280px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: flex-end;
+
+    }
+
+
+
+    .booking-hero__location {
+
+        margin-top: 10px;
+
+        font-size: 18px;
+
+        letter-spacing: 0.02em;
+
+        opacity: 0.9;
+
+    }
+
+
+
+    .booking-gallery-slider {
+
+        margin-bottom: 30px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 18px;
+
+    }
+
+
+
+    .booking-gallery__image {
+
+        width: 70%;
+
+        border-radius: 24px;
+
+        overflow: hidden;
+
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+
+    }
+
+
+
+    .booking-gallery__image img {
+
+        width: 100%;
+
+        height: 260px;
+
+        object-fit: cover;
+
+        display: block;
+
+    }
+
+
+
+    .slider-arrow {
+
+        border-radius: 50%;
+
+        border: none;
+
+        width: 48px;
+
+        height: 48px;
+
+        background: #fff;
+
+        color: #1a1a2e;
+
+        cursor: pointer;
+
+        box-shadow: 0 15px 30px rgba(15, 23, 42, 0.2);
+
+    }
+
+
+
+    .booking-grid {
+
+        display: grid;
+
+        grid-template-columns: 2fr 1fr;
+
+        gap: 30px;
+
+    }
+
+
+
+    .booking-form-card,
+
+    .booking-summary {
+
+        background: #fff;
+
+        border-radius: 24px;
+
+        padding: 30px;
+
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+
+        border: 1px solid rgba(0, 0, 0, 0.04);
+
+    }
+
+
+
+    .booking-form-card h2 {
+
+        font-size: 26px;
+
+        margin-bottom: 8px;
+
+        color: #111827;
+
+    }
+
+
+
+    .booking-form-card p.lead {
+
+        color: #6b7280;
+
+        margin-bottom: 24px;
+
+    }
+
+
+
+    .booking-form {
+
+        display: grid;
+
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+        gap: 20px 22px;
+
+    }
+
+
+
+    .booking-form .form-group {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 6px;
+
+    }
+
+
+
+    .validation-summary-valid.alert {
+
+        display: none !important;
+
+        padding: 0;
+
+        margin: 0;
+
+        border: 0;
+
+        background: transparent;
+
+        box-shadow: none;
+
+    }
+
+
+
+    .booking-form .form-group.room-select {
+
+        grid-column: 1 / -1;
+
+    }
+
+
+
+    .booking-form .form-group.room-select .form-control {
+
+        min-height: 56px;
+
+        white-space: normal;
+
+        line-height: 1.35;
+
+    }
+
+
+
+    .booking-form label {
+
+        font-size: 13px;
+
+        letter-spacing: 0.1em;
+
+        text-transform: uppercase;
+
+        color: #6b7280;
+
+        font-weight: 600;
+
+    }
+
+
+
+    .booking-form .form-control {
+
+        border-radius: 14px;
+
+        border: 1px solid #d1d5db;
+
+        padding: 12px 16px;
+
+        min-height: 48px;
+
+        font-size: 15px;
+
+        font-weight: 500;
+
+        color: #111827;
+
+        background: #fff;
+
+        outline: none;
+
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+
+        box-shadow: 0 6px 16px rgba(17, 24, 39, 0.04);
+
+    }
+
+
+
+    .booking-form .form-control:focus {
+
+        border-color: #d4af37;
+
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+
+        transform: translateY(-1px);
+
+    }
+
+
+
+    .booking-form .form-control::placeholder {
+
+        color: #9ca3af;
+
+        font-weight: 400;
+
+    }
+
+
+
+    .booking-form textarea.form-control {
+
+        min-height: 110px;
+
+        resize: vertical;
+
+    }
+
+
+
+    .service-grid {
+
+        grid-column: 1 / -1;
+
+        display: grid;
+
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+        gap: 12px;
+
+    }
+
+
+
+    .service-card {
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 18px;
+
+        padding: 16px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 6px;
+
+        background: #fdfdfd;
+
+    }
+
+
+
+    .service-card input {
+
+        margin-right: 8px;
+
+    }
+
+
+
+    .service-card__price {
+
+        font-weight: 600;
+
+        color: #b7791f;
+
+    }
+
+
+
+    .booking-form .actions {
+
+        grid-column: 1 / -1;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        align-items: center;
+
+        margin-top: 10px;
+
+    }
+
+
+
+    .booking-form button {
+
+        border: none;
+
+        border-radius: 24px;
+
+        padding: 14px 32px;
+
+        font-size: 16px;
+
+        font-weight: 600;
+
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+
+        color: #fff;
+
+        cursor: pointer;
+
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    }
+
+
+
+    .booking-form button:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
+
+    }
+
+
+
+    .alert {
+
+        border-radius: 16px;
+
+        padding: 14px 20px;
+
+        margin-bottom: 16px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+    }
+
+
+
+    .alert.success {
+
+        background: #ecfdf5;
+
+        border: 1px solid #34d399;
+
+        color: #065f46;
+
+    }
+
+
+
+    .alert.error {
+
+        background: #fef2f2;
+
+        border: 1px solid #f87171;
+
+        color: #991b1b;
+
+    }
+
+
+
+    .booking-summary h3 {
+
+        font-size: 20px;
+
+        margin-bottom: 12px;
+
+    }
+
+
+
+    .summary-list {
+
+        list-style: none;
+
+        padding: 0;
+
+        margin: 0;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 12px;
+
+    }
+
+
+
+    .summary-item {
+
+        display: flex;
+
+        gap: 12px;
+
+        align-items: flex-start;
+
+        color: #374151;
+
+    }
+
+
+
+    .summary-item i {
+
+        width: 36px;
+
+        height: 36px;
+
+        border-radius: 12px;
+
+        background: rgba(212, 175, 55, 0.12);
+
+        color: #b7791f;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 16px;
+
+    }
+
+
+
+    .room-highlights {
+
+        margin-top: 18px;
+
+        padding: 16px;
+
+        background: #f9fafb;
+
+        border-radius: 16px;
+
+        border: 1px dashed #e5e7eb;
+
+        font-size: 14px;
+
+        color: #4b5563;
+
+    }
+
+
+
+    @@media (max-width: 992px) {
+
+        .booking-grid {
+
+            grid-template-columns: 1fr;
+
+        }
+
+    }
+
+</style>
+
+
+
+<div class="booking-page">
+
+    <div class="booking-hero" style="background-image:url('@heroImage');">
+
+        <div class="booking-hero__overlay">
+
+            <p style="letter-spacing:0.2em;text-transform:uppercase;font-size:13px;opacity:0.9;">ĐẶT PHÒNG CAO CẤP</p>
+
+            <h1 style="font-size:42px;font-weight:700;margin:10px 0;">@Model.Name</h1>
+
+            <p class="booking-hero__location">@Model.Location</p>
+
+        </div>
+
+    </div>
+
+    <div class="booking-gallery-slider">
+
+        <button class="slider-arrow" type="button" id="bookingGalleryPrev"><i class="fas fa-chevron-left"></i></button>
+
+        <div class="booking-gallery__image">
+
+            <img id="bookingGalleryImage" src="@bookingSliderImages.FirstOrDefault()" alt="Gallery slide" />
+
+        </div>
+
+        <button class="slider-arrow" type="button" id="bookingGalleryNext"><i class="fas fa-chevron-right"></i></button>
+
+    </div>
+
+
+
+    @if (TempData["BookingSuccess"] != null)
+
+    {
+
+        <div class="alert success">
+
+            <strong>?</strong>
+
+            <span>@TempData["BookingSuccess"]</span>
+
+        </div>
+
+    }
+
+    else if (TempData["BookingError"] != null)
+
+    {
+
+        <div class="alert error">
+
+            <strong>!</strong>
+
+            <span>@TempData["BookingError"]</span>
+
+        </div>
+
+    }
+
+
+
+    <div class="booking-grid">
+
+        <section class="booking-form-card">
+
+            <h2>Thông tin đặt phòng</h2>
+
+            <p class="lead">Hoàn tất biểu mẫu để liên hệ và xác nhận với bạn.</p>
+
+
+
+
+
+            @using (Html.BeginForm("ReviewBooking", "Hotel", FormMethod.Post, new { @class = "booking-form" }))
+
+            {
+
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(m => m.BookingForm.HotelId)
+
+                <div class="validation-summary form-group">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                </div>
+
+
+
+                <div class="form-group room-select">
+
+                    @Html.LabelFor(m => m.BookingForm.RoomId, "Chọn phòng")
+
+                    @Html.DropDownListFor(m => m.BookingForm.RoomId,
+
+                        roomOptions,
+
+                        "-- Chọn phòng --",
+
+                        new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.RoomId, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.CheckIn)
+
+                    @Html.TextBoxFor(m => m.BookingForm.CheckIn, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.CheckIn, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.CheckOut)
+
+                    @Html.TextBoxFor(m => m.BookingForm.CheckOut, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.CheckOut, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.Guests)
+
+                    @Html.TextBoxFor(m => m.BookingForm.Guests, new { @class = "form-control", type = "number", min = "1" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.Guests, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.CustomerName)
+
+                    @Html.TextBoxFor(m => m.BookingForm.CustomerName, new { @class = "form-control", placeholder = "Họ và tên" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.CustomerName, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.Phone)
+
+                    @Html.TextBoxFor(m => m.BookingForm.Phone, new { @class = "form-control", placeholder = "Số điện thoại" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.Phone, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.Email)
+
+                    @Html.TextBoxFor(m => m.BookingForm.Email, new { @class = "form-control", placeholder = "Email liên hệ", type = "email" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.Email, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.Address)
+
+                    @Html.TextBoxFor(m => m.BookingForm.Address, new { @class = "form-control", placeholder = "Địa chỉ" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.Address, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.BookingForm.IdNumber)
+
+                    @Html.TextBoxFor(m => m.BookingForm.IdNumber, new { @class = "form-control", placeholder = "CMND/CCCD" })
+
+                    @Html.ValidationMessageFor(m => m.BookingForm.IdNumber, "", new { @class = "text-danger" })
+
+                </div>
+
+
+
+
+
+                <div class="service-grid">
+
+                    <label class="form-group" style="grid-column:1 / -1;font-size:13px;text-transform:uppercase;color:#6b7280;letter-spacing:0.1em;">Dịch vụ kèm theo</label>
+
+                    @if (Model.Services != null && Model.Services.Any())
+
+                    {
+
+                        foreach (var service in Model.Services)
+
+                        {
+
+                            var isChecked = selectedServices.Contains(service.ServiceId);
+
+                            <label class="service-card">
+
+                                <span style="font-weight:600;display:flex;align-items:center;">
+
+                                    <input type="checkbox"
+
+                                           name="BookingForm.SelectedServices"
+
+                                           value="@service.ServiceId"
+
+                                           @(isChecked ? "checked" : string.Empty) />
+
+                                    @service.Name
+
+                                </span>
+
+                                <span class="service-card__price">@service.Price.ToString("N0")₫</span>
+
+                                <span class="service-card__description">@service.Description</span>
+
+                            </label>
+
+                        }
+
+                    }
+
+                    else
+
+                    {
+
+                        <div style="grid-column:1 / -1;color:#9ca3af;">Chưa có dịch vụ bổ sung nào.</div>
+
+                    }
+
+                </div>
+
+
+
+                <div class="form-group" style="grid-column:1 / -1;">
+
+                    @Html.LabelFor(m => m.BookingForm.Notes)
+
+                    @Html.TextAreaFor(m => m.BookingForm.Notes, new { @class = "form-control", rows = 3, placeholder = "Yêu cầu được biết (tùy chọn)" })
+
+                </div>
+
+
+
+                <div class="actions">
+
+                    <button type="submit">Đặt phòng ngay</button>
+
+                    <span style="color:#6b7280;font-size:14px;">Bạn sẽ được chuyển đến hóa đơn để kiểm tra và thanh toán cọc.</span>
+
+                </div>
+
+            }
+
+        </section>
+
+
+
+        <aside class="booking-summary">
+
+            <h3>Thông tin nhanh</h3>
+
+            <ul class="summary-list">
+
+                <li class="summary-item">
+
+                    <i class="fa fa-calendar"></i>
+
+                    <div>
+
+                        <strong>Ngày nhận/trả</strong>
+
+                        <p>@checkInText ? @checkOutText</p>
+
+                    </div>
+
+                </li>
+
+                <li class="summary-item">
+
+                    <i class="fa fa-user"></i>
+
+                    <div>
+
+                        <strong>Số khách dự kiến</strong>
+
+                        <p>@(Model.BookingForm != null ? Model.BookingForm.Guests : 1) khách</p>
+
+                    </div>
+
+                </li>
+
+                <li class="summary-item">
+
+                    <i class="fa fa-phone"></i>
+
+                    <div>
+
+                        <strong>Trợ giúp 24/7</strong>
+
+                        <p>Luôn sẵn sàng trong vòng 15 phút làm việc.</p>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+
+
+            @if (topRooms.Any())
+
+            {
+
+                <div class="room-highlights">
+
+                    <strong>Gợi ý phòng nổi bật</strong>
+
+                    <ul style="margin:10px 0 0 18px;padding:0;">
+
+                        @foreach (var option in topRooms)
+
+                        {
+
+                            <li>@option.Text</li>
+
+                        }
+
+                    </ul>
+
+                </div>
+
+            }
+
+
+
+            <p style="margin-top:18px;color:#6b7280;">@Model.Description</p>
+
+
+
+            <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px;">
+
+                <a href="@Url.Action("Details", "Hotel", new { id = Model.HotelId })" class="btn btn-secondary" style="padding:12px 16px;border-radius:16px;border:1px solid #d4af37;color:#d4af37;text-align:center;font-weight:600;">Xem chi tiet khach san</a>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    (function () {
+
+        const slides = @Html.Raw(Json.Encode(bookingSliderImages));
+
+        if (!slides || slides.length === 0) {
+
+            return;
+
+        }
+
+
+
+        let pointer = 0;
+
+        const imageEl = document.getElementById('bookingGalleryImage');
+
+        const nextBtn = document.getElementById('bookingGalleryNext');
+
+        const prevBtn = document.getElementById('bookingGalleryPrev');
+
+
+
+        function showSlide(idx) {
+
+            imageEl.src = slides[idx];
+
+        }
+
+
+
+        nextBtn?.addEventListener('click', function () {
+
+            pointer = (pointer + 1) % slides.length;
+
+            showSlide(pointer);
+
+        });
+
+
+
+        prevBtn?.addEventListener('click', function () {
+
+            pointer = (pointer - 1 + slides.length) % slides.length;
+
+            showSlide(pointer);
+
+        });
+
+
+
+        setInterval(function () {
+
+            pointer = (pointer + 1) % slides.length;
+
+            showSlide(pointer);
+
+        }, 4500);
+
+    })();
+
+</script>

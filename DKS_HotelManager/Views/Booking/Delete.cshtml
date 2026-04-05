@@ -1,0 +1,43 @@
+@model DKS_HotelManager.Models.THUEPHONG
+
+@{
+    ViewBag.Title = "Xóa Đặt Phòng";
+}
+
+<div class="container">
+    <div class="page-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #d4af37; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+        <h1>Xóa Đặt Phòng <small>Luxury Hotel Chain</small></h1>
+    </div>
+
+    <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+        <h3 style="color: #e74c3c;">Bạn có chắc chắn muốn xóa đặt phòng này?</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Mã Đặt Phòng:</dt>
+            <dd>@Model.MaDatPhong</dd>
+
+            <dt>Phòng:</dt>
+            <dd>@(Model.PHONG != null ? Model.PHONG.TenPhong : "Chưa cập nhật")</dd>
+
+            <dt>Ngày Vào:</dt>
+            <dd>@(Model.NgayVao.HasValue ? Model.NgayVao.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</dd>
+
+            <dt>Ngày Trả:</dt>
+            <dd>@(Model.NgayTra.HasValue ? Model.NgayTra.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</dd>
+
+            <dt>Trạng Thái:</dt>
+            <dd>@(string.IsNullOrEmpty(Model.TrangThai) ? "Chưa cập nhật" : Model.TrangThai)</dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color" style="margin-top: 30px;">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        }
+    </div>
+</div>
+

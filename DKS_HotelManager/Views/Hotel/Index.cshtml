@@ -1,0 +1,668 @@
+@model DKS_HotelManager.Models.ViewModels.HotelSearchPageViewModel
+@using System.Globalization
+@using System.Collections.Generic
+@{
+    ViewBag.Title = "Tìm khách sạn";
+    var currentLocation = ViewBag.Location as string ?? string.Empty;
+    var currentSort = ViewBag.CurrentSort as string ?? string.Empty;
+}
+
+@functions {
+    private string FormatCurrency(decimal value)
+    {
+        return value.ToString("N0", new CultureInfo("vi-VN")) + " ₫";
+    }
+
+    private string ResolveHotelImage(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return Url.Content("~/Images/ks01.jpg");
+        }
+
+        if (path.StartsWith("http", StringComparison.OrdinalIgnoreCase) || path.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+        {
+            return path;
+        }
+
+        // Controller sẽ resolve đường dẫn, chỉ cần dùng Url.Content
+        if (path.StartsWith("~") || path.StartsWith("/"))
+        {
+            return Url.Content(path);
+        }
+
+        // Nếu đường dẫn chưa được resolve (chỉ là tên file), thì có thể dùng Images hoặc RoomImages
+        // Ưu tiên RoomImages cho ảnh phòng
+        var imagePath = "~/Images/" + path.TrimStart('/');
+        return Url.Content(imagePath);
+    }
+}
+
+<style>
+    .hotel-search-root {
+        background: #f8fafc;
+        min-height: 100vh;
+        padding: 10px 10px 96px;
+        box-sizing: border-box;
+    }
+
+    .hotel-search-inner {
+        max-width: 1500px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+        .hotel-hero {
+            background: #fff;
+            border-radius: 32px;
+            padding: 36px;
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: nowrap;
+        }
+
+        .hero-copy {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hero-copy h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .hero-copy p {
+            color: #475569;
+            max-width: 520px;
+            font-size: 16px;
+            line-height: 1.6;
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .hero-note {
+            font-size: 16px;
+            color: #4b5563;
+            margin-top: 12px;
+            max-width: 420px;
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: nowrap;
+        }
+
+    .hero-actions a,
+    .hero-actions button {
+        border-radius: 999px;
+        padding: 10px 28px;
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+    }
+
+    .hero-actions a {
+        background: #111827;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .hero-actions button {
+        background: rgba(17, 24, 39, 0.08);
+        color: #111827;
+    }
+
+    .destinations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 18px;
+    }
+
+    .destination-card {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e2e8f0;
+    }
+
+    .destination-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .destination-card__label {
+        padding: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .search-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 32px;
+    }
+
+    .filter-panel {
+        background: #fff;
+        border-radius: 28px;
+        padding: 24px;
+        box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: sticky;
+        top: 160px;
+        align-self: flex-start;
+        max-height: calc(100vh - 180px);
+        overflow-y: auto;
+        margin-top: 20px;
+    }
+
+    .filter-panel h3 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #475569;
+    }
+
+    .filter-panel label {
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .filter-panel input,
+    .filter-panel select {
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid #d1d5db;
+        padding: 10px 14px;
+        font-size: 14px;
+        color: #0f172a;
+    }
+
+    .filter-panel button {
+        margin-top: 8px;
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        border: none;
+        border-radius: 18px;
+        color: #111827;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        padding: 12px;
+        cursor: pointer;
+    }
+
+    .hotel-results {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .results-header h2 {
+        margin: 0;
+        font-size: 24px;
+        color: #0f172a;
+    }
+
+    .sort-group {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .sort-group select {
+        border-radius: 12px;
+        border: 1px solid #d1d5db;
+        padding: 10px 12px;
+        background: white;
+    }
+
+    .hotel-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+    }
+
+    .hotel-card {
+        background: #fff;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hotel-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.14);
+    }
+
+    .hotel-card__media {
+        position: relative;
+        width: 100%;
+        height: 240px;
+        overflow: hidden;
+    }
+
+    .hotel-card__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        background-color: #e2e8f0;
+    }
+
+    .hotel-card__badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .hotel-card__body {
+        padding: 20px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+    }
+
+    .hotel-card__body h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #0f172a;
+    }
+
+    .hotel-card__body p {
+        margin: 0;
+        color: #475569;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .hotel-card__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        gap: 12px;
+    }
+
+    .hotel-card__price {
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .hotel-card__price small {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #94a3b8;
+    }
+
+    .hotel-card__cta {
+        text-decoration: none;
+        background: #111827;
+        color: #fff;
+        border-radius: 16px;
+        padding: 8px 18px;
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        min-width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        background: #ffffff;
+        color: #1f2937;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .page-btn:hover:not(:disabled) {
+        border-color: #d4af37;
+        color: #d4af37;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .page-btn.active {
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        color: #0f172a;
+        border-color: transparent;
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.28);
+    }
+
+    @@media (max-width: 1024px) {
+        .search-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-panel {
+            order: 2;
+            position: relative;
+            top: auto;
+            max-height: none;
+        }
+    }
+</style>
+
+<div class="hotel-search-root">
+    <div class="hotel-search-inner">
+        <section class="hotel-hero">
+            <div class="hero-copy">
+                <h1>Đặt phòng linh hoạt, so sánh ngay lập tức</h1>
+                <p>Chọn khách sạn theo vùng miền, so sánh tiện ích và chuyến đến chi tiết phòng chỉ trong một lần nhập.</p>
+                <p class="hero-note">Tự tin đặt phòng với giao diện thân thiện; mọi thông tin đều lấy trực tiếp từ cơ sở dữ liệu.</p>
+                <div class="hero-actions">
+                    <a href="@Url.Action("Index", "Hotel")">Khám phá khách sạn</a>
+                    <button type="button">Hotline 24/7</button>
+                </div>
+            </div>
+        </section>
+
+        @if (Model.Destinations.Any())
+        {
+            var locationImageMap = ViewBag.LocationImageMap as Dictionary<string, string> ?? new Dictionary<string, string>();
+            <div class="destinations-grid">
+                @for (int i = 0; i < Model.Destinations.Count; i++)
+                {
+                    var destination = Model.Destinations[i];
+                    string destinationImage;
+                    if (locationImageMap.ContainsKey(destination))
+                    {
+                        destinationImage = ResolveHotelImage(locationImageMap[destination]);
+                    }
+                    else
+                    {
+                        // Fallback: sẽ dùng ảnh dựa trên index
+                        var imageIndex = ((i % 25) + 1);
+                        var imageFileName = string.Format("ks{0:D2}.jpg", imageIndex);
+                        destinationImage = ResolveHotelImage(imageFileName);
+                    }
+                    <div class="destination-card">
+                        <img src="@destinationImage" alt="@destination" 
+                             onerror="this.onerror=null; this.src='@Url.Content("~/Images/ks01.jpg")';" />
+                        <div class="destination-card__label">@destination</div>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="search-grid">
+            <aside class="filter-panel">
+                <h3>Bộ lọc nhanh</h3>
+                <form method="get" action="@Url.Action("Index", "Hotel")">
+                    <div>
+                        <label>Tìm khách sạn</label>
+                        <input type="text" name="location" value="@currentLocation" placeholder="Nhập tên khách sạn..." />
+                    </div>
+                    <div>
+                        <label>Sắp xếp</label>
+                        <select name="sort">
+                            <option value="">Mặc định</option>
+                            <option value="priceAsc" @(currentSort == "priceAsc" ? "selected" : "")>Giá tăng dần</option>
+                            <option value="priceDesc" @(currentSort == "priceDesc" ? "selected" : "")>Giá giảm dần</option>
+                            <option value="room" @(currentSort == "room" ? "selected" : "")>Nhiều phòng nhất</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Giá tối thiểu (VND)</label>
+                        <input type="number" name="minPrice" min="0" step="100000" value="@(ViewBag.FilterMinPrice ?? "")" placeholder="0" />
+                    </div>
+                    <div>
+                        <label>Giá tối đa (VND)</label>
+                        <input type="number" name="maxPrice" min="0" step="100000" value="@(ViewBag.FilterMaxPrice ?? "")" placeholder="0" />
+                    </div>
+                    <button type="submit">Áp dụng</button>
+                </form>
+            </aside>
+
+                        <main class="hotel-results">
+                <div class="results-header">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Kết quả</p>
+                        <h2>@Model.HotelCards.Count khách sạn phù hợp</h2>
+                    </div>
+                    <div class="sort-group">
+                        <span class="text-xs uppercase tracking-[0.4em] text-slate-500">Xem theo</span>
+                        <form method="get" action="@Url.Action("Index", "Hotel")">
+                            <input type="hidden" name="location" value="@currentLocation" />
+                            <select name="sort" onchange="this.form.submit()">
+                                <option value="" @(currentSort == "" ? "selected" : "")>Mặc định</option>
+                                <option value="priceAsc" @(currentSort == "priceAsc" ? "selected" : "")>Giá tăng dần</option>
+                                <option value="priceDesc" @(currentSort == "priceDesc" ? "selected" : "")>Giá giảm dần</option>
+                                <option value="room" @(currentSort == "room" ? "selected" : "")>Phòng nhiều nhất</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                @if (Model.HotelCards.Any())
+                {
+                    <div class="hotel-card-grid" id="hotelListContainer">
+                        @for (var i = 0; i < Model.HotelCards.Count; i++)
+                        {
+                            var hotel = Model.HotelCards[i];
+                            <article class="hotel-card" data-hotel-index="@i">
+                                <div class="hotel-card__media">
+                                    <a href="@Url.Action("Details", "Hotel", new { id = hotel.HotelId })">
+                                        <img src="@ResolveHotelImage(hotel.Thumbnail)" alt="@hotel.Name"
+                                             onerror="this.onerror=null; this.src='@Url.Content("~/Images/ks01.jpg")';" />
+                                    </a>
+                                    <span class="hotel-card__badge">@hotel.Badge</span>
+                                </div>
+                                <div class="hotel-card__body">
+                                    <div>
+                                        <h3>@hotel.Name</h3>
+                                        <p class="text-xs uppercase tracking-[0.3em] text-slate-500">@hotel.Location</p>
+                                    </div>
+                                    <p>@hotel.Description</p>
+                                    <div class="hotel-card__footer">
+                                        <div class="hotel-card__price">
+                                            @{
+                                                var displayPrice = hotel.FilteredMinPrice ?? hotel.MinPrice;
+                                            }
+                                            @if (displayPrice.HasValue)
+                                            {
+                                                <span>@FormatCurrency(displayPrice.Value)</span>
+                                                <small>/ mỗi đêm</small>
+                                            }
+                                            else
+                                            {
+                                                <span>Liên hệ</span>
+                                                <small>Giá cập nhật</small>
+                                            }
+                                        </div>
+                                        <a class="hotel-card__cta" href="@Url.Action("Details", "Hotel", new { id = hotel.HotelId })">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                    <div class="pagination" id="hotelListPagination"></div>
+                }
+                else
+                {
+                    <div class="hotel-card-grid">
+                        <div style="padding:40px;border-radius:24px;background:#fff;border:1px solid #e5e7eb;text-align:center;font-size:18px;color:#475569;">
+                            Không tìm thấy khách sạn phù hợp với tiêu chí của bạn.
+                        </div>
+                    </div>
+                }
+            </main>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const widget = document.getElementById('dkshChatWidget');
+        const toggle = document.getElementById('dkshChatToggle');
+        const panel = document.getElementById('dkshChatPanel');
+        const closeBtn = document.getElementById('dkshChatClose');
+        const form = document.getElementById('dkshChatForm');
+        const input = document.getElementById('dkshChatInput');
+        const body = document.getElementById('dkshChatBody');
+
+        let isSending = false;
+        let typingNode = null;
+
+        const appendMessage = function (type, text) {
+            const message = document.createElement('div');
+            message.className = 'dksh-chat-message dksh-chat-message-' + type;
+            message.textContent = text;
+            body.appendChild(message);
+            body.scrollTop = body.scrollHeight;
+        };
+
+        const showTyping = function () {
+            if (typingNode) return;
+            typingNode = document.createElement('div');
+            typingNode.className = 'dksh-chat-message dksh-chat-message-bot';
+            typingNode.textContent = 'Trợ lý đang trả lời...';
+            body.appendChild(typingNode);
+            body.scrollTop = body.scrollHeight;
+        };
+
+        const hideTyping = function () {
+            if (typingNode) {
+                typingNode.remove();
+                typingNode = null;
+            }
+        };
+
+        const togglePanel = function () {
+            const isHidden = !panel.classList.contains('active');
+            panel.classList.toggle('active', isHidden);
+            panel.setAttribute('aria-hidden', !isHidden);
+            if (isHidden) {
+                input.focus();
+            }
+        };
+
+        toggle.addEventListener('click', function () {
+            togglePanel();
+        });
+
+        closeBtn.addEventListener('click', function () {
+            panel.classList.remove('active');
+            panel.setAttribute('aria-hidden', 'true');
+        });
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            if (isSending) return;
+
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendMessage('user', text);
+            input.value = '';
+            input.disabled = true;
+            isSending = true;
+            showTyping();
+
+            try {
+                const response = await fetch('/ChatBot/Ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'message=' + encodeURIComponent(text)
+                });
+
+                const result = await response.json().catch(function () { return null; });
+
+                hideTyping();
+
+                if (!response.ok) {
+                    const serverReply = result && result.reply
+                        ? result.reply
+                        : 'Không thể kết nối máy chủ.';
+                    appendMessage('bot', serverReply);
+                    return;
+                }
+
+                const reply = result && result.reply
+                    ? result.reply
+                    : 'Mình không nhận được câu trả lời từ hệ thống.';
+                appendMessage('bot', reply);
+            } catch (error) {
+                hideTyping();
+                appendMessage('bot', 'Xin lỗi, mình đang gặp chút sự cố, bạn thử lại sau nhé.');
+                console.error(error);
+            } finally {
+                isSending = false;
+                input.disabled = false;
+                input.focus();
+            }
+        });
+    })();
+</script>

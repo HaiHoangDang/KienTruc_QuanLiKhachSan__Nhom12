@@ -1,0 +1,492 @@
+@model DKS_HotelManager.Areas.Admin.ViewModels.EmployeesPageViewModel
+
+<section class="admin-section">
+    <div class="section-header">
+        <div>
+            <h2>Quản lý nhân viên</h2>
+            <small class="overview-note">Tạo tài khoản, cập nhật thông tin hồ sơ và quyền hạn.</small>
+        </div>
+    </div>
+    <div class="management-grid">
+        <div class="table-panel">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:18%;">Họ tên</th>
+                            <th style="width:12%;">Chức vụ</th>
+                            <th style="width:20%;">Email</th>
+                            <th style="width:12%;">Điện thoại</th>
+                            <th style="width:12%;">Username</th>
+                            <th style="width:12%;">Ngày sinh</th>
+                            <th style="width:14%;">Thời gian hoạt động</th>
+                            <th style="width:14%;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Employees.Any())
+                        {
+                            foreach (var staff in Model.Employees)
+                            {
+                                <tr>
+                                    <td>@staff.HoTen</td>
+                                    <td>@staff.ChucVu</td>
+                                    <td>@staff.Email</td>
+                                    <td>@staff.SoDT</td>
+                                    <td>@staff.Username</td>
+                                    <td class="text-nowrap">@(staff.NgaySinh.HasValue ? staff.NgaySinh.Value.ToString("dd/MM/yyyy") : "-")</td>
+                                    <td>@(string.IsNullOrWhiteSpace(staff.ActiveDuration) ? "-" : staff.ActiveDuration)</td>
+                                    <td class="action-column">
+                                        <button type="button" class="btn-link btn-edit-employee"
+                                                data-id="@staff.MaNV"
+                                                data-name="@staff.HoTen"
+                                                data-role="@staff.ChucVu"
+                                                data-username="@staff.Username"
+                                                data-email="@staff.Email"
+                                                data-phone="@staff.SoDT"
+                                                data-birth="@(staff.NgaySinh.HasValue ? staff.NgaySinh.Value.ToString("yyyy-MM-dd") : "")">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </button>
+                                        <form method="post" action="@Url.Action("DeleteEmployee", "Staff", new { area = "Admin" })" class="inline-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nhân viên này không?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="maNV" value="@staff.MaNV" />
+                                            <button type="submit" class="btn-link text-danger">
+                                                <i class="fas fa-trash-alt"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center-placeholder">Không có nhân viên nào để hiển thị.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <h3 id="formTitle">Thêm mới Nhân viên</h3>
+            <form id="employeeForm" method="post" action="@Url.Action("SaveEmployee", "Staff", new { area = "Admin" })">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="MaNV" id="employeeId" value="0" />
+
+                <label for="employeeName">Họ tên <span class="required-star">*</span></label>
+                <input id="employeeName" name="HoTen" type="text" placeholder="Họ tên" required />
+
+                <label for="employeeRole">Chức vụ <span class="required-star">*</span></label>
+                <input id="employeeRole" name="ChucVu" type="text" placeholder="Ví dụ: Lễ tân, Kỹ thuật" required />
+
+                <label for="employeeUsername">Tên đăng nhập <span class="required-star">*</span></label>
+                <input id="employeeUsername" name="TenDN" type="text" placeholder="Tên đăng nhập" required />
+
+                <label for="employeePassword">Mật khẩu (Để trống khi không đổi)</label>
+                <input id="employeePassword" name="MatKhau" type="password" placeholder="Mật khẩu" />
+
+                <label for="employeePhone">Số điện thoại</label>
+                <input id="employeePhone" name="SoDT" type="text" placeholder="Số điện thoại" />
+
+                <label for="employeeEmail">Email</label>
+                <input id="employeeEmail" name="Email" type="email" placeholder="Email" />
+
+                <label for="employeeBirthday">Ngày sinh</label>
+                <input id="employeeBirthday" name="NgaySinh" type="date" />
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="resetEmployeeForm">
+                        <i class="fas fa-undo"></i> Làm mới
+                    </button>
+                    <button type="submit" class="btn-luxury" id="saveEmployeeBtn">
+                        <i class="fas fa-save"></i> Lưu nhân viên
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Định nghĩa các biến cơ bản, giả sử đã có trong môi trường của bạn */
+    :root {
+        --bg: #0f172a; /* Nền tối */
+        --surface: #1e293b; /* Bề mặt panel */
+        --surface-alt: #334155; /* Nền input */
+        --text: #f8fafc; /* Màu chữ sáng */
+        --text-muted: #94a3b8; /* Chữ phụ */
+        --border: #334155; /* Màu viền */
+        --primary: #0ea5e9; /* Xanh chính (Lưu) */
+        --accent: #38bdf8; /* Xanh nhấn */
+        --accent-strong: #0ea5e9;
+        --warn: #f97316; /* Cam (Cập nhật) */
+        --danger: #ef4444; /* Đỏ (Xóa) */
+    }
+
+    /* ==================================== */
+    /* PHẦN CHUNG CỦA TRANG */
+    /* ==================================== */
+    .admin-section {
+        margin-bottom: 40px;
+        margin-top: 0;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 30px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 15px;
+    }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .section-header .overview-note {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+    .management-grid {
+        display: grid;
+        /* Tỷ lệ 3fr cho bảng (trái), 1.5fr cho form (phải) - Tỉ lệ này cân bằng cho nhiều cột */
+        grid-template-columns: 3fr 1.5fr;
+        gap: 30px;
+        margin-top: 0;
+    }
+
+    /* ==================================== */
+    /* TABLE PANEL */
+    /* ==================================== */
+    .table-panel {
+        background: var(--surface);
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        padding: 24px;
+        box-shadow: 0 15px 30px rgba(2, 6, 23, 0.55);
+        overflow-x: auto;
+    }
+
+    .table-wrapper {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text);
+        min-width: 900px; /* Đảm bảo bảng đủ rộng cho 7 cột */
+    }
+
+        table thead {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        table th {
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 16px; /* Điều chỉnh padding */
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ĐÃ CẬP NHẬT: Tăng kích thước chữ và padding cho nội dung bảng */
+        table td {
+            padding: 14px 16px; /* Tăng padding */
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem; /* Tăng kích thước chữ lên 1rem */
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        table tbody tr:hover {
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+    .text-center-placeholder {
+        text-align: center;
+        color: var(--text-muted);
+        font-style: italic;
+        padding: 30px 16px !important;
+    }
+
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    .action-column {
+        white-space: nowrap;
+    }
+
+    /* ==================================== */
+    /* FORM PANEL */
+    /* ==================================== */
+    .form-panel {
+        background: var(--surface);
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        padding: 24px;
+        box-shadow: 0 15px 30px rgba(2, 6, 23, 0.55);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+        .form-panel h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .form-panel form {
+            display: flex;
+            flex-direction: column;
+        }
+
+    .required-star {
+        color: var(--danger);
+        font-weight: 700;
+        margin-left: 2px;
+    }
+
+    .form-panel label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 15px;
+        color: var(--text-muted);
+        letter-spacing: 0.02em;
+        margin-top: 15px;
+    }
+
+    .form-panel form label:first-of-type {
+        margin-top: 0;
+    }
+
+    .form-panel input[type="text"],
+    .form-panel input[type="number"],
+    .form-panel input[type="password"],
+    .form-panel input[type="email"],
+    .form-panel input[type="date"],
+    .form-panel select,
+    .form-panel textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: var(--surface-alt);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 16px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        appearance: none;
+    }
+
+        .form-panel input:focus,
+        .form-panel select:focus,
+        .form-panel textarea:focus {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.1);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+    /* ==================================== */
+    /* FORM ACTIONS & BUTTONS */
+    /* ==================================== */
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px; /* Tăng khoảng cách */
+        justify-content: flex-end;
+    }
+
+    /* Nút chính (Lưu/Lưu nhân viên) */
+    .btn-luxury {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--primary);
+        color: var(--bg);
+        padding: 12px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        min-width: 120px;
+    }
+
+        .btn-luxury:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--accent-strong), #0ea5e9);
+            box-shadow: 0 8px 18px rgba(56, 189, 248, 0.35);
+        }
+
+    /* Nút Cảnh báo/Cập nhật (Màu Cam) */
+    .btn-warn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--warn, #f4a261);
+        color: var(--bg);
+        padding: 12px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        min-width: 120px;
+    }
+
+        .btn-warn:hover {
+            transform: translateY(-2px);
+            background: #e77e38;
+            box-shadow: 0 8px 18px rgba(244, 162, 97, 0.4);
+        }
+
+    /* Nút phụ (Làm mới) */
+    .btn.btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--surface-alt);
+        color: var(--text-muted);
+        padding: 12px 22px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        font-weight: 600;
+        min-width: 100px;
+    }
+
+        .btn.btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+    /* Nút hành động trong bảng (Sửa, Xóa) */
+    .btn-link {
+        background: none;
+        border: none;
+        padding: 6px 8px;
+        font-size: 0.95rem; /* Kích thước nút link giữ nguyên */
+        font-weight: 500;
+        color: var(--accent);
+        cursor: pointer;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+            color: var(--accent-strong);
+        }
+
+        .btn-link.text-danger {
+            color: var(--danger, #ef4444);
+        }
+
+            .btn-link.text-danger:hover {
+                color: var(--warn, #f4a261);
+            }
+
+    .inline-form {
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    /* ==================================== */
+    /* RESPONSIVE */
+    /* ==================================== */
+    @@media (max-width: 1200px) {
+        .management-grid {
+            /* Tỷ lệ 2.5fr 1.5fr trên màn hình nhỏ hơn */
+            grid-template-columns: 2.5fr 1.5fr;
+        }
+    }
+
+    @@media (max-width: 992px) {
+        .management-grid {
+            grid-template-columns: 1fr; /* Stack bảng và form trên màn hình nhỏ */
+        }
+    }
+</style>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            // Khởi tạo tiêu đề form lần đầu
+            $('#formTitle').text('Thêm mới Nhân viên');
+
+            // Reset Form và đổi nút về trạng thái Lưu
+            function resetForm() {
+                $('#employeeId').val(0);
+                $('#employeeForm')[0].reset();
+                $('#saveEmployeeBtn').html('<i class="fas fa-save"></i> Lưu nhân viên')
+                    .removeClass('btn-warn')
+                    .addClass('btn-luxury');
+                $('#formTitle').text('Thêm mới Nhân viên');
+            }
+
+            // Xử lý sự kiện nút Làm mới (Reset)
+            $('#resetEmployeeForm').on('click', resetForm);
+
+            // Xử lý sự kiện nút Sửa
+            $('.btn-edit-employee').on('click', function () {
+                var btn = $(this);
+                var employeeId = btn.data('id');
+
+                // Đổ dữ liệu vào Form
+                $('#employeeId').val(employeeId);
+                $('#employeeName').val(btn.data('name'));
+                $('#employeeRole').val(btn.data('role'));
+                $('#employeeUsername').val(btn.data('username'));
+                $('#employeeEmail').val(btn.data('email'));
+                $('#employeePhone').val(btn.data('phone'));
+                $('#employeeBirthday').val(btn.data('birth'));
+
+                // Cập nhật nút thành Cập nhật (Màu Cam/Warn)
+                $('#saveEmployeeBtn').html('<i class="fas fa-sync-alt"></i> Cập nhật')
+                    .removeClass('btn-luxury')
+                    .addClass('btn-warn');
+
+                // Cập nhật tiêu đề Form
+                $('#formTitle').text('Cập nhật Nhân viên (ID: ' + employeeId + ')');
+
+                // Cuộn lên form
+                $('html, body').animate({
+                    scrollTop: $(".form-panel").offset().top - 20
+                }, 500);
+            });
+
+            // Đảm bảo nút Lưu có icon ngay cả khi load trang
+            // Cần chạy dòng này nếu muốn chắc chắn icon hiện ra đúng khi trang load lần đầu
+            if ($('#saveEmployeeBtn').attr('class').indexOf('btn-warn') === -1) {
+                $('#saveEmployeeBtn').html('<i class="fas fa-save"></i> Lưu nhân viên');
+            }
+        });
+    </script>
+}

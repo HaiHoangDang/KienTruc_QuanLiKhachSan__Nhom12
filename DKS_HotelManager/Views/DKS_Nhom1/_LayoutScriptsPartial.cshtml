@@ -1,0 +1,98 @@
+<script>
+    $(document).ready(function () {
+        const sidebar = $('#sidebar');
+        const toggleBtn = $('#toggleSidebarBtn');
+        const mainContent = $('#mainContent');
+        const topNavbar = $('#topNavbar');
+        const overlay = $('#sidebarOverlay');
+        let isOpen = true;
+
+        // Toggle sidebar
+        toggleBtn.on('click', function () {
+            isOpen = !isOpen;
+            
+            if (window.innerWidth > 768) {
+                // Desktop: toggle sidebar
+                sidebar.toggleClass('collapsed');
+                mainContent.toggleClass('sidebar-collapsed');
+            } else {
+                // Mobile: show/hide sidebar with overlay
+                sidebar.toggleClass('open');
+                overlay.toggleClass('active');
+            }
+        });
+
+        // Close sidebar when clicking overlay (mobile)
+        overlay.on('click', function () {
+            sidebar.removeClass('open');
+            overlay.removeClass('active');
+            isOpen = false;
+        });
+
+        // Handle window resize
+        $(window).on('resize', function () {
+            if (window.innerWidth > 768) {
+                overlay.removeClass('active');
+                if (!isOpen) {
+                    sidebar.addClass('collapsed');
+                    mainContent.addClass('sidebar-collapsed');
+                } else {
+                    sidebar.removeClass('collapsed');
+                    mainContent.removeClass('sidebar-collapsed');
+                }
+            } else {
+                sidebar.removeClass('open');
+                overlay.removeClass('active');
+            }
+        });
+
+        // Set active menu item based on current page
+        const normalizePath = (path) => {
+            if (!path) {
+                return "/";
+            }
+            let normalized = path.split('?')[0].split('#')[0].trim();
+            if (!normalized.startsWith("/")) {
+                normalized = "/" + normalized;
+            }
+            if (normalized.length > 1 && normalized.endsWith("/")) {
+                normalized = normalized.slice(0, -1);
+            }
+            return normalized.toLowerCase();
+        };
+
+        const currentPath = normalizePath(window.location.pathname);
+        const homePaths = new Set(["/", "/home", "/home/index"]);
+
+        $('.sidebar-menu .menu-item a').each(function () {
+            const href = normalizePath($(this).attr('href'));
+            const matchesCurrent = href === currentPath || (currentPath === "/" && homePaths.has(href));
+            if (matchesCurrent) {
+                $(this).addClass('active');
+                // Mở submenu nếu có
+                $(this).closest('.menu-item.has-submenu').addClass('open');
+            }
+        });
+
+        // Toggle submenu
+        $('.menu-toggle').on('click', function (e) {
+            e.preventDefault();
+            const menuItem = $(this).closest('.menu-item.has-submenu');
+            const isOpen = menuItem.hasClass('open');
+            
+            // Đóng tất cả submenu khác
+            $('.menu-item.has-submenu').removeClass('open');
+            
+            // Toggle submenu hiện tại
+            if (!isOpen) {
+                menuItem.addClass('open');
+            }
+        });
+
+        // Đóng submenu khi click vào submenu item
+        $('.submenu-item a').on('click', function () {
+            // Giữ submenu mở khi click vào item con
+            $(this).closest('.menu-item.has-submenu').addClass('open');
+        });
+    });
+</script>

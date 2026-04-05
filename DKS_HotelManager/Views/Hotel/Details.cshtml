@@ -1,0 +1,1060 @@
+@model DKS_HotelManager.Models.ViewModels.HotelDetailViewModel
+@using System.Globalization
+@using System.Linq
+@using System.Collections.Generic
+@using DKS_HotelManager.Models.ViewModels
+@using DKS_HotelManager.Helpers
+@using System.Web.Helpers
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions {
+    private string FormatCurrency(decimal value)
+    {
+        return value.ToString("N0", new CultureInfo("vi-VN")) + " ₫";
+    }
+
+    private string FormatArea(double area)
+    {
+        return area > 0 ? string.Format("{0:N0} m²", area) : "Không rõ";
+    }
+
+    private string FormatDate(DateTime? value)
+    {
+        return value.HasValue ? value.Value.ToString("dd MMM yyyy") : "Chưa chọn";
+    }
+
+    private string ResolveImagePath(string path, bool isHotelImage = false)
+    {
+        var resolved = RoomImageHelper.ResolveRoomImagePath(path);
+        if (!string.IsNullOrWhiteSpace(resolved))
+        {
+            return resolved;
+        }
+
+        return isHotelImage ? "~/Images/ks01.jpg" : "~/Images/hotel_1.jpg";
+    }
+}
+
+@{
+    var detailSliderImages = (Model.GalleryImages ?? Enumerable.Empty<string>())
+        .Select(img => Url.Content(img))
+        .ToList();
+
+    var roomsList = Model.Rooms ?? new List<HotelRoomViewModel>();
+    var highlightRoom = roomsList.FirstOrDefault();
+    var highlightRoomName = highlightRoom != null && !string.IsNullOrWhiteSpace(highlightRoom.Name)
+        ? highlightRoom.Name
+        : (highlightRoom != null && !string.IsNullOrWhiteSpace(highlightRoom.RoomType) ? highlightRoom.RoomType : "Phòng đặc biệt");
+    var highlightRoomType = highlightRoom != null && !string.IsNullOrWhiteSpace(highlightRoom.RoomType)
+        ? highlightRoom.RoomType
+        : "Phòng tiêu biểu";
+    var highlightRoomDescription = highlightRoom != null && !string.IsNullOrWhiteSpace(highlightRoom.Description)
+        ? highlightRoom.Description
+        : "Phòng được lựa chọn với tiện nghi chuẩn quốc tế.";
+    var highlightRoomImagePath = ResolveImagePath(highlightRoom != null ? highlightRoom.ImageUrl : Model.HeroImage);
+    var highlightAmenitiesText = highlightRoom != null && highlightRoom.Amenities != null && highlightRoom.Amenities.Any()
+        ? string.Join(" • ", highlightRoom.Amenities.Take(4))
+        : "Tiện nghi đẳng cấp và hiện đại";
+    var highlightRoomPrice = highlightRoom != null ? FormatCurrency(highlightRoom.PricePerNight) : "Liên hệ";
+    var highlightRoomCapacity = highlightRoom != null ? string.Format("{0} khách", highlightRoom.Capacity) : "Chưa rõ";
+    var highlightRoomArea = highlightRoom != null ? FormatArea(highlightRoom.Area) : "Chưa rõ";
+    var totalRooms = roomsList.Count;
+
+    if (!detailSliderImages.Any())
+    {
+        detailSliderImages.Add(Url.Content(Model.HeroImage));
+    }
+
+    var firstRoom = highlightRoom;
+    int? bookingRoomId;
+    if (Model.BookingForm != null && Model.BookingForm.RoomId.HasValue)
+    {
+        bookingRoomId = Model.BookingForm.RoomId;
+    }
+    else
+    {
+        bookingRoomId = firstRoom != null ? firstRoom.RoomId : (int?)null;
+    }
+
+    var bookingGuests = (Model.BookingForm != null && Model.BookingForm.Guests > 0)
+        ? Model.BookingForm.Guests
+        : (Model.Guests > 0 ? Model.Guests : 1);
+
+    string checkInDate = null;
+    string checkOutDate = null;
+    if (Model.CheckIn.HasValue)
+    {
+        checkInDate = Model.CheckIn.Value.ToString("yyyy-MM-dd");
+    }
+    if (Model.CheckOut.HasValue)
+    {
+        checkOutDate = Model.CheckOut.Value.ToString("yyyy-MM-dd");
+    }
+
+    var bookingLink = Url.Action("Book", "Hotel", new
+    {
+        id = Model.HotelId,
+        roomId = bookingRoomId,
+        checkIn = checkInDate,
+        checkOut = checkOutDate,
+        guests = bookingGuests
+    });
+    var baseBookingUrl = Url.Action("Book", "Hotel", new { id = Model.HotelId });
+    var highlightRoomServices = (highlightRoom != null && highlightRoom.Amenities != null)
+        ? highlightRoom.Amenities.ToList()
+        : new List<string>();
+    var roomScriptData = roomsList.Select(r => new
+    {
+        r.RoomId,
+        r.Name,
+        r.RoomType,
+        ImageUrl = Url.Content(!string.IsNullOrWhiteSpace(r.ImageUrl) ? r.ImageUrl : "~/Images/no_image.jpg"),
+        r.PricePerNight,
+        r.Capacity,
+        r.Area,
+        r.Description,
+        Amenities = r.Amenities ?? new List<string>()
+    }).ToList();
+    var roomsJson = Json.Encode(roomScriptData);
+}
+
+<style>
+    .detail-hero {
+        position: relative;
+        border-radius: 30px;
+        overflow: hidden;
+        width: 100%;
+        height: 460px;
+    }
+
+    .detail-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.85);
+        display: block;
+    }
+
+    .detail-hero__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.25));
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        color: white;
+        padding: 40px;
+    }
+
+    .detail-hero__overlay .hero-kicker {
+        letter-spacing: 0.6em;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #fbbf24;
+        margin-bottom: 12px;
+    }
+
+    .detail-hero__overlay h1 {
+        font-size: 42px;
+        margin-bottom: 8px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+    }
+
+    .detail-hero__overlay p {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .detail-slider {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        justify-content: center;
+    }
+
+    .detail-slider__image {
+        position: relative;
+        width: 80%;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(15, 23, 42, 0.15);
+    }
+
+    .detail-slider__image {
+        height: 320px;
+    }
+
+    .detail-slider__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .detail-slider__caption {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        color: white;
+        background: rgba(15, 23, 42, 0.6);
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 14px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+    }
+
+    .slider-arrow {
+        border-radius: 50%;
+        border: none;
+        width: 48px;
+        height: 48px;
+        background: #fff;
+        color: #1a1a2e;
+        cursor: pointer;
+        box-shadow: 0 15px 30px rgba(15, 23, 42, 0.2);
+    }
+
+    .detail-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 26px;
+    }
+
+    .info-card {
+        border-radius: 20px;
+        padding: 18px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.05);
+    }
+
+    .info-card span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #94a3b8;
+    }
+
+    .info-card strong {
+        font-size: 20px;
+        color: #111827;
+    }
+
+    .detail-layout {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 32px;
+        margin-top: 32px;
+    }
+
+    .summary-card,
+    .booking-card {
+        border-radius: 30px;
+        padding: 34px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    .summary-card__title {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .gallery-row {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+    }
+
+    .gallery-card {
+        height: 140px;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+    .gallery-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .room-highlight-card {
+        margin-top: 24px;
+        border-radius: 24px;
+        background: #f8fafc;
+        padding: 24px;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+    }
+
+    .room-highlight-card img {
+        width: 140px;
+        height: 120px;
+        border-radius: 16px;
+        object-fit: cover;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .room-highlight-card strong {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .room-highlight-card__meta {
+        margin: 8px 0;
+        font-size: 13px;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .room-highlight-card__meta-dot {
+        font-size: 12px;
+        color: #cbd5f5;
+    }
+
+    .room-highlight-card__price {
+        font-size: 24px;
+        font-weight: 700;
+        color: #111827;
+        margin: 0;
+    }
+
+    .room-highlight-card,
+    .room-card,
+    .room-card__details,
+    .room-card__meta,
+    .room-card__desc,
+    .room-card__amenities,
+    .booking-card,
+    .booking-card__meta,
+    .booking-card__meta-title {
+        font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+    }
+
+    .details-right {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .similar-rooms-section {
+        margin-top: 32px;
+        border-radius: 24px;
+        background: #fff;
+        padding: 24px;
+        box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e5e7eb;
+    }
+
+    .similar-rooms-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 20px;
+    }
+
+    .similar-rooms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+    }
+
+    .similar-card {
+        display: flex;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 18px;
+        border: 1px solid #e5e7eb;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        background: #f8fafc;
+    }
+
+    .similar-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .similar-card__image {
+        width: 120px;
+        height: 90px;
+        border-radius: 14px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .similar-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .similar-card__details h4 {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .similar-card__meta {
+        margin: 4px 0;
+        font-size: 13px;
+        color: #94a3b8;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+    }
+
+    .similar-card__price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+        margin: 4px 0;
+    }
+
+    .similar-card__amenities {
+        font-size: 13px;
+        color: #475569;
+        margin: 0;
+    }
+
+    .similar-card__link {
+        display: flex;
+        gap: 16px;
+        align-items: stretch;
+        text-decoration: none;
+        color: inherit;
+        width: 100%;
+    }
+
+    .room-card {
+        margin-top: 18px;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        padding: 20px;
+        display: flex;
+        gap: 16px;
+        cursor: pointer;
+    }
+
+    .room-card__image {
+        width: 150px;
+        height: 120px;
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 14px;
+    }
+
+    .room-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .room-card.active {
+        border-color: #d4af37;
+        box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25);
+    }
+
+    .room-card__details .room-card__amenities {
+        color: #475569;
+        font-size: 13px;
+        margin-top: 6px;
+    }
+
+    .room-card__details h4 {
+        margin-bottom: 6px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .room-card__details small {
+        color: #64748b;
+    }
+
+    .room-card__meta {
+        font-size: 14px;
+        color: #475569;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .room-card__meta-dot {
+        font-size: 12px;
+        color: #cbd5f5;
+    }
+
+    .room-card__desc {
+        margin: 0;
+        font-size: 14px;
+        color: #475569;
+    }
+
+    .booking-card__price {
+        font-size: 34px;
+        font-weight: 700;
+    }
+
+    .booking-card__label {
+        font-size: 10px;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: #94a3b8;
+    }
+
+    .booking-card__info-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        margin-bottom: 20px;
+    }
+
+    .booking-card__info-block {
+        border-radius: 18px;
+        border: 1px solid #e5e7eb;
+        padding: 14px;
+        background: #f8fafc;
+        color: #1f2937;
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .booking-card__info-block span {
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        color: #94a3b8;
+    }
+
+    .booking-card__button {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        font-weight: 700;
+        border-radius: 16px;
+        padding: 14px;
+        width: 100%;
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        color: #1a1a2e;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .booking-card__button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(212, 175, 55, 0.35);
+    }
+
+    .booking-card__meta {
+        margin-top: 24px;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 18px;
+    }
+
+    .booking-card__meta-title {
+        font-size: 12px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 12px;
+    }
+
+    .booking-card__meta ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .booking-card__meta li {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 14px;
+        color: #1f2937;
+    }
+
+    .booking-card__meta li i {
+        color: #d4af37;
+    }
+
+    .comments-section {
+        margin-top: 32px;
+        background: #fff;
+        border-radius: 28px;
+        padding: 32px;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e2e8f0;
+    }
+
+    .comments-section h3 {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    .comments-grid {
+        display: grid;
+        gap: 16px;
+    }
+
+    .comment-card {
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: #f8fafc;
+    }
+
+    .comment-card .comment-meta {
+        font-size: 12px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+    }
+
+    .comment-card .comment-body {
+        color: #1f2937;
+        font-size: 14px;
+    }
+
+    @@media (max-width: 1024px) {
+        .detail-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .booking-card {
+            position: sticky;
+            top: 24px;
+        }
+    }
+</style>
+
+<div class="px-4 pb-16 space-y-10">
+    <section class="detail-hero">
+        <img src="@Url.Content(Model.HeroImage)" alt="@Model.Name" />
+        <div class="detail-hero__overlay">
+            <p class="hero-kicker">@highlightRoomType</p>
+            <h1>@Model.Name</h1>
+            <p class="text-sm uppercase tracking-[0.4em]">@Model.Location</p>
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <p class="mt-4 max-w-2xl text-white/80">@Model.Description</p>
+            }
+        </div>
+    </section>
+
+    <div class="detail-slider" id="detailSlider">
+        <button type="button" class="slider-arrow" id="detailSliderPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="detail-slider__image">
+            <img id="detailSliderImage" src="@detailSliderImages.FirstOrDefault()" alt="Room slide" />
+            <div class="detail-slider__caption">
+                <p>Phòng tiêu biểu</p>
+                <strong>@Model.Name</strong>
+            </div>
+        </div>
+        <button type="button" class="slider-arrow" id="detailSliderNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <div class="detail-info-grid">
+        <div class="info-card">
+            <span>Nhận phòng</span>
+            <strong>@FormatDate(Model.CheckIn)</strong>
+        </div>
+        <div class="info-card">
+            <span>Trả phòng</span>
+            <strong>@FormatDate(Model.CheckOut)</strong>
+        </div>
+        <div class="info-card">
+            <span>Khách</span>
+            <strong>@Model.Guests khách</strong>
+        </div>
+        <div class="info-card">
+            <span>Giá tham khảo</span>
+            <strong>@FormatCurrency(Model.MinAvailablePrice)</strong>
+            <small>~ @FormatCurrency(Model.MaxAvailablePrice)</small>
+        </div>
+    </div>
+
+    <div class="detail-layout">
+        <div class="summary-card">
+            <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Trải nghiệm</p>
+            <h2 class="summary-card__title">Chi tiết phòng & quyền lợi</h2>
+            <p class="text-slate-600">@Model.Description</p>
+
+            @if (Model.GalleryImages != null && Model.GalleryImages.Any())
+            {
+                <div class="gallery-row">
+                    @foreach (var image in Model.GalleryImages)
+                    {
+                        <div class="gallery-card">
+                            <img src="@Url.Content(image)" alt="@Model.Name" />
+                        </div>
+                    }
+                </div>
+            }
+
+            @foreach (var room in roomsList)
+            {
+                var roomImagePath = !string.IsNullOrWhiteSpace(room.ImageUrl)
+                    ? ResolveImagePath(room.ImageUrl)
+                    : ResolveImagePath(null);
+                var roomAmenities = room.Amenities != null && room.Amenities.Any()
+                    ? string.Join(" • ", room.Amenities)
+                    : null;
+                <div class="room-card" data-room-id="@room.RoomId" tabindex="0">
+                    <div class="room-card__image">
+                        <img src="@Url.Content(roomImagePath)" alt="@room.Name" />
+                    </div>
+                    <div class="room-card__details">
+                        <h4>@room.Name</h4>
+                        <p class="room-card__meta">
+                            <span>@(string.IsNullOrWhiteSpace(room.RoomType) ? "Phòng tiêu biểu" : room.RoomType)</span>
+                            @if (room.PricePerNight > 0)
+                            {
+                                <span class="room-card__meta-dot">•</span>
+                                <span>@FormatCurrency(room.PricePerNight)</span>
+                            }
+                        </p>
+                        <p class="room-card__desc">@(!string.IsNullOrWhiteSpace(room.Description) ? room.Description : "Phòng tiêu chuẩn hiện đại.")</p>
+                        @if (!string.IsNullOrWhiteSpace(roomAmenities))
+                        {
+                            <p class="room-card__amenities">@roomAmenities</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="details-right">
+            <div class="room-highlight-card">
+                <img id="selectedRoomImage" src="@Url.Content(highlightRoomImagePath)" alt="Room highlight" />
+                <div>
+                    <strong id="selectedRoomName">@highlightRoomName</strong>
+                    <p class="room-highlight-card__meta">
+                        <span id="selectedRoomType">@highlightRoomType</span>
+                        <span class="room-highlight-card__meta-dot">•</span>
+                        <span id="selectedRoomCapacity">@highlightRoomCapacity</span>
+                        <span class="room-highlight-card__meta-dot">•</span>
+                        <span id="selectedRoomArea">@highlightRoomArea</span>
+                    </p>
+                    <p class="room-highlight-card__price" id="selectedRoomPrice">@highlightRoomPrice</p>
+                    <p class="text-sm text-slate-500" id="selectedRoomDescription">@highlightRoomDescription</p>
+                    <p class="mt-3 text-xs uppercase tracking-[0.3em] text-slate-400">Bao gồm</p>
+                    <p class="text-slate-600 text-sm" id="selectedRoomAmenities">@highlightAmenitiesText</p>
+                </div>
+            </div>
+
+            <aside class="booking-card">
+            <p class="booking-card__label">Đặt phòng ưu đãi</p>
+            <p class="booking-card__price" id="bookingCardPrice">@highlightRoomPrice</p>
+            <p class="text-slate-500 mb-4 text-sm" id="bookingCardSubtitle">
+                @if (highlightRoom != null)
+                {
+                    <text>Giá mỗi đêm cho @highlightRoomName</text>
+                }
+                else
+                {
+                    <text>Liên hệ để biết giá phòng</text>
+                }
+            </p>
+            <div class="booking-card__info-grid">
+                <div class="booking-card__info-block">
+                    <span>Nhận phòng</span>
+                    <strong>@FormatDate(Model.CheckIn)</strong>
+                </div>
+                <div class="booking-card__info-block">
+                    <span>Trả phòng</span>
+                    <strong>@FormatDate(Model.CheckOut)</strong>
+                </div>
+                <div class="booking-card__info-block">
+                    <span>Khách</span>
+                    <strong>@bookingGuests khách</strong>
+                </div>
+                <div class="booking-card__info-block">
+                    <span>Phòng cần</span>
+                    <strong>@totalRooms lựa chọn</strong>
+                </div>
+            </div>
+            <a class="booking-card__button" href="@bookingLink" role="button" id="bookingCardButton">
+                Đặt ngay
+            </a>
+                <div class="booking-card__meta">
+                    <p class="booking-card__meta-title">Dịch vụ nổi bật</p>
+                <ul id="bookingCardServiceList">
+                    @if (highlightRoomServices.Any())
+                    {
+                        foreach (var service in highlightRoomServices)
+                        {
+                            <li><i class="fas fa-check-circle"></i> @service</li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="text-slate-500 italic">Chưa có dịch vụ nào được cập nhật.</li>
+                    }
+                </ul>
+            </div>
+        </aside>
+        </div>
+    </div>
+    <section class="comments-section">
+        <h3>Đánh giá khách hàng</h3>
+        <div class="comments-grid">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                foreach (var comment in Model.Comments)
+                {
+                    <article class="comment-card">
+                        <div class="comment-meta">
+                            @{
+                                var metaParts = new List<string>();
+                                if (!string.IsNullOrWhiteSpace(comment.CustomerName))
+                                {
+                                    metaParts.Add(comment.CustomerName.ToUpperInvariant());
+                                }
+                                if (!string.IsNullOrWhiteSpace(comment.RoomName))
+                                {
+                                    metaParts.Add(comment.RoomName.ToUpperInvariant());
+                                }
+                                if (comment.CreatedAt.HasValue)
+                                {
+                                    metaParts.Add(comment.CreatedAt.Value.ToString("dd/MM/yyyy"));
+                                }
+                                <text>@string.Join(" • ", metaParts)</text>
+                            }
+                        </div>
+                        <p class="comment-body">@comment.Content</p>
+                    </article>
+                }
+            }
+            else
+            {
+                <div class="comment-card">
+                    <p class="comment-body">Chưa có đánh giá nào, hãy là người đầu tiên chia sẻ cảm nhận của bạn.</p>
+                </div>
+            }
+        </div>
+    </section>
+    @if (Model.SimilarRooms != null && Model.SimilarRooms.Any())
+    {
+        <section class="similar-rooms-section">
+            <p class="similar-rooms-title">Phòng có giá tương đương</p>
+            <div class="similar-rooms-grid">
+                @foreach (var similar in Model.SimilarRooms)
+                {
+                    var similarImage = ResolveImagePath(similar.ImageUrl);
+                    var similarAmenities = similar.Amenities != null && similar.Amenities.Any()
+                        ? string.Join(" • ", similar.Amenities.Take(3))
+                        : "Tiện nghi đẳng cấp";
+                    <article class="similar-card" data-room-id="@similar.RoomId">
+                        <a class="similar-card__link" href="@Url.Action("Details", "Hotel", new { id = similar.HotelId })">
+                            <div class="similar-card__image">
+                                <img src="@Url.Content(similarImage)" alt="@similar.Name" />
+                            </div>
+                            <div class="similar-card__details">
+                                <h4>@similar.Name</h4>
+                                <p class="similar-card__meta">@(!string.IsNullOrWhiteSpace(similar.RoomType) ? similar.RoomType : "Phòng tiêu biểu")</p>
+                                <p class="similar-card__price">@FormatCurrency(similar.PricePerNight)</p>
+                                <p class="similar-card__amenities">@similarAmenities</p>
+                            </div>
+                        </a>
+                    </article>
+                }
+            </div>
+        </section>
+    }
+</div>
+
+<script>
+    (function () {
+        const slides = @Html.Raw(Json.Encode(detailSliderImages));
+        if (!slides || slides.length === 0) {
+            return;
+        }
+
+        let pointer = 0;
+        const sliderImage = document.getElementById('detailSliderImage');
+        const nextBtn = document.getElementById('detailSliderNext');
+        const prevBtn = document.getElementById('detailSliderPrev');
+
+        function showSlide(idx) {
+            sliderImage.src = slides[idx];
+        }
+
+        nextBtn?.addEventListener('click', function () {
+            pointer = (pointer + 1) % slides.length;
+            showSlide(pointer);
+        });
+
+        prevBtn?.addEventListener('click', function () {
+            pointer = (pointer - 1 + slides.length) % slides.length;
+            showSlide(pointer);
+        });
+
+        setInterval(function () {
+            pointer = (pointer + 1) % slides.length;
+            showSlide(pointer);
+        }, 4000);
+    })();
+</script>
+
+<script>
+    (function () {
+        const roomsData = @Html.Raw(string.IsNullOrWhiteSpace(roomsJson) ? "[]" : roomsJson);
+        if (!roomsData || roomsData.length === 0) {
+            return;
+        }
+
+        const summaryImage = document.getElementById('selectedRoomImage');
+        const summaryName = document.getElementById('selectedRoomName');
+        const summaryType = document.getElementById('selectedRoomType');
+        const summaryCapacity = document.getElementById('selectedRoomCapacity');
+        const summaryArea = document.getElementById('selectedRoomArea');
+        const summaryPrice = document.getElementById('selectedRoomPrice');
+        const summaryDescription = document.getElementById('selectedRoomDescription');
+        const summaryAmenities = document.getElementById('selectedRoomAmenities');
+        const bookingCardPrice = document.getElementById('bookingCardPrice');
+        const bookingCardSubtitle = document.getElementById('bookingCardSubtitle');
+        const bookingButton = document.getElementById('bookingCardButton');
+        const bookingServiceList = document.getElementById('bookingCardServiceList');
+        const roomCards = Array.from(document.querySelectorAll('.room-card[data-room-id]'));
+        if (!roomCards.length) {
+            return;
+        }
+
+        const priceFormatter = new Intl.NumberFormat('vi-VN');
+        const checkInDate = @Html.Raw(Json.Encode(checkInDate));
+        const checkOutDate = @Html.Raw(Json.Encode(checkOutDate));
+        const bookingGuestsValue = @bookingGuests;
+        const baseBookingUrl = @Html.Raw(Json.Encode(baseBookingUrl));
+        const baseParams = new URLSearchParams();
+        if (checkInDate) {
+            baseParams.set('checkIn', checkInDate);
+        }
+        if (checkOutDate) {
+            baseParams.set('checkOut', checkOutDate);
+        }
+        if (bookingGuestsValue) {
+            baseParams.set('guests', bookingGuestsValue);
+        }
+
+        const formatPrice = (value) => {
+            if (value === null || value === undefined) {
+                return 'Liên hệ';
+            }
+            return priceFormatter.format(value) + ' ₫';
+        };
+
+        const buildBookingHref = (roomId) => {
+            const params = new URLSearchParams(baseParams);
+            params.set('roomId', roomId);
+            return `${baseBookingUrl}?${params.toString()}`;
+        };
+
+        const renderServiceList = (items) => {
+            if (!bookingServiceList) {
+                return;
+            }
+            bookingServiceList.innerHTML = '';
+            if (items && items.length) {
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas fa-check-circle"></i> ${item}`;
+                    bookingServiceList.appendChild(li);
+                });
+                return;
+            }
+            const fallback = document.createElement('li');
+            fallback.className = 'text-slate-500 italic';
+            fallback.textContent = 'Chưa có dịch vụ nào được cập nhật.';
+            bookingServiceList.appendChild(fallback);
+        };
+
+        const activateRoom = (roomId) => {
+            const room = roomsData.find(r => r.RoomId === roomId);
+            if (!room) {
+                return;
+            }
+
+            if (summaryImage) {
+                summaryImage.src = room.ImageUrl || summaryImage.getAttribute('src');
+            }
+            if (summaryName) {
+                summaryName.textContent = room.Name || 'Phòng';
+            }
+            if (summaryType) {
+                summaryType.textContent = room.RoomType || 'Phòng tiêu biểu';
+            }
+            if (summaryCapacity) {
+                summaryCapacity.textContent = room.Capacity ? `${room.Capacity} khách` : 'Chưa rõ';
+            }
+            if (summaryArea) {
+                summaryArea.textContent = room.Area ? `${room.Area.toLocaleString('vi-VN')} m²` : 'Chưa rõ';
+            }
+            if (summaryPrice) {
+                summaryPrice.textContent = formatPrice(room.PricePerNight);
+            }
+            if (summaryDescription) {
+                summaryDescription.textContent = room.Description || 'Phòng được lựa chọn với tiện nghi chuẩn quốc tế.';
+            }
+            if (summaryAmenities) {
+                summaryAmenities.textContent = room.Amenities && room.Amenities.length > 0
+                    ? room.Amenities.slice(0, 4).join(' • ')
+                    : 'Tiện nghi đẳng cấp và hiện đại';
+            }
+            if (bookingCardPrice) {
+                bookingCardPrice.textContent = formatPrice(room.PricePerNight);
+            }
+            if (bookingCardSubtitle) {
+                const roomLabel = room.Name || room.RoomType || 'phòng';
+                bookingCardSubtitle.textContent = `Giá mỗi đêm cho ${roomLabel}`;
+            }
+            if (bookingButton) {
+                bookingButton.href = buildBookingHref(roomId);
+            }
+            renderServiceList(room.Amenities);
+            roomCards.forEach(card => {
+                const isActive = String(card.dataset.roomId) === String(roomId);
+                card.classList.toggle('active', isActive);
+            });
+        };
+
+        roomCards.forEach(card => {
+            const roomId = parseInt(card.dataset.roomId, 10);
+            card.addEventListener('click', () => activateRoom(roomId));
+            card.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    activateRoom(roomId);
+                }
+            });
+        });
+
+        activateRoom(parseInt(roomCards[0].dataset.roomId, 10));
+    })();
+</script>
+

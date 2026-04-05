@@ -1,0 +1,494 @@
+@model DKS_HotelManager.Areas.Admin.ViewModels.RoomsPageViewModel
+
+<section class="admin-section">
+    <div class="section-header">
+        <div>
+            <h2>Quản lý phòng</h2>
+            <small class="overview-note">Cập nhật thông tin phòng: giá, loại, diện tích.</small>
+        </div>
+    </div>
+
+    <div class="management-grid">
+
+   
+        <div class="table-panel">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:15%;">Tên phòng</th>
+                            <th style="width:15%;">Khách sạn</th>
+                            <th style="width:15%;">Loại</th>
+                            <th style="width:10%;">Giá/đêm</th>
+                            <th style="width:8%;">Sức chứa</th>
+                            <th style="width:8%;">Tầng</th>
+                            <th style="width:10%;">Diện tích</th>
+                            <th style="width:19%;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Rooms != null && Model.Rooms.Any())
+                        {
+                            foreach (var room in Model.Rooms)
+                            {
+                                <tr>
+                                    <td>@room.TenPhong</td>
+                                    <td class="text-nowrap">@room.HotelName</td>
+                                    <td>@room.RoomType</td>
+                                    <td class="text-nowrap">@String.Format("{0:N0}", room.DGNgay)</td>
+                                    <td>@room.SucChua</td>
+                                    <td>@room.Tang</td>
+                                    <td class="text-nowrap">@(room.DienTich.HasValue ? room.DienTich.Value.ToString("N1") + " m²" : "-")</td>
+                                    <td>
+                                        <button type="button" class="btn-link btn-edit-room"
+                                                data-id="@room.MaPhong"
+                                                data-name="@room.TenPhong"
+                                                data-hotel="@room.MaKS"
+                                                data-type="@room.MaLoai"
+                                                data-rate="@room.DGNgay"
+                                                data-capacity="@room.SucChua"
+                                                data-floor="@room.Tang"
+                                                data-area="@(room.DienTich.HasValue ? room.DienTich.Value.ToString() : "")">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </button>
+                                        <form method="post" action="@Url.Action("DeleteRoom", "Rooms", new { area = "Admin" })" class="inline-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa phòng này không?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="maPhong" value="@room.MaPhong" />
+                                            <button type="submit" class="btn-link text-danger">
+                                                <i class="fas fa-trash-alt"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center-placeholder">Không có phòng nào để hiển thị.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+   
+        <div class="form-panel">
+            <h3 id="formTitle">Thêm mới Phòng</h3>
+            <form id="roomForm" method="post" action="@Url.Action("SaveRoom", "Rooms", new { area = "Admin" })">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="MaPhong" id="roomId" value="0" />
+
+                <label for="roomName">Tên phòng <span class="required-star">*</span></label>
+                <input id="roomName" name="TenPhong" type="text" placeholder="Nhập tên phòng (Ví dụ: P301)" required />
+
+                <label for="roomHotel">Khách sạn <span class="required-star">*</span></label>
+                <select id="roomHotel" name="MaKS" required>
+                    <option value="">Chọn khách sạn</option>
+                    @foreach (var option in Model.HotelOptions)
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                </select>
+
+                <label for="roomType">Loại phòng <span class="required-star">*</span></label>
+                <select id="roomType" name="MaLoai" required>
+                    <option value="">Chọn loại phòng</option>
+                    @foreach (var option in Model.RoomTypeOptions)
+                    {
+                        <option value="@option.Value">@option.Text</option>
+                    }
+                </select>
+
+                <label for="roomRate">Giá/đêm <span class="required-star">*</span></label>
+                <input id="roomRate" name="DGNgay" type="number" step="1000" min="0" placeholder="Giá phòng (Ví dụ: 3000000)" required />
+
+                <label for="roomCapacity">Sức chứa (Người) <span class="required-star">*</span></label>
+                <input id="roomCapacity" name="SucChua" type="number" min="1" step="1" value="1" required />
+
+                <label for="roomFloor">Tầng</label>
+                <input id="roomFloor" name="Tang" type="number" min="0" step="1" value="0" placeholder="Số tầng" />
+
+                <label for="roomArea">Diện tích (m²)</label>
+                <input id="roomArea" name="DienTich" type="number" step="0.1" min="0" placeholder="Diện tích (Ví dụ: 55.0)" />
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="resetRoomForm">
+                        <i class="fas fa-undo"></i> Làm mới
+                    </button>
+                    <button type="submit" class="btn-luxury" id="saveRoomBtn">
+                        <i class="fas fa-save"></i> Lưu phòng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ==================================== */
+    /* PHẦN CHUNG CỦA TRANG */
+    /* ==================================== */
+    .admin-section {
+        margin-bottom: 40px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 30px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 15px;
+    }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .section-header .overview-note {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+    .management-grid {
+        display: grid;
+        /* Tỷ lệ 3fr (rộng hơn) cho bảng (trái), 1.2fr cho form (phải) */
+        grid-template-columns: 3fr 1.2fr;
+        gap: 30px;
+    }
+
+    /* ==================================== */
+    /* TABLE PANEL */
+    /* ==================================== */
+    .table-panel {
+        background: var(--surface);
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        padding: 24px;
+        box-shadow: 0 15px 30px rgba(2, 6, 23, 0.55);
+        overflow-x: auto;
+    }
+
+    .table-wrapper {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text);
+        min-width: 900px; /* Tăng min-width do nhiều cột */
+    }
+
+        table thead {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        table th {
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem;
+            color: var(--text);
+            vertical-align: top;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        table tbody tr:hover {
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+    .text-center-placeholder {
+        text-align: center;
+        color: var(--text-muted);
+        font-style: italic;
+        padding: 30px 18px !important;
+    }
+
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    /* ==================================== */
+    /* FORM PANEL */
+    /* ==================================== */
+    .form-panel {
+        background: var(--surface);
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        padding: 24px;
+        box-shadow: 0 15px 30px rgba(2, 6, 23, 0.55);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+        .form-panel h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .form-panel form {
+            display: flex;
+            flex-direction: column;
+        }
+
+    .required-star {
+        color: var(--danger);
+        font-weight: 700;
+        margin-left: 2px;
+    }
+
+    .form-panel label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 15px;
+        color: var(--text-muted);
+        letter-spacing: 0.02em;
+        margin-top: 15px;
+    }
+
+    .form-panel form label:first-of-type {
+        margin-top: 0;
+    }
+
+    .form-panel input[type="text"],
+    .form-panel input[type="number"],
+    .form-panel select,
+    .form-panel textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: var(--surface-alt);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 16px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        appearance: none;
+    }
+
+        .form-panel input[type="text"]:focus,
+        .form-panel input[type="number"]:focus,
+        .form-panel select:focus,
+        .form-panel textarea:focus {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.1);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+    .form-panel textarea {
+        resize: vertical;
+        min-height: 80px;
+        padding: 14px;
+    }
+
+    /* Custom style cho select */
+    .form-panel select {
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 1.2em;
+        padding-right: 2.5em;
+    }
+
+    /* ==================================== */
+    /* FORM ACTIONS & BUTTONS */
+    /* ==================================== */
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: flex-end;
+    }
+
+    /* Nút chính (Lưu/Lưu phòng) */
+    .btn-luxury {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--primary);
+        color: var(--bg);
+        padding: 12px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        min-width: 120px;
+    }
+
+        .btn-luxury:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--accent-strong), #0ea5e9);
+            box-shadow: 0 8px 18px rgba(56, 189, 248, 0.35);
+        }
+
+    /* Nút Cảnh báo/Cập nhật (Màu Cam) */
+    .btn-warn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--warn, #f4a261);
+        color: var(--bg);
+        padding: 12px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        min-width: 120px;
+    }
+
+        .btn-warn:hover {
+            transform: translateY(-2px);
+            background: #e77e38;
+            box-shadow: 0 8px 18px rgba(244, 162, 97, 0.4);
+        }
+
+    /* Nút phụ (Làm mới) */
+    .btn.btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--surface-alt);
+        color: var(--text-muted);
+        padding: 12px 22px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        font-weight: 600;
+        min-width: 100px;
+    }
+
+        .btn.btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+    /* Nút hành động trong bảng (Sửa, Xóa) */
+    .btn-link {
+        background: none;
+        border: none;
+        padding: 6px 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--accent);
+        cursor: pointer;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+            color: var(--accent-strong);
+        }
+
+        .btn-link.text-danger {
+            color: var(--danger, #ef4444);
+        }
+
+            .btn-link.text-danger:hover {
+                color: var(--warn, #f4a261);
+            }
+
+    .inline-form {
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    /* ==================================== */
+    /* RESPONSIVE */
+    /* ==================================== */
+    @@media (max-width: 992px) {
+        .management-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+@section scripts
+{
+    <script>
+        $(function () {
+
+            // Khởi tạo tiêu đề form lần đầu
+            $('#formTitle').text('Thêm mới Phòng');
+
+            // Reset Form và đổi nút về trạng thái Lưu
+            function resetForm() {
+                $('#roomId').val(0);
+                $('#roomForm')[0].reset();
+                $('#saveRoomBtn').html('<i class="fas fa-save"></i> Lưu phòng')
+                    .removeClass('btn-warn')
+                    .addClass('btn-luxury');
+                $('#formTitle').text('Thêm mới Phòng');
+                // Đặt lại giá trị mặc định cho input number (Nếu cần)
+                $('#roomCapacity').val(1);
+                $('#roomFloor').val(0);
+            }
+
+            // Xử lý sự kiện nút Làm mới (Reset)
+            $('#resetRoomForm').on('click', resetForm);
+
+            // Xử lý sự kiện nút Sửa
+            $('.btn-edit-room').on('click', function () {
+                var btn = $(this);
+                var roomId = btn.data('id');
+
+                // Đổ dữ liệu vào Form
+                $('#roomId').val(roomId);
+                $('#roomName').val(btn.data('name'));
+                $('#roomHotel').val(btn.data('hotel'));
+                $('#roomType').val(btn.data('type'));
+                $('#roomRate').val(btn.data('rate'));
+                $('#roomCapacity').val(btn.data('capacity'));
+                $('#roomFloor').val(btn.data('floor'));
+                $('#roomArea').val(btn.data('area'));
+
+                // Cập nhật nút thành Cập nhật (Màu Cam/Warn)
+                $('#saveRoomBtn').html('<i class="fas fa-sync-alt"></i> Cập nhật')
+                    .removeClass('btn-luxury')
+                    .addClass('btn-warn');
+
+                // Cập nhật tiêu đề Form
+                $('#formTitle').text('Cập nhật Phòng (ID: ' + roomId + ')');
+
+                // Cuộn lên form
+                $('html, body').animate({
+                    scrollTop: $(".form-panel").offset().top - 20
+                }, 500);
+            });
+
+            // Đảm bảo nút Lưu có icon ngay cả khi load trang
+            $('#saveRoomBtn').html('<i class="fas fa-save"></i> Lưu phòng');
+        });
+    </script>
+}

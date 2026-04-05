@@ -1,0 +1,273 @@
+@model DKS_HotelManager.Models.ViewModels.HotelDetailViewModel
+@using System.Linq
+@using System.Collections.Generic
+@{
+    var gallery = (Model != null && Model.GalleryImages != null)
+        ? Model.GalleryImages.Where(g => !string.IsNullOrWhiteSpace(g)).ToList()
+        : new List<string>();
+
+    if (!gallery.Any())
+    {
+        gallery.Add(Url.Content("~/Images/no_image.jpg"));
+    }
+
+    var comments = (Model != null && Model.Comments != null)
+        ? Model.Comments
+        : Enumerable.Empty<DKS_HotelManager.Models.ViewModels.CommentViewModel>();
+}
+
+<style>
+    .room-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1050;
+        padding: 20px;
+    }
+
+    .room-modal.active {
+        display: flex;
+    }
+
+    .room-modal__content {
+        background: #fff;
+        border-radius: 22px;
+        width: min(920px, 100%);
+        padding: 0 0 24px;
+        position: relative;
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .room-modal__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid #e5e7eb;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .room-modal__hero {
+        position: relative;
+        height: 280px;
+        overflow: hidden;
+        background: #0f172a;
+    }
+
+    .room-modal__hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .room-modal__hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.7) 100%);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+    }
+
+    .room-modal__body {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 22px;
+        padding: 22px 24px 0;
+    }
+
+    .room-modal__info h3 {
+        margin: 0;
+    }
+
+    .room-modal__price {
+        margin: 14px 0;
+        font-size: 15px;
+        color: #4b5563;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .room-modal__price strong {
+        font-size: 24px;
+        color: #111827;
+    }
+
+    .room-modal__actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .room-modal__gallery {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 12px;
+    }
+
+    .room-modal__section-title {
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+    }
+
+    .room-modal__thumbs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 8px;
+    }
+
+    .room-modal__thumb {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .room-modal__thumb:hover {
+        border-color: #d4af37;
+        transform: translateY(-1px);
+    }
+
+    .room-modal__comments {
+        margin: 10px 24px 0;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid #e5e7eb;
+        background: #fdfdfd;
+    }
+
+    .room-modal__comment-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+    }
+
+    .room-modal__comment {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 12px;
+        background: #fff;
+        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.04);
+    }
+
+    .room-modal__comment strong {
+        display: block;
+        color: #111827;
+    }
+
+    .room-modal__comment small {
+        color: #6b7280;
+    }
+
+    @@media (max-width: 768px) {
+        .room-modal__body {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="room-modal" id="roomModal">
+    <div class="room-modal__content">
+        <button class="room-modal__close" type="button">&times;</button>
+
+        <div class="room-modal__hero">
+            <img id="modalRoomImage" src="@Url.Content("~/Images/no_image.jpg")" alt="Phòng" />
+            <div class="room-modal__hero-overlay">
+                <h3 id="modalRoomTitle" style="font-size:24px;font-weight:700;margin:0;"></h3>
+                <p id="modalRoomMeta" style="color:#e5e7eb;margin:4px 0 0;"></p>
+            </div>
+        </div>
+
+        <div class="room-modal__body">
+            <div class="room-modal__info">
+                <p id="modalRoomDescription" style="margin:8px 0 12px;"></p>
+                <p class="room-modal__amenities" style="margin:0 0 10px;"><strong>Tiện nghi:</strong> <span id="modalRoomAmenities" style="font-weight:400;"></span></p>
+                <div class="room-modal__price">
+                    <span>Giá tham khảo</span>
+                    <strong id="modalRoomPrice"></strong><span> ₫/đêm</span>
+                </div>
+                <div class="room-modal__actions">
+                    <a id="modalBookLink" class="btn btn-luxury" href="#">Đặt ngay</a>
+                </div>
+            </div>
+
+            <div class="room-modal__gallery">
+                <div class="room-modal__section-title">
+                    <i class="fa fa-image"></i> Hình ảnh khách sạn
+                </div>
+                <div class="room-modal__thumbs">
+                    @foreach (var img in gallery)
+                    {
+                        <img class="room-modal__thumb" data-src="@Url.Content(img)" src="@Url.Content(img)" alt="ảnh khách sạn" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="room-modal__comments">
+            <div class="room-modal__section-title">
+                <i class="fa fa-comments"></i> Phản hồi khách hàng
+            </div>
+            @if (comments.Any())
+            {
+                <div class="room-modal__comment-list">
+                    @foreach (var c in comments)
+                    {
+                        <div class="room-modal__comment">
+                            <strong>@c.CustomerName</strong>
+                            <small>
+                                @(c.RoomName ?? "Khách sạn") 
+                                @(c.CreatedAt.HasValue ? (" - " + c.CreatedAt.Value.ToString("dd/MM/yyyy")) : string.Empty)
+                            </small>
+                            <p style="margin:8px 0 0;color:#374151;">@c.Content</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p style="margin:0;color:#6b7280;">Chưa có bình luận nào cho khách sạn này.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const modal = document.getElementById('roomModal');
+        if (!modal) return;
+
+        const mainImage = document.getElementById('modalRoomImage');
+        modal.querySelectorAll('.room-modal__thumb').forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                const src = thumb.getAttribute('data-src');
+                if (src && mainImage) {
+                    mainImage.src = src;
+                }
+            });
+        });
+    })();
+</script>

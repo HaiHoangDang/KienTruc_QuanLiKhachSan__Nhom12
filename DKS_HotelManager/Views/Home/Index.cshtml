@@ -1,0 +1,1869 @@
+@model DKS_HotelManager.Models.ViewModels.HomePageViewModel
+@using System
+@using System.Linq
+@using DKS_HotelManager.Helpers
+@using DKS_HotelManager.Models.ViewModels
+@{
+    ViewBag.Title = LanguageHelper.Translate("Home");
+    var heroRoom = Model.HeroRoom;
+    var heroImage = Url.Content(ResolveImagePath(heroRoom != null ? heroRoom.ImageUrl : null));
+    var heroRoomName = heroRoom != null ? heroRoom.RoomName : LanguageHelper.Translate("LuxuryHotels");
+    var heroPrice = heroRoom != null ? heroRoom.PricePerNight : 0m;
+    var heroPriceLabel = heroPrice > 0 ? FormatCurrency(heroPrice) : "Liên hệ";
+}
+
+@functions {
+    private string ResolveImagePath(string path)
+    {
+        var resolved = RoomImageHelper.ResolveRoomImagePath(path);
+        if (!string.IsNullOrWhiteSpace(resolved))
+        {
+            return Url.Content(resolved);
+        }
+
+        return Url.Content("~/Images/hotel_1.jpg");
+    }
+
+    private string FormatCurrency(decimal value)
+    {
+        return value.ToString("N0") + " VND";
+    }
+
+    private class SliderEntry
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string Location { get; set; }
+        public string PriceLabel { get; set; }
+        public string ImageUrl { get; set; }
+    }
+
+    private class ServiceCard
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public string Icon { get; set; }
+    }
+}
+
+@{
+    var sliderEntries = (Model.FeaturedHotels ?? new List<HotelCardViewModel>())
+        .Take(3)
+        .Select(room => new SliderEntry
+        {
+            Title = room.Name,
+            Subtitle = string.IsNullOrWhiteSpace(room.Description) ? LanguageHelper.Translate("PlanTripSubtitle") : room.Description,
+            Location = string.IsNullOrWhiteSpace(room.Location) ? LanguageHelper.Translate("LuxuryHotels") : room.Location,
+            PriceLabel = room.MinPrice.HasValue && room.MinPrice.Value > 0 ? FormatCurrency(room.MinPrice.Value) : (room.MaxPrice.HasValue && room.MaxPrice.Value > 0 ? FormatCurrency(room.MaxPrice.Value) : "Liên hệ"),
+            ImageUrl = Url.Content(room.Thumbnail)
+        })
+        .ToList();
+
+    if (!sliderEntries.Any())
+    {
+        sliderEntries.Add(new SliderEntry
+        {
+            Title = heroRoomName,
+            Subtitle = LanguageHelper.Translate("PlanTripSubtitle"),
+            Location = heroRoom != null && !string.IsNullOrEmpty(heroRoom.Location) ? heroRoom.Location : LanguageHelper.Translate("LuxuryHotels"),
+            PriceLabel = heroPriceLabel,
+            ImageUrl = heroImage
+        });
+    }
+
+    var featuredCount = Model.FeaturedRooms != null ? Model.FeaturedRooms.Count : 0;
+    var services = new[]
+    {
+        new ServiceCard
+        {
+            Title = "Đặt phòng nhanh chóng",
+            Description = "Giao diện thân thiện và dữ liệu trực tiếp từ hệ thống giúp bạn luôn được cập nhật thông tin mới nhất.",
+            ImageUrl = "~/Images/hotel_3.jpg",
+            Icon = "fa-bolt"
+        },
+        new ServiceCard
+        {
+            Title = "Dịch vụ 24/7",
+            Description = "Đội ngũ nhân viên luôn sẵn sàng hỗ trợ 24/7, đảm bảo trải nghiệm tốt nhất cho mọi khách hàng.",
+            ImageUrl = "~/Images/hotel_4.jpg",
+            Icon = "fa-headset"
+        },
+        new ServiceCard
+        {
+            Title = "Bảo mật tuyệt đối",
+            Description = "Thanh toán và thông tin cá nhân được xử lý với hệ thống bảo mật end-to-end an toàn nhất.",
+            ImageUrl = "~/Images/hotel_5.jpg",
+            Icon = "fa-shield-alt"
+        }
+    };
+}
+
+<style>
+    /* Modern Homepage Styles */
+    .homepage-container {
+        font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+    }
+
+    /* Modern Color Palette */
+    :root {
+        --primary-gold: #ffd700;
+        --primary-gold-light: #ffed4e;
+        --primary-gold-dark: #d4af37;
+        --accent-amber: #ffb84d;
+        --accent-yellow: #fff44f;
+        --bg-dark: #0a0a1a;
+        --bg-dark-secondary: #1a1a2e;
+        --bg-dark-tertiary: #2a2a3e;
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.85);
+        --text-muted: rgba(255, 255, 255, 0.6);
+        --border-gold: rgba(255, 215, 0, 0.4);
+        --shadow-gold: rgba(255, 215, 0, 0.3);
+    }
+
+    /* Hero Section - Premium Redesign */
+    .hero-section {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: 
+            radial-gradient(ellipse at 20% 30%, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, rgba(255, 184, 77, 0.08) 0%, transparent 50%),
+            linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%, #0a0a1a 100%);
+        overflow: hidden;
+        margin-top: 0;
+        padding: 0;
+        padding-top: 10px;
+    }
+
+    .hero-background {
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        right: -10%;
+        bottom: -10%;
+        opacity: 0.2;
+        background-size: cover;
+        background-position: center;
+        filter: blur(40px) brightness(0.6);
+        animation: heroZoom 30s ease-in-out infinite alternate;
+    }
+
+    @@keyframes heroZoom {
+        0% { transform: scale(1) translate(0, 0); }
+        100% { transform: scale(1.2) translate(-5%, 5%); }
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 15% 30%, rgba(212, 175, 55, 0.12) 0%, transparent 40%),
+            radial-gradient(circle at 85% 70%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+            linear-gradient(180deg, rgba(10, 14, 39, 0.4) 0%, rgba(26, 31, 58, 0.6) 50%, rgba(10, 14, 39, 0.8) 100%);
+    }
+
+    /* Premium Decorative elements */
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -20%;
+        right: -15%;
+        width: 900px;
+        height: 900px;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.18) 0%, rgba(255, 184, 77, 0.08) 40%, transparent 70%);
+        border-radius: 50%;
+        z-index: 1;
+        animation: float 25s ease-in-out infinite;
+        filter: blur(80px);
+    }
+
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -25%;
+        left: -10%;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, rgba(255, 184, 77, 0.06) 40%, transparent 70%);
+        border-radius: 50%;
+        z-index: 1;
+        animation: float 30s ease-in-out infinite reverse;
+        filter: blur(80px);
+    }
+
+    @@keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        33% { transform: translate(40px, -40px) scale(1.1) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) scale(0.95) rotate(240deg); }
+    }
+
+    /* Grid pattern overlay */
+    .hero-section {
+        background-image: 
+            linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 120px 40px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    .hero-text {
+        position: relative;
+        padding-right: 40px;
+    }
+
+    .hero-text::before {
+        content: '';
+        position: absolute;
+        left: -20px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #d4af37 0%, transparent 100%);
+        border-radius: 2px;
+        opacity: 0.6;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 32px;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 184, 77, 0.15));
+        border: 2px solid var(--border-gold);
+        border-radius: 50px;
+        color: var(--primary-gold-light);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin-bottom: 36px;
+        animation: fadeInUp 0.8s ease-out;
+        box-shadow: 
+            0 8px 25px var(--shadow-gold),
+            0 0 0 0 rgba(255, 215, 0, 0.5),
+            inset 0 2px 4px rgba(255, 255, 255, 0.1),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(15px);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .hero-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 
+            0 12px 35px var(--shadow-gold),
+            0 0 0 4px rgba(255, 215, 0, 0.3),
+            inset 0 2px 4px rgba(255, 255, 255, 0.15);
+        border-color: var(--primary-gold);
+    }
+
+    .hero-badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s;
+    }
+
+    .hero-badge:hover::before {
+        left: 100%;
+    }
+
+    .hero-badge i {
+        font-size: 16px;
+        animation: pulse 2s ease-in-out infinite;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-badge span {
+        position: relative;
+        z-index: 1;
+    }
+
+    @@keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.3); opacity: 0.8; }
+    }
+
+    .hero-title {
+        font-size: clamp(3.5rem, 7vw, 6.5rem);
+        font-weight: 900;
+        line-height: 1.05;
+        margin-bottom: 32px;
+        animation: fadeInUp 1s ease-out 0.2s both;
+        background: linear-gradient(135deg, #ffffff 0%, #fff8dc 20%, var(--primary-gold) 50%, var(--primary-gold-light) 70%, var(--accent-amber) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+        letter-spacing: -0.02em;
+        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+    }
+
+    .hero-title::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        width: 120px;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light), transparent);
+        border-radius: 3px;
+        animation: expandLine 1.5s ease-out 1s both;
+        box-shadow: 0 0 15px var(--shadow-gold);
+    }
+
+    @@keyframes expandLine {
+        from { width: 0; opacity: 0; }
+        to { width: 100px; opacity: 1; }
+    }
+
+    .hero-subtitle {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+        color: var(--primary-gold-light);
+        margin-bottom: 28px;
+        font-weight: 700;
+        animation: fadeInUp 1s ease-out 0.4s both;
+        padding: 12px 24px;
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), rgba(255, 184, 77, 0.1));
+        border-left: 4px solid var(--primary-gold);
+        border-radius: 12px;
+        backdrop-filter: blur(15px);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .hero-subtitle:hover {
+        transform: translateX(5px);
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(255, 184, 77, 0.15));
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.25);
+    }
+
+    .hero-subtitle i {
+        font-size: 22px;
+        color: var(--primary-gold);
+        animation: bounce 2s ease-in-out infinite;
+        filter: drop-shadow(0 0 8px var(--shadow-gold));
+    }
+
+    @@keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-3px); }
+    }
+
+    .hero-description {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        color: var(--text-secondary);
+        max-width: 620px;
+        line-height: 2;
+        margin-bottom: 55px;
+        animation: fadeInUp 1s ease-out 0.6s both;
+        padding-left: 20px;
+        border-left: 3px solid rgba(255, 215, 0, 0.4);
+        position: relative;
+    }
+
+    .hero-description::before {
+        content: '';
+        position: absolute;
+        left: -3px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--primary-gold), var(--primary-gold-light), transparent);
+        border-radius: 2px;
+        opacity: 0.6;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-bottom: 60px;
+        animation: fadeInUp 1s ease-out 0.8s both;
+    }
+
+    .btn-primary {
+        padding: 20px 44px;
+        background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 30%, var(--accent-amber) 60%, var(--primary-gold-dark) 100%);
+        color: var(--bg-dark);
+        font-weight: 900;
+        font-size: 15px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 
+            0 12px 35px var(--shadow-gold),
+            0 0 0 0 rgba(255, 215, 0, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+        transform: translate(-50%, -50%);
+        transition: width 0.7s, height 0.7s;
+    }
+
+    .btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s;
+    }
+
+    .btn-primary:hover::before {
+        width: 350px;
+        height: 350px;
+    }
+
+    .btn-primary:hover::after {
+        left: 100%;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 
+            0 20px 50px var(--shadow-gold),
+            0 0 0 10px rgba(255, 215, 0, 0.15),
+            inset 0 2px 4px rgba(255, 255, 255, 0.4),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, var(--primary-gold-light) 0%, var(--primary-gold) 30%, var(--accent-amber) 60%, var(--primary-gold-dark) 100%);
+    }
+
+    .btn-primary:active {
+        transform: translateY(-3px) scale(0.99);
+        box-shadow: 
+            0 8px 25px var(--shadow-gold),
+            0 0 0 5px rgba(255, 215, 0, 0.2);
+    }
+
+    .btn-primary i {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-primary span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-secondary {
+        padding: 20px 44px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+        color: var(--text-primary);
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 
+            0 8px 25px rgba(0, 0, 0, 0.2),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+        transition: left 0.6s;
+    }
+
+    .btn-secondary::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-secondary:hover::before {
+        left: 100%;
+    }
+
+    .btn-secondary:hover::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+        border-color: var(--primary-gold);
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 
+            0 15px 40px rgba(255, 215, 0, 0.3),
+            0 0 0 4px rgba(255, 215, 0, 0.1),
+            inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        color: var(--primary-gold-light);
+    }
+
+    .btn-secondary:active {
+        transform: translateY(-3px) scale(0.99);
+    }
+
+    .btn-secondary i {
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn-secondary span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-image {
+        position: relative;
+        animation: fadeInRight 1.2s ease-out 0.4s both;
+        padding-left: 20px;
+    }
+
+    .hero-image-wrapper {
+        position: relative;
+        border-radius: 36px;
+        overflow: hidden;
+        width: 100%;
+        height: 650px;
+        box-shadow: 
+            0 35px 90px rgba(0, 0, 0, 0.6),
+            0 0 0 3px rgba(255, 215, 0, 0.4),
+            inset 0 0 120px rgba(255, 215, 0, 0.15);
+        transform: perspective(1200px) rotateY(-8deg) rotateX(3deg);
+        transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 184, 77, 0.08));
+    }
+
+    .hero-image-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-light), var(--accent-amber), var(--primary-gold));
+        border-radius: 36px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.6s;
+        background-size: 200% 200%;
+    }
+
+    .hero-image-wrapper:hover::before {
+        opacity: 0.7;
+        animation: rotateBorder 4s linear infinite;
+    }
+
+    @@keyframes rotateBorder {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .hero-image-wrapper:hover {
+        transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.06);
+        box-shadow: 
+            0 45px 110px var(--shadow-gold),
+            0 0 0 5px rgba(255, 215, 0, 0.6),
+            inset 0 0 120px rgba(255, 215, 0, 0.25);
+    }
+
+    .hero-image-wrapper img {
+        width: 100%;
+        height: 650px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s ease;
+    }
+
+    .hero-image-wrapper:hover img {
+        transform: scale(1.1);
+    }
+
+    .hero-image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(10, 10, 26, 0.98) 0%, rgba(10, 10, 26, 0.75) 50%, transparent 100%);
+        padding: 55px 45px 45px;
+        color: white;
+        backdrop-filter: blur(15px);
+    }
+
+    .hero-image-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 184, 77, 0.28));
+        border: 2px solid var(--primary-gold);
+        border-radius: 28px;
+        color: var(--primary-gold-light);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        box-shadow: 
+            0 6px 20px var(--shadow-gold),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .hero-image-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 
+            0 8px 25px var(--shadow-gold),
+            inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-image-overlay h3 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #ffffff, var(--primary-gold-light), var(--primary-gold));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 15px var(--shadow-gold));
+    }
+
+    @@keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        animation: fadeInUp 1s ease-out 1s both;
+    }
+
+    .hero-price {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #facc15;
+        margin: 16px 0 4px;
+    }
+
+    .hero-price-caption {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0.4em;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+        backdrop-filter: blur(30px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 32px;
+        padding: 36px 28px;
+        text-align: center;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.3),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light), var(--accent-amber), var(--primary-gold));
+        transform: scaleX(0);
+        transition: transform 0.6s ease;
+        box-shadow: 0 0 25px var(--shadow-gold);
+        border-radius: 32px 32px 0 0;
+    }
+
+    .stat-card::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.25), transparent);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.7s, height 0.7s;
+    }
+
+    .stat-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .stat-card:hover::after {
+        width: 250px;
+        height: 250px;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-15px) scale(1.06);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.12));
+        border-color: var(--primary-gold);
+        box-shadow: 
+            0 25px 60px var(--shadow-gold),
+            0 0 0 2px rgba(255, 215, 0, 0.5),
+            inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+
+    .stat-value {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--primary-gold-light) 0%, var(--primary-gold) 30%, var(--accent-amber) 60%, var(--primary-gold) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 14px;
+        line-height: 1;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 0 20px var(--shadow-gold));
+        animation: numberGlow 3s ease-in-out infinite;
+    }
+
+    @@keyframes numberGlow {
+        0%, 100% { filter: drop-shadow(0 0 20px var(--shadow-gold)); }
+        50% { filter: drop-shadow(0 0 35px var(--shadow-gold)); }
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        font-weight: 800;
+        position: relative;
+        z-index: 1;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Features Section */
+    .features-section {
+        padding: 100px 24px;
+        background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+    }
+
+    .section-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(212, 175, 55, 0.1);
+        color: #b8941f;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        border-radius: 50px;
+        margin-bottom: 16px;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        color: #1a1a2e;
+        margin-bottom: 16px;
+    }
+
+    .section-description {
+        font-size: 1.1rem;
+        color: #64748b;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        margin-top: 60px;
+    }
+
+    .feature-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s ease;
+        border: 1px solid #e2e8f0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #d4af37, #b8941f);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .feature-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(184, 148, 31, 0.1));
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        font-size: 28px;
+        color: #d4af37;
+    }
+
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 12px;
+    }
+
+    .feature-description {
+        font-size: 1rem;
+        color: #64748b;
+        line-height: 1.7;
+    }
+
+    /* Rooms Section */
+    .rooms-section {
+        padding: 100px 24px;
+        background: #ffffff;
+    }
+
+    .rooms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 32px;
+        margin-top: 60px;
+    }
+
+    .room-card {
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s ease;
+        border: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .room-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .room-image {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .room-card:hover .room-image {
+        transform: scale(1.1);
+    }
+
+    .room-content {
+        padding: 28px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .room-type {
+        font-size: 11px;
+        color: #d4af37;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .room-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 8px;
+    }
+
+    .room-location {
+        font-size: 0.95rem;
+        color: #64748b;
+        margin-bottom: 16px;
+    }
+
+    .room-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .room-price {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #1a1a2e;
+    }
+
+    .room-price-label {
+        font-size: 11px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .room-link {
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+        color: #1a1a2e;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .room-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Hotels Section */
+    .hotels-section {
+        padding: 80px 24px;
+        background: #f8fafc;
+    }
+
+    .hotel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .hotel-card {
+        background: #ffffff;
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #e2e8f0;
+        transition: transform 0.45s ease, box-shadow 0.45s ease;
+    }
+
+    .hotel-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 35px 70px rgba(15, 23, 42, 0.15);
+    }
+
+    .hotel-card-image {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .hotel-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .hotel-card:hover .hotel-card-image img {
+        transform: scale(1.08);
+    }
+
+    .hotel-card-body {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hotel-card-name {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .hotel-card-location {
+        font-size: 0.95rem;
+        color: #475569;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hotel-card-description {
+        color: #64748b;
+        line-height: 1.6;
+    }
+
+    .hotel-card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: #0f172a;
+        font-size: 0.95rem;
+    }
+
+    .hotel-card-price {
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+    }
+
+    .hotel-card-badge {
+        background: #fef3c7;
+        color: #b45309;
+        padding: 6px 16px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        width: fit-content;
+    }
+
+    .hotel-card-cta {
+        margin-top: auto;
+        text-decoration: none;
+        font-weight: 700;
+        color: #d97706;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .hotel-card-cta:hover {
+        color: #b45309;
+    }
+
+    .empty-state {
+        margin-top: 40px;
+        padding: 40px;
+        text-align: center;
+        color: #475569;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px dashed #cbd5f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .empty-state i {
+        font-size: 2rem;
+        color: #d97706;
+    }
+
+    /* Slider Section */
+    .slider-section {
+        padding: 70px 24px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #ffffff;
+    }
+
+    .slider-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .slider-main {
+        position: relative;
+        height: 500px;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .slider-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        opacity: 1;
+    }
+
+    .slider-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(26, 26, 46, 0.9) 0%, rgba(26, 26, 46, 0.5) 50%, transparent 100%);
+        z-index: 1;
+    }
+
+    .slider-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 40px;
+        z-index: 2;
+    }
+
+    .slider-controls {
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+        display: flex;
+        gap: 12px;
+        z-index: 3;
+    }
+
+    .slider-btn {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slider-btn:hover {
+        background: rgba(212, 175, 55, 0.3);
+        border-color: #d4af37;
+        transform: scale(1.1);
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        min-width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        color: #1f2937;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .page-btn:hover:not(:disabled) {
+        border-color: #d4af37;
+        color: #d4af37;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .page-btn.active {
+        background: linear-gradient(135deg, #d4af37, #b8941f);
+        color: #0f172a;
+        border-color: transparent;
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Scroll animations */
+    @@keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsive */
+    @@media (max-width: 1200px) {
+        .hero-content {
+            gap: 60px;
+            padding: 100px 32px;
+        }
+
+        .hero-image-wrapper img {
+            height: 550px;
+        }
+
+        .hero-text {
+            padding-right: 20px;
+        }
+    }
+
+    @@media (max-width: 1024px) {
+        .hero-content {
+            grid-template-columns: 1fr;
+            gap: 60px;
+            padding: 80px 32px;
+        }
+
+        .hero-text {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .hero-text::before {
+            display: none;
+        }
+
+        .hero-image {
+            order: -1;
+            padding-left: 0;
+        }
+
+        .hero-image-wrapper {
+            transform: none;
+        }
+
+        .hero-image-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-image-wrapper img {
+            height: 450px;
+        }
+
+        .hero-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .rooms-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .hero-section {
+            min-height: auto;
+            margin-top: 70px;
+            padding: 0;
+        }
+
+        .hero-content {
+            padding: 60px 24px;
+            gap: 50px;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+        }
+
+        .hero-title::after {
+            width: 80px;
+        }
+
+        .hero-image-wrapper img {
+            height: 380px;
+        }
+
+        .hero-image-overlay {
+            padding: 40px 32px 32px;
+        }
+
+        .hero-stats {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+        }
+
+        .stat-card {
+            padding: 24px 20px;
+        }
+
+        .features-section,
+        .rooms-section,
+        .slider-section {
+            padding: 60px 20px;
+        }
+
+        .rooms-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .slider-main {
+            height: 400px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 16px 32px;
+            font-size: 13px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .hero-content {
+            padding: 40px 16px;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-stats {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            width: 100%;
+            justify-content: center;
+            padding: 16px 24px;
+        }
+
+        .hero-image-wrapper img {
+            height: 280px;
+        }
+
+        .hero-image-overlay {
+            padding: 24px;
+        }
+    }
+</style>
+
+<div class="homepage-container">
+    <!-- Hero Section - Redesigned -->
+    <section class="hero-section">
+        <div class="hero-background" style="background-image: url('@heroImage');"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <!-- Left Column: Text Content -->
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Khách sạn cao cấp</span>
+            </div>
+                <h1 class="hero-title">@heroRoomName</h1>
+                    @if (heroRoom != null && !string.IsNullOrEmpty(heroRoom.Location))
+                    {
+                    <p class="hero-subtitle">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>@heroRoom.Location</span>
+                    </p>
+                }
+                <p class="hero-description">
+                    @LanguageHelper.Translate("PlanTripSubtitle")
+                </p>
+                <div class="hero-actions">
+                    <a href="@Url.Action("Index", "Hotel")" class="btn-primary">
+                        <i class="fas fa-search"></i>
+                        <span>Khám phá khách sạn</span>
+                    </a>
+                    <a href="@Url.Action("Contact", "Home")" class="btn-secondary">
+                        <i class="fas fa-phone"></i>
+                        <span>Liên hệ ngay</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    @{
+                        var hotelsStat = Model.Stats != null ? Model.Stats.FirstOrDefault(s => s.LabelKey == "HotelsCount") : null;
+                        var roomsStat = Model.Stats != null ? Model.Stats.FirstOrDefault(s => s.LabelKey == "RoomsCount") : null;
+                        var bookingsStat = Model.Stats != null ? Model.Stats.FirstOrDefault(s => s.LabelKey == "Bookings") : null;
+                        var satisfactionStat = Model.Stats != null ? Model.Stats.FirstOrDefault(s => s.LabelKey == "SatisfactionRate") : null;
+                    }
+                    <div class="stat-card">
+                        <div class="stat-value">@(hotelsStat != null ? hotelsStat.Value : "0")</div>
+                        <div class="stat-label">Khách sạn</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">@(roomsStat != null ? roomsStat.Value : "0")</div>
+                        <div class="stat-label">Phòng nghỉ</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">@(bookingsStat != null ? bookingsStat.Value : "0")</div>
+                        <div class="stat-label">Đặt phòng</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">@(satisfactionStat != null ? satisfactionStat.Value : "98%")</div>
+                        <div class="stat-label">Hài lòng</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Hero Image -->
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <img src="@heroImage" alt="@heroRoomName" />
+                    <div class="hero-image-overlay">
+                        <div class="hero-image-badge">
+                            <i class="fas fa-star"></i>
+                            <span>Nổi bật</span>
+                        </div>
+                        <h3>@heroRoomName</h3>
+                        @if (heroRoom != null && !string.IsNullOrEmpty(heroRoom.Location))
+                        {
+                            <p style="font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-map-marker-alt" style="color: #d4af37; font-size: 16px;"></i>
+                                <span>@heroRoom.Location</span>
+                            </p>
+                        }
+                        @if (heroPrice > 0)
+                        {
+                            <p class="hero-price">@heroPriceLabel</p>
+                            <span class="hero-price-caption">/ đêm</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">Dịch vụ của chúng tôi</div>
+                <h2 class="section-title">Tại sao chọn chúng tôi?</h2>
+                <p class="section-description">
+                    Chúng tôi cam kết mang đến trải nghiệm tốt nhất với dịch vụ chuyên nghiệp và hệ thống hiện đại
+                </p>
+                        </div>
+            <div class="features-grid">
+                @foreach (var service in services)
+                {
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas @service.Icon"></i>
+                        </div>
+                        <h3 class="feature-title">@service.Title</h3>
+                        <p class="feature-description">@service.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Slider Section -->
+    <section class="slider-section">
+        <div class="section-container">
+            <div class="section-header" style="color: #ffffff;">
+            <div class="section-badge" style="background: rgba(212, 175, 55, 0.2); color: #facc15; border: 1px solid rgba(212, 175, 55, 0.4);">
+                Khách sạn nổi bật
+            </div>
+            <h2 class="section-title" style="color: #ffffff;">Khám phá những khách sạn hàng đầu</h2>
+            <p class="section-description" style="color: rgba(255, 255, 255, 0.8);">
+                Lựa chọn khách sạn với dịch vụ cao cấp và đánh giá được cập nhật trực tiếp từ dữ liệu thực tế.
+            </p>
+        </div>
+            <div class="slider-container">
+                <div class="slider-main">
+                    <img id="homeSliderImage" class="slider-image" src="" alt="Featured Room" />
+                    <div class="slider-overlay"></div>
+                    <div class="slider-content">
+                        <p class="text-xs uppercase tracking-[0.4em] text-white/70 mb-2" id="homeSliderLocation"></p>
+                        <h3 class="text-4xl font-bold mb-2" id="homeSliderTitle"></h3>
+                        <p class="text-sm uppercase tracking-[0.3em] text-white/80 mb-4" id="homeSliderSubtitle"></p>
+                        <p class="text-xl font-semibold text-yellow-400" id="homeSliderPrice"></p>
+                    </div>
+                    <div class="slider-controls">
+                        <button type="button" id="homeSliderPrev" class="slider-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button type="button" id="homeSliderNext" class="slider-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Featured Rooms Section -->
+    <section class="rooms-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">Phòng nghỉ nổi bật</div>
+                <h2 class="section-title">@LanguageHelper.Translate("TrendingRooms")</h2>
+                <p class="section-description">
+                    Khám phá @featuredCount phòng nghỉ được yêu thích nhất với đầy đủ tiện nghi và dịch vụ cao cấp
+                </p>
+                        </div>
+            @if (Model.FeaturedRooms != null && Model.FeaturedRooms.Any())
+            {
+                <div class="rooms-grid" id="featuredRoomsContainer">
+                    @for (var i = 0; i < Model.FeaturedRooms.Count; i++)
+                    {
+                        var room = Model.FeaturedRooms[i];
+                        <article class="room-card" data-room-index="@i">
+                            <div style="overflow: hidden; height: 280px;">
+                                <img src="@ResolveImagePath(room.ImageUrl)" alt="@room.RoomName" class="room-image" />
+                            </div>
+                            <div class="room-content">
+                                <div class="room-type">@room.RoomType</div>
+                                <h3 class="room-name">@room.RoomName</h3>
+                                <p class="room-location">
+                                    <i class="fas fa-map-marker-alt" style="color: #d4af37; margin-right: 6px;"></i>
+                                    @room.HotelName - @room.Location
+                                </p>
+                                <div class="room-footer">
+                                    <div>
+                                        <div class="room-price">@FormatCurrency(room.PricePerNight)</div>
+                                        <div class="room-price-label">mỗi đêm</div>
+                                    </div>
+                                    <a href="@Url.Action("Details", "Hotel", new { id = room.HotelId })" class="room-link">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+                <div class="pagination" id="featuredRoomsPagination"></div>
+            }
+            else
+            {
+                <div style="text-align: center; padding: 60px 20px; color: #64748b;">
+                    <i class="fas fa-hotel" style="font-size: 4rem; margin-bottom: 20px; color: #d4af37;"></i>
+                    <p style="font-size: 1.2rem;">Hiện tại chưa có phòng nghỉ nổi bật</p>
+                </div>
+                }
+            </div>
+        </section>
+    <section class="hotels-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">Khách sạn nổi bật</div>
+                <h2 class="section-title">Tập hợp những khách sạn được đặt nhiều nhất</h2>
+                <p class="section-description">
+                    Các khách sạn này được chọn lọc từ dữ liệu đặt phòng thực tế nhằm đảm bảo chất lượng dịch vụ và trải nghiệm.
+                </p>
+            </div>
+            @if (Model.FeaturedHotels != null && Model.FeaturedHotels.Any())
+            {
+                <div class="hotel-grid" id="featuredHotelsContainer">
+                    @for (var i = 0; i < Model.FeaturedHotels.Count; i++)
+                    {
+                        var hotel = Model.FeaturedHotels[i];
+                        <article class="hotel-card" data-hotel-index="@i">
+                            <div class="hotel-card-image">
+                                <img src="@Url.Content(hotel.Thumbnail)" alt="@hotel.Name" />
+                            </div>
+                            <div class="hotel-card-body">
+                                <h3 class="hotel-card-name">@hotel.Name</h3>
+                                <p class="hotel-card-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>@hotel.Location</span>
+                                </p>
+                                <p class="hotel-card-description">@hotel.Description</p>
+                                <div class="hotel-card-meta">
+                                    <span>@(hotel.RoomCount > 0 ? string.Format("{0} loại phòng", hotel.RoomCount) : "Đang cập nhật")</span>
+                                    <span class="hotel-card-price">
+                                        @(hotel.MinPrice.HasValue && hotel.MinPrice.Value > 0 ? FormatCurrency(hotel.MinPrice.Value) : "Liên hệ")
+                                    </span>
+                                </div>
+                                <div class="hotel-card-badge">@hotel.Badge</div>
+                                <a href="@Url.Action("Details", "Hotel", new { id = hotel.HotelId })" class="hotel-card-cta">
+                                    <i class="fas fa-arrow-right"></i> Xem chi tiết
+                                </a>
+                            </div>
+                        </article>
+                    }
+                </div>
+                <div class="pagination" id="featuredHotelsPagination"></div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="fas fa-building" aria-hidden="true"></i>
+                    <p>Đang cập nhật khách sạn nổi bật</p>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+<script>
+    (function () {
+        const sliderData = @Html.Raw(Json.Encode(sliderEntries));
+        if (!sliderData || sliderData.length === 0) {
+            return;
+        }
+
+        let index = 0;
+        let autoSlideInterval;
+        const imageEl = document.getElementById('homeSliderImage');
+        const titleEl = document.getElementById('homeSliderTitle');
+        const subtitleEl = document.getElementById('homeSliderSubtitle');
+        const locationEl = document.getElementById('homeSliderLocation');
+        const priceEl = document.getElementById('homeSliderPrice');
+        const prevBtn = document.getElementById('homeSliderPrev');
+        const nextBtn = document.getElementById('homeSliderNext');
+
+        function updateSlide(idx) {
+            const current = sliderData[idx];
+            if (imageEl) {
+                imageEl.src = current.ImageUrl;
+                imageEl.style.opacity = '0';
+                setTimeout(() => {
+                    imageEl.style.opacity = '1';
+                }, 50);
+            }
+            if (titleEl) titleEl.textContent = current.Title;
+            if (subtitleEl) subtitleEl.textContent = current.Subtitle;
+            if (locationEl) locationEl.textContent = current.Location || '';
+            if (priceEl) priceEl.textContent = current.PriceLabel || '';
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(function () {
+                index = (index + 1) % sliderData.length;
+                updateSlide(index);
+            }, 5000);
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
+        }
+
+        if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+                stopAutoSlide();
+            index = (index - 1 + sliderData.length) % sliderData.length;
+            updateSlide(index);
+                startAutoSlide();
+        });
+        }
+
+        if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+                stopAutoSlide();
+            index = (index + 1) % sliderData.length;
+            updateSlide(index);
+                startAutoSlide();
+            });
+        }
+
+        // Pause on hover
+        const sliderMain = document.querySelector('.slider-main');
+        if (sliderMain) {
+            sliderMain.addEventListener('mouseenter', stopAutoSlide);
+            sliderMain.addEventListener('mouseleave', startAutoSlide);
+        }
+
+        updateSlide(index);
+        startAutoSlide();
+    })();
+
+    // Smooth scroll animation on page load
+    window.addEventListener('load', function() {
+        const elements = document.querySelectorAll('.hero-badge, .hero-title, .hero-subtitle, .hero-description, .hero-actions, .stat-card, .feature-card, .room-card');
+        elements.forEach((el, index) => {
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+
+    // Pagination for featured rooms and hotels
+    (function () {
+        function setupPagination(containerId, itemSelector, paginationId, itemsPerPage) {
+            const container = document.getElementById(containerId);
+            const pagination = document.getElementById(paginationId);
+            if (!container || !pagination) return;
+
+            const items = Array.from(container.querySelectorAll(itemSelector));
+            if (items.length <= itemsPerPage) {
+                items.forEach(item => item.style.display = '');
+                pagination.innerHTML = '';
+                return;
+            }
+
+            const pageCount = Math.ceil(items.length / itemsPerPage);
+            let currentPage = 1;
+
+            function renderPage(page) {
+                currentPage = Math.max(1, Math.min(page, pageCount));
+                items.forEach((item, idx) => {
+                    const show = idx >= (currentPage - 1) * itemsPerPage && idx < currentPage * itemsPerPage;
+                    item.style.display = show ? '' : 'none';
+                });
+                renderControls();
+            }
+
+            function createButton(label, targetPage, disabled, isActive) {
+                const btn = document.createElement('button');
+                btn.textContent = label;
+                btn.className = 'page-btn' + (isActive ? ' active' : '');
+                btn.disabled = disabled;
+                btn.addEventListener('click', () => renderPage(targetPage));
+                return btn;
+            }
+
+            function renderControls() {
+                pagination.innerHTML = '';
+                pagination.appendChild(createButton('‹', currentPage - 1, currentPage === 1, false));
+
+                for (let i = 1; i <= pageCount; i++) {
+                    pagination.appendChild(createButton(i.toString(), i, false, i === currentPage));
+                }
+
+                pagination.appendChild(createButton('›', currentPage + 1, currentPage === pageCount, false));
+            }
+
+            renderPage(1);
+        }
+
+        setupPagination('featuredRoomsContainer', '.room-card', 'featuredRoomsPagination', 3);
+        setupPagination('featuredHotelsContainer', '.hotel-card', 'featuredHotelsPagination', 4);
+    })();
+</script>

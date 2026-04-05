@@ -1,0 +1,206 @@
+﻿@using DKS_HotelManager.Helpers
+@{
+    var currentLocation = Request.QueryString["location"] ?? string.Empty;
+    var currentSort = Request.QueryString["sort"] ?? string.Empty;
+}
+<!-- Top Navbar - Main Bar -->
+<nav class="top-navbar" id="topNavbar">
+    <div class="navbar-main">
+        <!-- Left Section: Menu Toggle & Brand -->
+        <div class="navbar-left">
+            <button class="toggle-sidebar-btn" id="toggleSidebarBtn" aria-label="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-hotel"></i>
+                </div>
+                <span class="brand-text">Hotel Luxury</span>
+            </a>
+        </div>
+
+        <!-- Center Section: Navigation Links -->
+        <div class="navbar-center">
+            <div class="navbar-menu">
+                <a href="@Url.Action("Index", "Home")" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>@LanguageHelper.Translate("Home")</span>
+                </a>
+                <a href="@Url.Action("Index", "Hotel")" class="nav-link">
+                    <i class="fas fa-building"></i>
+                    <span>@LanguageHelper.Translate("Hotels")</span>
+                </a>
+                <a href="@Url.Action("About", "Home")" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>@LanguageHelper.Translate("About")</span>
+                </a>
+                <a href="@Url.Action("Comment", "Home")" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>@LanguageHelper.Translate("Comments")</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Section: Search, Language, User Actions -->
+        <div class="navbar-right">
+            
+            <!-- Quick Search Dropdowns -->
+            <div class="navbar-quick-filters">
+                <div class="filter-dropdown">
+                    <button type="button" class="filter-btn" onclick="toggleFilterDropdown(event, 'locationDropdown')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Tìm tên khách sạn</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="locationDropdown" class="filter-dropdown-menu">
+                        <form method="get" action="@Url.Action("Index", "Hotel")" class="filter-form">
+                            <input name="location" value="@currentLocation" type="text" placeholder="Nhập tên khách sạn..." class="filter-input" />
+                            <input type="hidden" name="sort" value="@currentSort" />
+                            <button type="submit" class="filter-submit-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="filter-dropdown">
+                    <button type="button" class="filter-btn" onclick="toggleFilterDropdown(event, 'sortDropdown')">
+                        <i class="fas fa-sort"></i>
+                        <span>Sắp xếp</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="sortDropdown" class="filter-dropdown-menu">
+                        <form method="get" action="@Url.Action("Index", "Hotel")" class="filter-form">
+                            <input type="hidden" name="location" value="@currentLocation" />
+                            <select name="sort" class="filter-select" onchange="this.form.submit()">
+                                <option value="">Mặc định</option>
+                                <option value="priceAsc" @(currentSort == "priceAsc" ? "selected" : "")>Giá tăng dần</option>
+                                <option value="priceDesc" @(currentSort == "priceDesc" ? "selected" : "")>Giá giảm dần</option>
+                                <option value="booked" @(currentSort == "booked" ? "selected" : "")>Đặt nhiều</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Language Dropdown -->
+            <div class="language-dropdown-container">
+                <button onclick="toggleNavLanguageDropdown(event)" class="language-btn">
+                    <span>@(LanguageHelper.GetCurrentLanguage() == "vi" ? "VI" : "EN")</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </button>
+                <div id="navLanguageDropdown" class="language-dropdown">
+                    <a href="@Url.Action("SetLanguage", "DKS_Nhom1", new { lang = "vi", returnUrl = Request.RawUrl })" class="language-option @(LanguageHelper.GetCurrentLanguage() == "vi" ? "active" : "")">
+                        <i class="fas fa-flag"></i>
+                        <span>@LanguageHelper.Translate("Vietnamese")</span>
+                    </a>
+                    <a href="@Url.Action("SetLanguage", "DKS_Nhom1", new { lang = "en", returnUrl = Request.RawUrl })" class="language-option @(LanguageHelper.GetCurrentLanguage() == "en" ? "active" : "")">
+                        <i class="fas fa-flag"></i>
+                        <span>@LanguageHelper.Translate("English")</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- User Actions -->
+            <div class="user-profile">
+                @if (Session["KhachHang"] != null)
+                {
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="user-name">@Session["KhachHangTen"]</span>
+                    </div>
+                    <a href="@Url.Action("Logout", "Authentication")" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>@LanguageHelper.Translate("Logout")</span>
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Authentication")" class="login-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>@LanguageHelper.Translate("Login")</span>
+                    </a>
+                    <a href="@Url.Action("Register", "Authentication")" class="register-link">
+                        <i class="fas fa-user-plus"></i>
+                        <span>@LanguageHelper.Translate("Register")</span>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+<script>
+    function toggleNavLanguageDropdown(event) {
+        if (event) {
+            event.stopPropagation();
+        }
+        var dropdown = document.getElementById('navLanguageDropdown');
+        var container = event.target.closest('.language-dropdown-container');
+        var isVisible = dropdown.style.display === 'block';
+        dropdown.style.display = isVisible ? 'none' : 'block';
+        
+        // Toggle active class for arrow animation
+        if (container) {
+            if (isVisible) {
+                container.classList.remove('active');
+            } else {
+                container.classList.add('active');
+            }
+        }
+        
+        // Close other dropdowns
+        document.querySelectorAll('.filter-dropdown-menu').forEach(function(menu) {
+            menu.style.display = 'none';
+        });
+        document.querySelectorAll('.filter-dropdown').forEach(function(dropdown) {
+            dropdown.classList.remove('active');
+        });
+    }
+
+    function toggleFilterDropdown(event, dropdownId) {
+        if (event) {
+            event.stopPropagation();
+        }
+        var dropdown = document.getElementById(dropdownId);
+        var container = event.target.closest('.filter-dropdown');
+        var isVisible = dropdown.style.display === 'block';
+        
+        // Close all dropdowns first
+        document.querySelectorAll('.filter-dropdown-menu').forEach(function(menu) {
+            menu.style.display = 'none';
+        });
+        document.querySelectorAll('.filter-dropdown').forEach(function(dropdown) {
+            dropdown.classList.remove('active');
+        });
+        document.getElementById('navLanguageDropdown').style.display = 'none';
+        document.querySelectorAll('.language-dropdown-container').forEach(function(container) {
+            container.classList.remove('active');
+        });
+        
+        // Toggle the clicked dropdown
+        if (!isVisible) {
+            dropdown.style.display = 'block';
+            if (container) {
+                container.classList.add('active');
+            }
+        }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        var languageContainer = event.target.closest('.language-dropdown-container');
+        var filterContainer = event.target.closest('.filter-dropdown');
+        
+        if (!languageContainer) {
+            document.getElementById('navLanguageDropdown').style.display = 'none';
+        }
+        
+        if (!filterContainer) {
+            document.querySelectorAll('.filter-dropdown-menu').forEach(function(menu) {
+                menu.style.display = 'none';
+            });
+        }
+    });
+</script>

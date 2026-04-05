@@ -1,0 +1,111 @@
+@model DKS_HotelManager.Areas.Staff.ViewModels.StaffPaymentConfirmViewModel
+@{
+    Layout = "~/Areas/Staff/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Thanh toán VNPAY";
+    var checkInText = Model.CheckIn.HasValue ? Model.CheckIn.Value.ToString("dd/MM/yyyy") : "-";
+    var checkOutText = Model.CheckOut.HasValue ? Model.CheckOut.Value.ToString("dd/MM/yyyy") : "-";
+}
+
+<style>
+    .staff-confirm {
+        padding: 40px 50px 60px;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        color: #e2e8f0;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 2fr 1fr;
+    }
+    .confirm-card {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .confirm-card h2 {
+        margin: 0 0 10px;
+        color: #bbf7d0;
+    }
+    .summary-line {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(226, 232, 240, 0.08);
+    }
+    .summary-line:last-child {
+        border-bottom: none;
+    }
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.16);
+        border: 1px solid rgba(34, 197, 94, 0.35);
+        color: #bbf7d0;
+        font-weight: 600;
+    }
+    .actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .btn {
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #0f172a;
+    }
+    .btn-outline {
+        border: 1px solid rgba(226, 232, 240, 0.6);
+        color: #f8fafc;
+        background: transparent;
+    }
+    @@media (max-width: 900px) {
+        .staff-confirm {
+            grid-template-columns: 1fr;
+            padding: 24px;
+        }
+    }
+</style>
+
+<div class="staff-confirm">
+    <div class="confirm-card">
+        <h2>Thanh toán VNPAY thành công</h2>
+        <div class="pill">Mã đặt phòng: @Model.ReferenceNumber</div>
+        <div class="summary-line"><span>Mã giao dịch VNPAY</span><strong>@(string.IsNullOrWhiteSpace(Model.TransactionNo) ? "-" : Model.TransactionNo)</strong></div>
+        <div class="summary-line"><span>Mã tham chiếu</span><strong>@(string.IsNullOrWhiteSpace(Model.TxnRef) ? "-" : Model.TxnRef)</strong></div>
+        <div class="summary-line"><span>Thời gian thanh toán</span><strong>@(string.IsNullOrWhiteSpace(Model.PayDate) ? DateTime.Now.ToString("dd/MM/yyyy HH:mm") : Model.PayDate)</strong></div>
+        <div class="summary-line"><span>Số tiền đã thanh toán</span><strong>@Model.PaidAmount.ToString("N0")₫</strong></div>
+        <div class="summary-line"><span>Còn lại (trước thanh toán)</span><strong>@Model.RemainingBefore.ToString("N0")₫</strong></div>
+        <div class="summary-line"><span>Tổng đơn</span><strong>@Model.TotalAmount.ToString("N0")₫</strong></div>
+        <div class="actions">
+            <a class="btn btn-primary" href="@Url.Action("Index", "Checkout", new { area = "Staff" })">Quay về danh sách</a>
+            <a class="btn btn-outline" href="@Url.Action("Index", "Operations", new { area = "Staff" })">Xem booking</a>
+        </div>
+    </div>
+
+    <div class="confirm-card">
+        <h2>Chi tiết lưu trú</h2>
+        <div class="summary-line"><span>Khách</span><strong>@Model.GuestName</strong></div>
+        <div class="summary-line"><span>Khách sạn</span><strong>@Model.HotelName</strong></div>
+        <div class="summary-line"><span>Phòng</span><strong>@Model.RoomName</strong></div>
+        <div class="summary-line"><span>Ngày nhận</span><strong>@checkInText</strong></div>
+        <div class="summary-line"><span>Ngày trả</span><strong>@checkOutText</strong></div>
+        <div class="summary-line"><span>Tiền phòng</span><strong>@Model.RoomTotal.ToString("N0")₫</strong></div>
+        <div class="summary-line"><span>Dịch vụ</span><strong>@Model.ServicesTotal.ToString("N0")₫</strong></div>
+        <div class="summary-line"><span>Đặt cọc</span><strong>@Model.DepositAmount.ToString("N0")₫</strong></div>
+    </div>
+</div>
+

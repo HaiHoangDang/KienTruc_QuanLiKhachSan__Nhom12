@@ -1,0 +1,200 @@
+@model DKS_HotelManager.Areas.Staff.ViewModels.ServicePrebookingViewModel
+@{
+    Layout = "~/Areas/Staff/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-hero">
+    <div>
+        <p class="eyebrow">Đặt trước dịch vụ</p>
+        <h1>Lên lịch dịch vụ cho khách đang ở</h1>
+        <p>Chỉ phục vụ khi phòng đang ở trạng thái sử dụng. Ghi lại thời gian sử dụng để theo dõi.</p>
+    </div>
+    <div class="hero-meta">
+        <span>Chi nhánh: @(Model.SelectedHotelName ?? "Chưa chọn")</span>
+        <span>Nhân viên: @Model.StaffName</span>
+    </div>
+</section>
+
+@if (TempData["StaffSuccess"] != null)
+{
+    <div class="feedback success">@TempData["StaffSuccess"]</div>
+}
+@if (TempData["StaffError"] != null)
+{
+    <div class="feedback error">@TempData["StaffError"]</div>
+}
+
+@if (!Model.SelectedHotelId.HasValue)
+{
+    <div class="card alert-card">
+        <p>Vui lòng chọn chi nhánh để xem danh sách phòng đang dùng dịch vụ.</p>
+    </div>
+}
+else
+{
+    <section class="staff-form card">
+        <div class="form-header">
+            <h3>Thông tin đặt dịch vụ</h3>
+            <p>Chọn phòng đang sử dụng, dịch vụ và thời gian để lưu lại yêu cầu.</p>
+        </div>
+        @using (Html.BeginForm("Schedule", "ServicePrebooking", FormMethod.Post, new { area = "Staff" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="form-grid">
+                <div class="form-row">
+                    <label>Phòng đang sử dụng</label>
+                    @Html.DropDownListFor(m => m.Input.BookingId, Model.BookingOptions, "-- Chọn phòng --", new { required = "required" })
+                </div>
+
+                <div class="form-row">
+                    <label>Dịch vụ</label>
+                    @Html.DropDownListFor(m => m.Input.ServiceId, Model.Services.Select(s => new SelectListItem { Value = s.ServiceId.ToString(), Text = s.Name + " (" + string.Format("{0:N0}", s.Price) + " VND)" }), "-- Chọn dịch vụ --", new { required = "required" })
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-row">
+                    <label>Số lượt</label>
+                    @Html.TextBoxFor(m => m.Input.Quantity, new { type = "number", min = 1, value = 1 })
+                </div>
+
+                <div class="form-row">
+                    <label>Ngày sử dụng</label>
+                    @Html.TextBoxFor(m => m.Input.ScheduledDate, "{0:yyyy-MM-dd}", new { type = "date", required = "required" })
+                </div>
+
+                <div class="form-row">
+                    <label>Giờ sử dụng</label>
+                    @Html.TextBoxFor(m => m.Input.ScheduledTime, "{0:hh\\:mm}", new { type = "time", required = "required" })
+                </div>
+            </div>
+
+            <button class="primary-button" type="submit">Lưu dịch vụ</button>
+        }
+    </section>
+
+    if (!Model.Services.Any())
+    {
+        <div class="alert-card">
+            <p>Hiện chưa có dịch vụ nào được cấu hình.</p>
+        </div>
+    }
+    else
+    {
+        <section class="service-table card">
+            <div class="form-header">
+                <h3>Danh sách dịch vụ</h3>
+                <p>Giá công khai để tiện thông báo cho khách.</p>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dịch vụ</th>
+                            <th>Giá (VND)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var service in Model.Services)
+                        {
+                            <tr>
+                                <td>@service.Name</td>
+                                <td>@String.Format("{0:N0} VNĐ", service.Price)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    }
+}
+
+<style>
+    .page-hero {
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .page-hero h1 {
+        margin-bottom: 8px;
+        font-size: clamp(1.9rem, 3vw, 2.5rem);
+    }
+
+    .staff-form {
+        background: rgba(10, 15, 30, 0.9);
+        border-radius: 22px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 20px;
+    }
+
+    .form-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: minmax(140px, 220px) minmax(0, 1fr);
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .form-row label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.6);
+        white-space: nowrap;
+    }
+
+    .form-row select,
+    .form-row input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(2, 6, 23, 0.7);
+        color: #fff;
+    }
+
+    .primary-button {
+        margin-top: 16px;
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        padding: 14px;
+        background: linear-gradient(180deg, #34d399, #10b981);
+        font-weight: 700;
+        color: #0f172a;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .service-table {
+        background: rgba(12, 17, 30, 0.95);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+</style>

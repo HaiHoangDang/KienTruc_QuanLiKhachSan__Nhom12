@@ -1,0 +1,49 @@
+@model DKS_HotelManager.Models.THUEPHONG
+
+@{
+    ViewBag.Title = "Chi Tiết Đặt Phòng";
+}
+
+<div class="container">
+    <div class="page-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #d4af37; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+        <h1>Chi Tiết Đặt Phòng <small>Luxury Hotel Chain</small></h1>
+    </div>
+
+    <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+        <dl class="dl-horizontal">
+            <dt>Mã Thuê:</dt>
+            <dd>@Model.MaThue</dd>
+
+            <dt>Mã Đặt Phòng:</dt>
+            <dd>@Model.MaDatPhong</dd>
+
+            <dt>Phòng:</dt>
+            <dd>@(Model.PHONG != null ? Model.PHONG.TenPhong : "Chưa cập nhật")</dd>
+
+            <dt>Nhân Viên:</dt>
+            <dd>@(Model.NHANVIEN != null ? Model.NHANVIEN.HoTen : "Chưa cập nhật")</dd>
+
+            <dt>Ngày Đặt:</dt>
+            <dd>@(Model.NgayDat.HasValue ? Model.NgayDat.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa cập nhật")</dd>
+
+            <dt>Ngày Vào:</dt>
+            <dd>@(Model.NgayVao.HasValue ? Model.NgayVao.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</dd>
+
+            <dt>Ngày Trả:</dt>
+            <dd>@(Model.NgayTra.HasValue ? Model.NgayTra.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</dd>
+
+            <dt>Đặt Cọc:</dt>
+            <dd>@(Model.DatCoc.HasValue ? Model.DatCoc.Value.ToString("N0") + " VNĐ" : "Chưa đặt cọc")</dd>
+
+            <dt>Trạng Thái:</dt>
+            <dd>@(string.IsNullOrEmpty(Model.TrangThai) ? "Chưa cập nhật" : Model.TrangThai)</dd>
+        </dl>
+
+        <div style="margin-top: 30px;">
+            @Html.ActionLink("Sửa", "Edit", new { id = Model.MaThue }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Xóa", "Delete", new { id = Model.MaThue }, new { @class = "btn btn-danger" })
+            @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>
+

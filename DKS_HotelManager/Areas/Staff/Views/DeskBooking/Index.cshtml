@@ -1,0 +1,360 @@
+@model DKS_HotelManager.Areas.Staff.ViewModels.DeskBookingViewModel
+@using System.Globalization
+@{
+    Layout = "~/Areas/Staff/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-hero">
+    <div>
+        <p class="eyebrow">Đặt phòng tại chỗ</p>
+        <h1>Ghi nhận khách ngay tại quầy lễ tân</h1>
+        <p>Chỉ cần tên là bắt đầu, hệ thống sẽ gợi ý khách cũ và bạn có thể bổ sung đầy đủ thông tin khi cần.</p>
+    </div>
+    <div class="hero-meta">
+        <span>Chi nhánh: @(Model.SelectedHotelName ?? "Chưa chọn")</span>
+        <span>Nhân viên: @Model.StaffName</span>
+    </div>
+</section>
+
+@if (TempData["StaffSuccess"] != null)
+{
+    <div class="feedback success">@TempData["StaffSuccess"]</div>
+}
+@if (TempData["StaffError"] != null)
+{
+    <div class="feedback error">@TempData["StaffError"]</div>
+}
+
+@if (!Model.SelectedHotelId.HasValue)
+{
+    <div class="card alert-card">
+        <p>Vui lòng chọn chi nhánh ở trên cùng để xem các phòng trống và bắt đầu thao tác.</p>
+    </div>
+}
+else
+{
+    <div class="desk-layout">
+        <section class="staff-form card">
+            <div class="form-header">
+                <h3>Đặt phòng nhanh</h3>
+                <p>Chỉ cần tên khách, phần còn lại sẽ tự động điền khi có dữ liệu tương ứng.</p>
+            </div>
+            @using (Html.BeginForm("Create", "DeskBooking", FormMethod.Post, new { area = "Staff", novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-stack">
+                    <div class="field-wrapper">
+                        <label>Họ tên khách <span>*</span></label>
+                        @Html.TextBoxFor(m => m.BookingInput.CustomerName, new { placeholder = "Nguyễn Văn A", required = "required", id = "customer-name" })
+                        @Html.ValidationMessageFor(m => m.BookingInput.CustomerName, "", new { @class = "field-validation-error" })
+                    </div>
+                    <div class="field-wrapper">
+                        <label>Phòng cần nhận <span>*</span></label>
+                        <select id="room-select" name="BookingInput.RoomId" required class="room-select">
+                            <option value="">-- Chọn phòng --</option>
+                            @foreach (var option in Model.RoomOptionsWithRates)
+                            {
+                                <option value="@option.RoomId" data-rate="@option.RatePerNight.ToString(CultureInfo.InvariantCulture)" @(option.RoomId == Model.BookingInput.RoomId ? "selected=\"selected\"" : "")>@option.Text</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(m => m.BookingInput.RoomId, "", new { @class = "field-validation-error" })
+                    </div>
+                    <div class="field-wrapper">
+                        <label>Số điện thoại</label>
+                        @Html.TextBoxFor(m => m.BookingInput.Phone, new { placeholder = "0901234567", id = "customer-phone" })
+                        @Html.ValidationMessageFor(m => m.BookingInput.Phone, "", new { @class = "field-validation-error" })
+                    </div>
+                    <div class="field-wrapper">
+                        <label>Email</label>
+                        @Html.TextBoxFor(m => m.BookingInput.Email, new { placeholder = "khach@example.com", type = "email", id = "customer-email" })
+                        @Html.ValidationMessageFor(m => m.BookingInput.Email, "", new { @class = "field-validation-error" })
+                    </div>
+                    <div class="field-wrapper">
+                        <label>CMND/CCCD/Passport</label>
+                        @Html.TextBoxFor(m => m.BookingInput.IdentityNumber, new { placeholder = "123456789", id = "customer-identity" })
+                        @Html.ValidationMessageFor(m => m.BookingInput.IdentityNumber, "", new { @class = "field-validation-error" })
+                    </div>
+                    <div class="field-wrapper">
+                        <label>Ngày nhận</label>
+                        @Html.TextBoxFor(m => m.BookingInput.CheckIn, "{0:yyyy-MM-dd}", new { type = "date", required = "required", id = "booking-check-in" })
+                        @Html.ValidationMessageFor(m => m.BookingInput.CheckIn, "", new { @class = "field-validation-error" })
+                    </div>
+                    <div class="field-wrapper">
+                        <label>Ngày trả</label>
+                        @Html.TextBoxFor(m => m.BookingInput.CheckOut, "{0:yyyy-MM-dd}", new { type = "date", required = "required", id = "booking-check-out" })
+                        @Html.ValidationMessageFor(m => m.BookingInput.CheckOut, "", new { @class = "field-validation-error" })
+                    </div>
+                </div>
+
+                <button class="primary-button" type="submit">Đặt phòng ngay</button>
+            }
+        </section>
+
+        <aside class="customer-panel card">
+            <div class="panel-header">
+                <h4>Tìm khách có sẵn</h4>
+                <p>Nhập tên để hệ thống gợi ý và đưa thông tin về form đặt phòng.</p>
+            </div>
+            <div class="search-row">
+                <input id="customer-search" type="text" placeholder="Nhập họ tên khách..." />
+                <button id="customer-search-btn" type="button">Tìm kiếm</button>
+            </div>
+            <div class="search-results" id="customer-search-results">
+                <p class="empty-note">Chưa có kết quả.</p>
+            </div>
+            <div class="register-card">
+                <h5>Đăng ký khách mới</h5>
+                <p>Nếu không tìm được khách cũ, hãy điền thêm các thông tin cần thiết phía trên và trước khi đặt phòng.</p>
+            </div>
+            <div class="panel-cta">
+                <button type="button" class="primary-button block">Đặt phòng ngay</button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        (function () {
+            const searchInput = document.getElementById("customer-search");
+            const searchBtn = document.getElementById("customer-search-btn");
+            const resultContainer = document.getElementById("customer-search-results");
+
+            function renderResults(items) {
+                resultContainer.innerHTML = "";
+                if (!items || !items.length) {
+                    resultContainer.innerHTML = "<p class=\"empty-note\">Không tìm thấy khách phù hợp.</p>";
+                    return;
+                }
+
+                const list = document.createElement("div");
+                list.className = "results-list";
+                items.forEach(item => {
+                    const card = document.createElement("button");
+                    card.type = "button";
+                    card.className = "result-card";
+                    card.innerHTML = `<strong>${item.TKH}</strong><span>${item.SDT || "Chưa có"} · ${item.CMND_CCCD || "Chưa có"}</span>`;
+                    card.addEventListener("click", () => fillForm(item));
+                    list.appendChild(card);
+                });
+                resultContainer.appendChild(list);
+            }
+
+            function fillForm(item) {
+                document.getElementById("customer-name").value = item.TKH;
+                document.getElementById("customer-phone").value = item.SDT || "";
+                document.getElementById("customer-email").value = item.Email || "";
+                document.getElementById("customer-identity").value = item.CMND_CCCD || "";
+            }
+
+            searchBtn.addEventListener("click", function () {
+                const query = searchInput.value.trim();
+                if (!query) {
+                    renderResults([]);
+                    return;
+                }
+
+                fetch(`@Url.Action("SearchCustomer", "DeskBooking", new { area = "Staff" })?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => renderResults(data.items))
+                    .catch(() => {
+                        resultContainer.innerHTML = "<p class=\"empty-note\">Không thể kết nối tới server.</p>";
+                    });
+            });
+        })();
+    </script>
+
+    <style>
+        .desk-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(250px, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .form-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(2,6,23,0.65));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .field-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-grid label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-grid span {
+            color: #f97316;
+        }
+
+        .form-stack input,
+        .form-stack select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            min-height: 50px;
+            font-weight: 600;
+        }
+
+        .form-stack select.room-select {
+            background: rgba(15, 23, 42, 0.65);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image:
+                linear-gradient(45deg, transparent 50%, #94a3b8 50%),
+                linear-gradient(135deg, #94a3b8 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(50% - 1px), calc(100% - 14px) calc(50% - 1px);
+            background-size: 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .customer-panel {
+            background: rgba(12, 17, 30, 0.95);
+            border-radius: 24px;
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .customer-panel .search-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .customer-panel input {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(2, 6, 23, 0.7);
+            color: #fff;
+        }
+
+        .customer-panel button {
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: none;
+            background: #38bdf8;
+            color: #0f172a;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #0ea5e9;
+            color: #0f172a;
+            border: none;
+            border-radius: 14px;
+            padding: 12px 24px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.35);
+        }
+
+        .primary-button.block {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 12px;
+            color: #e2e8f0;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .result-card span {
+            display: block;
+            font-size: 12px;
+            color: rgba(148, 163, 184, 0.9);
+            margin-top: 4px;
+        }
+
+        .register-card {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px dashed rgba(56, 189, 248, 0.5);
+            font-size: 13px;
+            color: rgba(226, 232, 240, 0.85);
+        }
+
+        .panel-cta {
+            margin-top: 18px;
+        }
+
+        .alert-card {
+            margin-bottom: 20px;
+        }
+
+        .empty-note {
+            font-size: 13px;
+            color: rgba(226, 232, 240, 0.7);
+        }
+
+        .field-validation-error {
+            display: block;
+            color: #f87171;
+            font-size: 1.25rem;
+            margin-top: 6px;
+            min-height: 18px;
+            line-height: 1.25;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        @@media (max-width: 980px) {
+            .desk-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .customer-panel {
+                order: 2;
+            }
+
+            .staff-form {
+                order: 1;
+            }
+        }
+    </style>
+}

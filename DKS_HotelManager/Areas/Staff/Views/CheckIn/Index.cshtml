@@ -1,0 +1,448 @@
+@model DKS_HotelManager.Areas.Staff.ViewModels.CheckInViewModel
+@{
+    Layout = "~/Areas/Staff/Views/Shared/_Layout.cshtml";
+    var hasReservations = Model.ReservedBookings != null && Model.ReservedBookings.Any();
+    Func<DateTime?, string> displayDate = date => date.HasValue ? date.Value.ToString("dd/MM/yyyy") : "Chưa xác định";
+    Func<DateTime?, string> displayDateTime = date => date.HasValue ? date.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa rõ";
+    Func<decimal, string> formatCurrency = amount => string.Format("{0:N0} đ", amount);
+}
+
+<section class="page-hero gradient-hero">
+    <div>
+        <p class="eyebrow">Nhận phòng</p>
+        <h1>Quản lý booking đã đặt từ website</h1>
+        <p>Chỉ hiển thị những phòng đã được đặt trước trên nền web. Chọn chi nhánh để thấy danh sách riêng theo khách sạn.</p>
+        <div class="hero-actions">
+            <button class="secondary-button" type="button" data-scroll-to-list="true">Xem danh sách</button>
+        </div>
+    </div>
+    <div class="hero-meta">
+        <span>Chi nhánh: @(Model.SelectedHotelName ?? "Chưa chọn")</span>
+        <span>Nhân viên: @Model.StaffName</span>
+        <span>Lưu ý: Danh sách chỉ chứa phòng của chi nhánh hiện tại.</span>
+    </div>
+</section>
+
+@if (TempData["StaffSuccess"] != null)
+{
+    <div class="feedback success">@TempData["StaffSuccess"]</div>
+}
+@if (TempData["StaffError"] != null)
+{
+    <div class="feedback error">@TempData["StaffError"]</div>
+}
+
+@if (!Model.SelectedHotelId.HasValue)
+{
+    <div class="card alert-card">
+        <p>Vui lòng chọn chi nhánh để xem và thao tác với những booking đã đặt trước.</p>
+    </div>
+    }
+    else
+    {
+        if (!hasReservations)
+        {
+        <div class="card alert-card">
+            <p>Hiện không có phòng nào đang ở trạng thái đã đặt trước cho chi nhánh này.</p>
+        </div>
+    }
+    else
+    {
+        <section class="branch-note card muted-card">
+            <p>Danh sách chỉ thu thập thông tin đặt phòng từ website (booking). Mỗi mục có thể chỉnh sửa thông tin hoặc nhận trực tiếp.</p>
+        </section>
+
+        <section class="reservation-grid" id="reservation-list">
+            @foreach (var booking in Model.ReservedBookings)
+            {
+                <article class="reservation-card">
+                    <header>
+                        <div>
+                            <p class="room-code">Phòng @booking.RoomCode</p>
+                            <h3>@booking.RoomName</h3>
+                            <small>@booking.BookingCode</small>
+                        </div>
+                        <span class="status-pill">@booking.Status</span>
+                    </header>
+
+                    <div class="reservation-meta">
+                        <div>
+                            <p>Khách hàng</p>
+                            <strong>@booking.GuestName</strong>
+                        </div>
+                        <div>
+                            <p>Thời gian đặt</p>
+                            <strong>@displayDateTime(booking.BookingTime)</strong>
+                        </div>
+                        <div>
+                            <p>Thời gian sử dụng</p>
+                            <strong>
+                                @displayDate(booking.CheckIn)
+                                <span class="range-separator">→</span>
+                                @displayDate(booking.CheckOut)
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="reservation-pricing">
+                        <div>
+                            <p>Tiền tạm tính</p>
+                            <strong>@formatCurrency(booking.EstimatedTotal)</strong>
+                        </div>
+                        <div>
+                            <p>Đặt cọc</p>
+                            <strong>@formatCurrency(booking.Deposit)</strong>
+                        </div>
+                    </div>
+
+                    <div class="reservation-actions">
+                        <form action="@Url.Action("Confirm", "CheckIn", new { area = "Staff" })" method="post" class="action-form">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="BookingId" value="@booking.BookingId" />
+                            <button class="primary-button" type="submit">Nhận phòng</button>
+                        </form>
+
+                        <details class="edit-panel">
+                            <summary>Chỉnh sửa thời gian hoặc đặt cọc</summary>
+                            <form action="@Url.Action("UpdateReservation", "CheckIn", new { area = "Staff" })" method="post" class="edit-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="BookingId" value="@booking.BookingId" />
+                                <div class="edit-grid">
+                                    <label>
+                                        <span>Ngày nhận</span>
+                                        <input type="date" name="CheckIn" value='@booking.CheckIn?.ToString("yyyy-MM-dd")' required />
+                                    </label>
+                                    <label>
+                                        <span>Ngày trả</span>
+                                        <input type="date" name="CheckOut" value='@booking.CheckOut?.ToString("yyyy-MM-dd")' required />
+                                    </label>
+                                    <label>
+                                        <span>Đặt cọc (VNĐ)</span>
+                                        <input type="number" name="Deposit" step="0.01" value='@booking.Deposit.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)' required />
+                                    </label>
+                                </div>
+                                <button class="ghost-button" type="submit">Lưu thay đổi</button>
+                            </form>
+                        </details>
+
+                        <details class="change-room-panel">
+                            <summary>Đổi phòng cho khách</summary>
+                            @if (Model.AvailableRoomOptions != null && Model.AvailableRoomOptions.Any())
+                            {
+                                using (Html.BeginForm("ChangeRoom", "CheckIn", new { area = "Staff" }, FormMethod.Post, new { @class = "change-room-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="BookingId" value="@booking.BookingId" />
+                                    <label>
+                                        <span>Phòng mới</span>
+                                        <select name="TargetRoomId" required>
+                                            <option value="">-- Chọn phòng mới --</option>
+                                            @foreach (var option in Model.AvailableRoomOptions)
+                                            {
+                                                <option value="@option.Value">@option.Text</option>
+                                            }
+                                        </select>
+                                    </label>
+                                    <button class="ghost-button" type="submit">Xác nhận đổi phòng</button>
+                                }
+                            }
+                            else
+                            {
+                                <p>Hiện không có phòng trống để đổi.</p>
+                            }
+                        </details>
+                    </div>
+                </article>
+            }
+        </section>
+    }
+}
+
+<style>
+    .page-hero {
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .gradient-hero {
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(15, 23, 42, 0.9));
+    }
+
+    .hero-actions {
+        margin-top: 16px;
+    }
+
+    .secondary-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(250, 204, 21, 0.6);
+        background: #facc15;
+        color: #0f172a;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .secondary-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 28px rgba(250, 204, 21, 0.35);
+    }
+
+    .hero-meta {
+        display: grid;
+        gap: 6px;
+    }
+
+    .feedback {
+        margin-bottom: 16px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+
+    .feedback.success {
+        background: #dcfce7;
+        color: #14532d;
+    }
+
+    .feedback.error {
+        background: #fee2e2;
+        color: #7f1d1d;
+    }
+
+    .reservation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 18px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .reservation-card {
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(10, 15, 30, 0.95);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .reservation-card header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .reservation-card h3 {
+        margin: 4px 0;
+        font-size: 1.4rem;
+    }
+
+    .room-code {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0;
+    }
+
+    .status-pill {
+        padding: 6px 12px;
+        border-radius: 50px;
+        background: rgba(14, 165, 233, 0.2);
+        color: #38bdf8;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .reservation-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px 20px;
+    }
+
+    .reservation-meta p {
+        margin: 0;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .reservation-meta strong {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .range-separator {
+        margin: 0 4px;
+    }
+
+    .reservation-pricing {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .reservation-pricing p {
+        margin: 0;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+    }
+
+    .reservation-pricing strong {
+        font-size: 1.1rem;
+    }
+
+    .reservation-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .action-form {
+        display: flex;
+    }
+
+    .primary-button {
+        flex: 1;
+        padding: 14px 20px;
+        background: #38bdf8;
+        color: #0f172a;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(8, 145, 178, 0.4);
+    }
+
+    .edit-panel summary {
+        cursor: pointer;
+        font-weight: 600;
+        padding: 10px 0;
+        list-style: none;
+        outline: none;
+    }
+
+    .change-room-panel {
+        margin-top: 8px;
+    }
+
+    .change-room-panel summary {
+        cursor: pointer;
+        font-weight: 600;
+        padding: 10px 0;
+        list-style: none;
+        outline: none;
+    }
+
+    .change-room-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 8px;
+    }
+
+    .change-room-form label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .change-room-form select {
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(2, 6, 23, 0.7);
+        color: #fff;
+    }
+
+    .edit-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 8px;
+    }
+
+    .edit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 10px;
+    }
+
+    .edit-grid label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .edit-grid input {
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(2, 6, 23, 0.7);
+        color: #fff;
+    }
+
+    .ghost-button {
+        align-self: flex-start;
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: transparent;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .card.alert-card,
+    .muted-card {
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: 20px;
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        margin-bottom: 20px;
+    }
+</style>
+
+<script>
+    (function () {
+        const target = document.querySelector("[data-scroll-to-list]");
+        if (!target) {
+            return;
+        }
+        target.addEventListener("click", function () {
+            const list = document.getElementById("reservation-list");
+            if (list) {
+                list.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+    })();
+</script>

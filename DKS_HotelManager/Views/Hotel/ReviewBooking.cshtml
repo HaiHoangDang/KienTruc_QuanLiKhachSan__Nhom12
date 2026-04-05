@@ -1,0 +1,818 @@
+@model DKS_HotelManager.Models.ViewModels.HotelBookingInvoiceViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "Xác nhận đặt phòng " + Model.HotelName;
+
+    var checkInText = Model.BookingForm.CheckIn.HasValue
+
+        ? Model.BookingForm.CheckIn.Value.ToString("dd/MM/yyyy")
+
+        : "Chưa chọn";
+
+    var checkOutText = Model.BookingForm.CheckOut.HasValue
+
+        ? Model.BookingForm.CheckOut.Value.ToString("dd/MM/yyyy")
+
+        : "Chưa chọn";
+
+    var remaining = Model.GrandTotal - Model.DepositAmount;
+
+    var paymentMessage = ViewBag.PaymentMessage as string;
+    var paymentSuccess = (bool?)(ViewBag.PaymentSuccess ?? false) == true;
+
+    var checkInForUrl = Model.BookingForm.CheckIn.HasValue
+
+        ? Model.BookingForm.CheckIn.Value.ToString("yyyy-MM-ddTHH:mm:ss")
+
+        : DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+
+    var checkOutForUrl = Model.BookingForm.CheckOut.HasValue
+
+        ? Model.BookingForm.CheckOut.Value.ToString("yyyy-MM-ddTHH:mm:ss")
+
+        : DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+
+}
+
+@helper BookingHiddenFields()
+{
+    @Html.HiddenFor(m => m.BookingForm.HotelId)
+    @Html.HiddenFor(m => m.BookingForm.RoomId)
+    @Html.HiddenFor(m => m.BookingForm.CheckIn)
+    @Html.HiddenFor(m => m.BookingForm.CheckOut)
+    @Html.HiddenFor(m => m.BookingForm.Guests)
+    @Html.HiddenFor(m => m.BookingForm.Email)
+    @Html.HiddenFor(m => m.BookingForm.CustomerName)
+    @Html.HiddenFor(m => m.BookingForm.Phone)
+    @Html.HiddenFor(m => m.BookingForm.Address)
+    @Html.HiddenFor(m => m.BookingForm.IdNumber)
+    @Html.HiddenFor(m => m.BookingForm.Notes)
+    @Html.HiddenFor(m => m.BookingForm.Deposit)
+    if (Model.BookingForm.SelectedServices != null)
+    {
+        foreach (var serviceId in Model.BookingForm.SelectedServices)
+        {
+            <input type="hidden" name="BookingForm.SelectedServices" value="@serviceId" />
+        }
+    }
+}
+
+
+<style>
+
+    .review-page {
+
+        padding: 40px 60px 80px;
+
+        background: linear-gradient(180deg, #060b1a 0%, #0b1227 100%);
+
+        min-height: 100vh;
+
+        color: #e2e8f0;
+
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+
+    }
+
+
+
+    .review-hero {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 32px;
+
+        background: rgba(15, 23, 42, 0.75);
+
+        border: 1px solid rgba(226, 232, 240, 0.1);
+
+        border-radius: 28px;
+
+        padding: 28px;
+
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+
+        margin-bottom: 32px;
+
+    }
+
+
+
+    .hero-text h1 {
+
+        font-size: 34px;
+
+        letter-spacing: 0.8px;
+
+        margin-bottom: 12px;
+
+    }
+
+
+
+    .hero-text .lead {
+
+        color: #cbd5f5;
+
+        max-width: 560px;
+
+        line-height: 1.6;
+
+    }
+
+
+
+    .hero-card {
+
+        background: rgba(255, 213, 79, 0.12);
+
+        border: 1px solid rgba(255, 213, 79, 0.4);
+
+        border-radius: 24px;
+
+        padding: 24px;
+
+        width: 280px;
+
+        text-align: center;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 6px;
+
+    }
+
+
+
+    .hero-card strong {
+
+        font-size: 32px;
+
+        color: #facc15;
+
+    }
+
+
+
+    .hero-card__pill {
+
+        background: rgba(15, 23, 42, 0.6);
+
+        padding: 6px 12px;
+
+        border-radius: 999px;
+
+        font-size: 13px;
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .payment-banner {
+
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+
+        border: 1px solid rgba(34, 197, 94, 0.4);
+
+        padding: 14px 16px;
+
+        border-radius: 16px;
+
+        margin-top: 18px;
+
+        color: #bbf7d0;
+
+        font-weight: 500;
+
+    }
+
+
+
+    .review-grid {
+
+        display: grid;
+
+        grid-template-columns: 2fr 1fr;
+
+        gap: 28px;
+
+    }
+
+
+
+    .review-panel,
+
+    .review-summary {
+
+        background: rgba(15, 23, 42, 0.9);
+
+        border-radius: 28px;
+
+        border: 1px solid rgba(148, 163, 184, 0.2);
+
+        padding: 28px;
+
+        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.45);
+
+    }
+
+
+
+    .review-panel header {
+
+        font-size: 18px;
+
+        font-weight: 600;
+
+        margin-bottom: 20px;
+
+        letter-spacing: 0.3px;
+
+    }
+
+
+
+    .panel-row {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        padding: 10px 0;
+
+        border-bottom: 1px solid rgba(226, 232, 240, 0.08);
+
+    }
+
+
+
+    .panel-row:last-child {
+
+        border-bottom: none;
+
+    }
+
+
+
+    .panel-row strong {
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .sub-header {
+
+        margin-top: 18px;
+
+        font-weight: 600;
+
+        color: #fcd34d;
+
+    }
+
+
+
+    .service-list {
+
+        list-style: none;
+
+        padding: 0;
+
+        margin: 12px 0 0;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+
+
+
+    .service-item {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        padding-bottom: 6px;
+
+        border-bottom: 1px solid rgba(226, 232, 240, 0.08);
+
+    }
+
+
+
+    .service-item:last-child {
+
+        border-bottom: none;
+
+    }
+
+
+
+    .review-summary .summary-card {
+
+        margin-bottom: 18px;
+
+        background: rgba(2, 6, 23, 0.8);
+
+        border: 1px solid rgba(226, 232, 240, 0.08);
+
+        border-radius: 20px;
+
+        padding: 20px;
+
+    }
+
+
+
+    .summary-line {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        padding: 8px 0;
+
+        font-size: 15px;
+
+    }
+
+
+
+    .summary-line.highlight span {
+
+        color: #fde68a;
+
+    }
+
+
+
+    .summary-line strong {
+
+        color: #f8fafc;
+
+    }
+
+
+
+    .summary-card--cta {
+
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(59, 130, 246, 0.25));
+
+        border: none;
+
+    }
+
+
+
+    .summary-total {
+
+        font-size: 20px;
+
+        font-weight: 600;
+
+        margin-bottom: 16px;
+
+    }
+
+
+
+    .summary-actions {
+
+        display: flex;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+
+    .btn {
+
+        padding: 14px 28px;
+
+        border-radius: 999px;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        text-align: center;
+
+        text-decoration: none;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border: none;
+
+        cursor: pointer;
+
+    }
+
+
+
+    .btn-primary {
+
+        background: linear-gradient(135deg, #facc15, #f97316);
+
+        color: #0f172a;
+
+    }
+
+
+
+    .btn-outline {
+
+        border: 1px solid rgba(226, 232, 240, 0.6);
+
+        color: #f8fafc;
+
+        background: transparent;
+
+    }
+
+
+
+    .muted {
+
+        color: rgba(226, 232, 240, 0.7);
+
+    }
+
+
+
+    @@media (max-width: 1024px) {
+
+        .review-grid {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+
+        .review-hero {
+
+            flex-direction: column;
+
+        }
+
+    }
+
+
+
+    @@media (max-width: 640px) {
+
+        .review-page {
+
+            padding: 20px;
+
+        }
+
+
+
+        .review-panel,
+
+        .review-summary,
+
+        .review-hero {
+
+            padding: 18px;
+
+        }
+
+
+
+        .summary-actions {
+
+            flex-direction: column;
+
+        }
+
+    }
+
+</style>
+
+
+
+<div class="review-page">
+
+    <div class="review-hero">
+
+        <div class="hero-text">
+
+            <p class="eyebrow">Chuỗi khách sạn DKS</p>
+
+            <h1>Xác nhận đặt phòng</h1>
+
+            <p class="lead">Chúng tôi đã ghi nhận thông tin phòng và dịch vụ bạn chọn. Xác nhận thanh toán để giữ chỗ trước khi khách sạn đóng cọc.</p>
+
+            @if (!string.IsNullOrWhiteSpace(paymentMessage))
+
+            {
+
+                <div class="payment-banner">@paymentMessage</div>
+
+            }
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="hero-card__title">Đặt cọc 30%</div>
+
+            <strong>@Model.DepositAmount.ToString("N0")₫</strong>
+
+            <p class="hero-card__sub">Tổng đơn: @Model.GrandTotal.ToString("N0")₫</p>
+
+            <div class="hero-card__pill">Còn lại @remaining.ToString("N0")₫ thanh toán tại khách sạn</div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="review-grid">
+
+        <section class="review-panel">
+
+            <header>Chi tiết đặt phòng</header>
+
+            <div class="panel-row">
+
+                <span>Ngày nhận phòng</span>
+
+                <strong>@checkInText</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Ngày trả phòng</span>
+
+                <strong>@checkOutText</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Số đêm</span>
+
+                <strong>@Model.Nights đêm</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Số khách</span>
+
+                <strong>@Model.BookingForm.Guests khách</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Phòng</span>
+
+                <strong>@Model.RoomName</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Giá mỗi đêm</span>
+
+                <strong>@Model.RoomPricePerNight.ToString("N0")₫</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Tổng tiền phòng</span>
+
+                <strong>@Model.RoomTotal.ToString("N0")₫</strong>
+
+            </div>
+
+
+
+            <div class="sub-header">Dịch vụ bổ sung</div>
+
+            @if (Model.Services.Any())
+
+            {
+
+                <ul class="service-list">
+
+                    @foreach (var service in Model.Services)
+
+                    {
+
+                        <li class="service-item">
+
+                            <span>@service.Name</span>
+
+                            <span>@service.Price.ToString("N0")₫</span>
+
+                        </li>
+
+                    }
+
+                </ul>
+
+            }
+
+            else
+
+            {
+
+                <p class="muted">Không có dịch vụ phụ.</p>
+
+            }
+
+
+
+            <div class="sub-header">Thông tin khách hàng</div>
+
+            <div class="panel-row">
+
+                <span>Họ và tên</span>
+
+                <strong>@Model.BookingForm.CustomerName</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Số điện thoại</span>
+
+                <strong>@Model.BookingForm.Phone</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Địa chỉ</span>
+
+                <strong>@Model.BookingForm.Address</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>CMND/CCCD</span>
+
+                <strong>@Model.BookingForm.IdNumber</strong>
+
+            </div>
+
+            <div class="panel-row">
+
+                <span>Ghi chú</span>
+
+                <strong>@(string.IsNullOrWhiteSpace(Model.BookingForm.Notes) ? "Không có" : Model.BookingForm.Notes)</strong>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="review-summary">
+
+            <div class="summary-card">
+
+                <div class="summary-line">
+
+                    <span>Tổng tiền phòng</span>
+
+                    <strong>@Model.RoomTotal.ToString("N0")₫</strong>
+
+                </div>
+
+                <div class="summary-line">
+
+                    <span>Dịch vụ</span>
+
+                    <strong>@Model.ServicesTotal.ToString("N0")₫</strong>
+
+                </div>
+
+                <div class="summary-line highlight">
+
+                    <span>Đặt cọc 30%</span>
+
+                    <strong>@Model.DepositAmount.ToString("N0")₫</strong>
+
+                </div>
+
+                <div class="summary-line">
+
+                    <span>Còn lại thanh toán</span>
+
+                    <strong>@remaining.ToString("N0")₫</strong>
+
+                </div>
+
+            </div>
+
+            <div class="summary-card summary-card--cta">
+
+                <div class="summary-total">Thanh toán trước @Model.DepositAmount.ToString("N0")₫</div>
+
+                <div class="summary-actions">
+
+                    @if (paymentSuccess)
+                    {
+                        <span class="payment-banner">Đã thanh toán qua VNPAY. Chúng tôi sẽ liên hệ để xác nhận chi tiết.</span>
+                        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Về trang chủ</a>
+                    }
+                    else
+                    {
+                        {
+                            using (Html.BeginForm("PayWithVnPay", "Hotel", FormMethod.Post, new { @class = "review-actions-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @BookingHiddenFields()
+                                <button type="submit" class="btn btn-primary">
+                                    Thanh toán qua VNPAY
+                                </button>
+                            }
+                        }
+
+                        {
+                            using (Html.BeginForm("BookRoom", "Hotel", FormMethod.Post, new { @class = "review-actions-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @BookingHiddenFields()
+                                <button type="submit" class="btn btn-outline">
+                                    Đặt phòng, thanh toán sau
+                                </button>
+                            }
+                        }
+
+                        <a class="btn btn-outline"
+
+                           href="@Url.Action("Book", "Hotel", new
+
+                           {
+
+                               id = Model.BookingForm.HotelId,
+
+                               roomId = Model.BookingForm.RoomId,
+
+                               checkIn = Model.BookingForm.CheckIn.HasValue ? Model.BookingForm.CheckIn.Value.ToString("yyyy-MM-dd") : null,
+
+                               checkOut = Model.BookingForm.CheckOut.HasValue ? Model.BookingForm.CheckOut.Value.ToString("yyyy-MM-dd") : null,
+
+                               guests = Model.BookingForm.Guests,
+
+                               customerName = Model.BookingForm.CustomerName,
+
+                               phone = Model.BookingForm.Phone,
+
+                               address = Model.BookingForm.Address,
+
+                               idNumber = Model.BookingForm.IdNumber,
+
+                               notes = Model.BookingForm.Notes,
+
+                               selectedServices = Model.BookingForm.SelectedServices
+
+                           })">
+
+                            Chỉnh sửa thông tin
+
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,747 @@
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\DoAn\DoAnKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\programming\Do_AN\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\Lập trình Web\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+D:\programming\dự án\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\HotelManagementSystem.pdb
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.exe.config
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csc.rsp
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.exe.config
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\csi.rsp
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Console.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.exe.config
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\vbc.rsp
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\WebGrease.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Helpers.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Mvc.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Optimization.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.Razor.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Newtonsoft.Json.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+C:\Study\Project Manage IT\Báo cáo môn học\DKS_HotelManager\DKS_HotelManager\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.AssemblyReference.cache
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\obj\Debug\DKS_HotelManager.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\obj\Debug\HotelManagementSystem.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\obj\Debug\HotelManagementSystem.pdb
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\HotelManagementSystem.dll.config
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\HotelManagementSystem.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\HotelManagementSystem.pdb
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\csc.exe
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\csc.exe.config
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\csc.rsp
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\csi.exe
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\csi.exe.config
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\csi.rsp
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.AppContext.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Console.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.IO.Compression.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Net.Http.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Net.Sockets.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.ValueTuple.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\vbc.exe
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\vbc.exe.config
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\vbc.rsp
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Antlr3.Runtime.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\EntityFramework.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\EntityFramework.SqlServer.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Newtonsoft.Json.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Helpers.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Mvc.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Optimization.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Razor.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.WebPages.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\WebGrease.dll
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\EntityFramework.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\EntityFramework.SqlServer.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Helpers.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Mvc.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Optimization.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.Razor.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.WebPages.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Newtonsoft.Json.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Antlr3.Runtime.pdb
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Administrator\source\repos\dsd-hotel-system\DKS_HotelManager\obj\Debug\DKS_Hote.A657191F.Up2Date

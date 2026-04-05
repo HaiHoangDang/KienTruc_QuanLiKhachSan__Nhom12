@@ -1,0 +1,194 @@
+﻿@model DKS_HotelManager.Models.ViewModels.ContactFormViewModel
+@using DKS_HotelManager.Helpers
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var success = TempData["ContactSuccess"] as string;
+    var error = TempData["ContactError"] as string;
+}
+
+<style>
+    .contact-hero {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.92), rgba(22, 33, 62, 0.85)), url('@Url.Content("~/Images/hotel_2.jpg")');
+        background-size: cover;
+        background-position: center;
+        height: 48vh;
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        margin: -30px 0 40px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.18), transparent 40%),
+                    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.12), transparent 35%);
+    }
+
+    .contact-hero__content { position: relative; z-index: 1; max-width: 720px; padding: 0 16px; }
+    .contact-hero__eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(212, 175, 55, 0.16); color: #f1e9c9; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; font-size: 12px; }
+    .contact-hero h1 { margin: 14px 0 12px; font-size: 3.2em; font-weight: 800; letter-spacing: 1px; color: #f9f7f1; }
+    .contact-hero p { margin: 0; font-size: 1.1em; color: #d9dbe9; line-height: 1.6; }
+
+    .contact-section { padding: 10px 0 70px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .info-card { background: #fff; border: 1px solid #e6e7f0; border-radius: 16px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04); }
+    .info-icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(212, 175, 55, 0.06)); color: #b68c1e; font-size: 18px; }
+    .info-content h3 { margin: 0 0 4px; font-size: 16px; color: #111827; }
+    .info-content p { margin: 0; color: #4b5563; font-size: 14px; line-height: 1.5; }
+    .info-content .muted { display: block; color: #9ca3af; font-size: 12px; margin-top: 4px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; }
+    .contact-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 18px; padding: 22px; box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06); }
+    .contact-card h2 { margin: 0 0 10px; font-weight: 700; color: #111827; }
+    .contact-card p { margin: 0 0 18px; color: #4b5563; line-height: 1.6; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 12px; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-weight: 600; color: #374151; font-size: 14px; }
+
+    .form-group input, .form-group textarea, .form-group select { border: 1px solid #d1d5db; border-radius: 12px; padding: 12px 14px; font-size: 14px; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #d4af37; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
+
+    .contact-btn { align-self: flex-start; background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%); color: #fff; border: none; border-radius: 12px; padding: 12px 18px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 26px rgba(212, 175, 55, 0.25); transition: transform 0.15s ease, box-shadow 0.2s ease; }
+    .contact-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(212, 175, 55, 0.3); }
+    .contact-btn:active { transform: translateY(0); }
+    .form-note { margin: 6px 0 0; font-size: 13px; color: #6b7280; }
+    .validation-summary { margin-bottom: 8px; color: #b91c1c; font-weight: 600; }
+    .field-error { color: #b91c1c; font-weight: 600; }
+    .alert { padding: 10px 14px; border-radius: 10px; margin-bottom: 12px; font-weight: 600; }
+    .alert-success { background: #dcfce7; color: #14532d; border: 1px solid #86efac; }
+    .alert-error { background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5; }
+
+    .contact-list { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 10px; }
+    .contact-list li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid #e5e7eb; }
+    .contact-list i { color: #b68c1e; font-size: 16px; width: 22px; text-align: center; }
+
+    .map-box { margin-top: 12px; border: 1px dashed #d1d5db; border-radius: 14px; padding: 16px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(17, 24, 39, 0.04)); color: #1f2937; }
+    .map-box strong { display: block; margin-bottom: 6px; color: #111827; }
+
+    .hours { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 10px; }
+    .hours span { display: inline-block; padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e7eb; color: #374151; background: #fafafa; }
+
+    @@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="contact-hero">
+    <div class="contact-hero__content">
+        <div class="contact-hero__eyebrow"><i class="fas fa-circle"></i> Liên hệ nhanh</div>
+        <h1>Liên hệ với chúng tôi</h1>
+        <p>Đội ngũ hỗ trợ luôn sẵn sàng phục vụ 24/7; hãy gọi hotline hoặc gửi email để được tư vấn trực tiếp.</p>
+    </div>
+</div>
+
+<div class="contact-section container">
+    <div class="info-grid">
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="info-content">
+                <h3>Hotline</h3>
+                <p>0374232805 (Đặng Hoàng Hải)</p>
+                <span class="muted">Luôn trực 24/7</span>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+            <div class="info-content">
+                <h3>Email</h3>
+                <p>2324802010209@student.tdmu.edu.vn</p>
+                <span class="muted">Phản hồi trong vòng 12 giờ</span>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="info-content">
+                <h3>Nơi liên hệ</h3>
+                <p>Trường Đại học Thủ Dầu Một<br />
+                   06 Trần Văn Ơn, Phú Hòa, Thủ Dầu Một, Bình Dương</p>
+                <span class="muted">Tiếp đón khách từ thứ Hai đến Chủ nhật</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-grid">
+        <div class="contact-card">
+            <h2>Gửi yêu cầu</h2>
+            <p>Hãy để lại thông tin và chúng tôi sẽ phản hồi nhanh chóng theo yêu cầu của bạn.</p>
+
+            @if (!string.IsNullOrWhiteSpace(success))
+            {
+                <div class="alert alert-success">@success</div>
+            }
+            @if (!string.IsNullOrWhiteSpace(error))
+            {
+                <div class="alert alert-error">@error</div>
+            }
+
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "contact-form", novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "validation-summary" })
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Họ và tên</label>
+                        @Html.TextBoxFor(m => m.FullName, new { placeholder = "Nhập họ tên", required = "required" })
+                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "field-error" })
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { type = "email", placeholder = "vd: ban@email.com", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-error" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        @Html.TextBoxFor(m => m.Phone, new { type = "tel", placeholder = "(+84) 91 234 5678" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "field-error" })
+                    </div>
+                    <div class="form-group">
+                        <label>Chủ đề</label>
+                        @Html.TextBoxFor(m => m.Subject, new { placeholder = "Đặt phòng / Hợp tác / Phản hồi / Khác", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "field-error" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nội dung</label>
+                    @Html.TextAreaFor(m => m.Message, 4, 40, new { placeholder = "Cho chúng tôi biết bạn cần gì", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Message, "", new { @class = "field-error" })
+                </div>
+                <button type="submit" class="contact-btn"><i class="fas fa-paper-plane"></i> Gửi thông tin</button>
+                <p class="form-note">Sau khi gửi, hệ thống sẽ gửi email xác nhận đến bạn.</p>
+            }
+        </div>
+
+        <div class="contact-card">
+            <h2>Thông tin liên hệ trực tiếp</h2>
+            <p>Tất cả các kênh trên đều được giám sát bởi đội ngũ của khoa Công nghệ thông tin, Đại học Thủ Dầu Một.</p>
+            <ul class="contact-list">
+                <li><i class="fas fa-map-marker-alt"></i> <div><strong>Địa chỉ</strong><br /><span style="color:#4b5563;">06 Trần Văn Ơn, Phú Hòa, Thủ Dầu Một, Bình Dương</span></div></li>
+                <li><i class="fas fa-phone-alt"></i> <div><strong>Hotline chính</strong><br /><span style="color:#4b5563;">0374232805</span></div></li>
+                <li><i class="fas fa-envelope"></i> <div><br /><span style="color:#4b5563;">2324802010209@student.tdmu.edu.vn</span><br /><br /></div></li>
+            </ul>
+
+            <div class="map-box">
+                <strong>Thăm trực tiếp</strong>
+                Trường Đại học Thủ Dầu Một<br />
+                Khuôn viên số 06 Trần Văn Ơn
+            </div>
+
+            <div class="hours">
+                <span><strong>Giờ làm việc</strong><br />Thứ Hai - Chủ nhật: 7:30 - 21:00</span>
+                <span><strong>Hỗ trợ</strong><br />Hotline/Email hoạt động 24/7</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,552 @@
+@{
+    Layout = null;
+    Response.Charset = "utf-8";
+    Response.ContentEncoding = System.Text.Encoding.UTF8;
+    var activeSection = ViewBag.ActiveSection as string ?? "Overview";
+    var navItems = new[]
+    {
+        new { Action = "Index", Controller = "Operations", Label = "Tổng quan phòng", Section = "Overview" },
+        new { Action = "Index", Controller = "DeskBooking", Label = "Đặt phòng tại quầy", Section = "DeskBooking" },
+        new { Action = "Index", Controller = "ServicePrebooking", Label = "Đặt trước dịch vụ", Section = "ServicePrebooking" },
+        new { Action = "Index", Controller = "CheckIn", Label = "Nhận phòng đã đặt", Section = "CheckIn" },
+        new { Action = "Index", Controller = "Checkout", Label = "Trả phòng", Section = "Checkout" }
+    };
+    var staffName = ViewBag.StaffDisplayName as string ?? "Nhân viên lễ tân";
+    var shiftLabel = ViewBag.CurrentShift as string ?? "Ca trực";
+    var occupancyRate = ViewBag.OccupancyRate as string ?? "—";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - DKS Hotel Staff</title>
+    <link rel="stylesheet" href="~/Content/tailwind.generated.css" />
+    <link rel="stylesheet" href="~/Content/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        :root {
+            --page: #010409;
+            --card: #0a1324;
+            --card-alt: #111b34;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.18);
+            --copy: #f5f7ff;
+            --muted: rgba(245, 247, 255, 0.65);
+            --accent: #0ea5e9;
+            --accent-soft: rgba(14, 165, 233, 0.12);
+            --accent-strong: rgba(14, 165, 233, 0.28);
+            --error: #fb7185;
+            --success: #34d399;
+            --shadow: 0 25px 60px rgba(2, 6, 23, 0.65);
+            --staff-header-height: 94px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.15), transparent 40%), radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12), transparent 45%), var(--page);
+            color: var(--copy);
+        }
+
+        .staff-shell {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            padding-top: 0;
+        }
+
+        .staff-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            backdrop-filter: blur(18px);
+            background: rgba(1, 4, 15, 0.85);
+            border-bottom: 1px solid var(--border);
+            padding: 20px clamp(16px, 4vw, 48px);
+            display: grid;
+            grid-template-columns: minmax(200px, 280px) minmax(240px, 1fr) auto;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .staff-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+            .brand-copy small {
+                font-size: 12px;
+                letter-spacing: 0.24em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+        .header-selector {
+            padding: 12px 16px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        }
+
+        .hotel-selector {
+            display: grid;
+            grid-template-columns: auto minmax(180px, 1fr) auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+            .hotel-selector label {
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                font-size: 11px;
+                color: var(--muted);
+            }
+
+            .hotel-selector select {
+                appearance: none;
+                width: 100%;
+                border-radius: 14px;
+                border: 1px solid var(--border-strong);
+                padding: 10px 14px;
+                background: rgba(5, 10, 24, 0.85);
+                color: var(--copy);
+                font-weight: 600;
+            }
+
+            .hotel-selector option {
+                color: #0f172a;
+                background: #f8fafc;
+            }
+
+            .hotel-selector button {
+                border-radius: 12px;
+                border: 1px solid transparent;
+                padding: 10px 16px;
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                font-size: 11px;
+                background: var(--accent);
+                color: #031525;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+        .header-status {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .status-card {
+            min-width: 140px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: rgba(8, 15, 33, 0.75);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+            .status-card span {
+                font-size: 11px;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            .status-card strong {
+                font-size: 18px;
+                letter-spacing: 0.04em;
+            }
+
+        .staff-user-meta {
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+            .staff-user-meta summary {
+                list-style: none;
+                cursor: pointer;
+                outline: none;
+            }
+
+                .staff-user-meta summary::-webkit-details-marker {
+                    display: none;
+                }
+
+            .staff-user-meta small {
+                display: block;
+                color: var(--success);
+                font-size: 11px;
+                letter-spacing: 0.08em;
+            }
+
+            .staff-user-meta[open] {
+                background: rgba(14, 165, 233, 0.08);
+                border-color: var(--border-strong);
+            }
+
+            .staff-user-meta .staff-logout {
+                display: block;
+                margin-top: 12px;
+                padding: 10px 14px;
+                border-radius: 12px;
+                background: var(--accent);
+                color: #031525;
+                text-align: center;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+        .staff-surface {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 28px;
+            padding: 36px clamp(16px, 4vw, 52px) 48px;
+            margin-top: calc(var(--staff-header-height) - 10px);
+        }
+
+        .staff-nav {
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(8, 16, 30, 0.9), rgba(3, 6, 19, 0.9));
+            box-shadow: var(--shadow);
+            padding: 26px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+        }
+
+        .nav-label {
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-link {
+            border-radius: 14px;
+            border: 1px solid transparent;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: var(--copy);
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+
+            .nav-link span {
+                font-size: 11px;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            .nav-link:hover {
+                background: rgba(255, 255, 255, 0.02);
+                border-color: var(--border);
+            }
+
+            .nav-link.active {
+                border-color: var(--accent-strong);
+                background: var(--accent-soft);
+                color: var(--accent);
+                box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+            }
+
+        .mobile-nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 10px 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+            color: var(--copy);
+        }
+
+        .staff-stage {
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            box-shadow: var(--shadow);
+            padding: 38px;
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .stage-headline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .stage-title {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+            .stage-title small {
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: var(--muted);
+                font-size: 11px;
+            }
+
+            .stage-title h1 {
+                margin: 0;
+                font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+            }
+
+        .stage-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+            .stage-actions a {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 18px;
+                border-radius: 999px;
+                border: 1px solid var(--border);
+                text-decoration: none;
+                font-weight: 600;
+                color: var(--copy);
+                transition: all 0.2s ease;
+            }
+
+                .stage-actions a:hover {
+                    border-color: var(--border-strong);
+                    transform: translateY(-1px);
+                }
+
+            .stage-actions .cta {
+                background: var(--accent);
+                color: #031525;
+                border-color: transparent;
+            }
+
+        .stage-body {
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--card-alt);
+            padding: 32px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .staff-footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        @@media (max-width: 1200px) {
+            .staff-header {
+                grid-template-columns: 1fr;
+            }
+
+            .header-status {
+                justify-content: space-between;
+            }
+
+            .staff-surface {
+                grid-template-columns: 1fr;
+            }
+
+            .staff-nav {
+                position: sticky;
+                top: 100px;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .staff-header {
+                padding: 16px;
+            }
+
+            .header-status {
+                flex-wrap: wrap;
+            }
+
+            .staff-nav {
+                position: static;
+                transform: translate3d(0, 0, 0);
+                display: none;
+            }
+
+                .staff-nav.is-open {
+                    display: flex;
+                }
+
+            .mobile-nav-toggle {
+                display: inline-flex;
+            }
+
+            .staff-stage {
+                padding: 26px;
+            }
+
+            .stage-body {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="staff-shell">
+        <header class="staff-header">
+            <a class="staff-brand" href="@Url.Action("Index", "Operations", new { area = "Staff" })">
+                <div class="brand-mark">DKS</div>
+                <div class="brand-copy">
+                    <strong>Khu vực lễ tân</strong>
+                    <small>Realtime desk</small>
+                </div>
+            </a>
+            <div class="header-selector">
+                @{
+                    var hotelSelectorModel = ViewBag.HotelSelectorModel as DKS_HotelManager.Areas.Staff.ViewModels.HotelSelectorViewModel
+                        ?? new DKS_HotelManager.Areas.Staff.ViewModels.HotelSelectorViewModel();
+                }
+                @Html.Partial("~/Areas/Staff/Views/Shared/_HotelSelector.cshtml", hotelSelectorModel)
+            </div>
+            <div class="header-status">
+                <div class="status-card">
+                    <span>@shiftLabel</span>
+                    <strong>@DateTime.Now.ToString("HH:mm")</strong>
+                </div>
+                <div class="status-card">
+                    <span>Tỉ lệ kín phòng</span>
+                    <strong>@occupancyRate</strong>
+                </div>
+                <details class="staff-user-meta">
+                    <summary>
+                        <span>@staffName</span>
+                        <small>Đang hoạt động</small>
+                    </summary>
+                    <a class="staff-logout" href="@Url.Action("Logout", "Auth", new { area = "Staff" })">Đăng xuất</a>
+                </details>
+            </div>
+        </header>
+
+        <main class="staff-surface">
+            <button class="mobile-nav-toggle" type="button" data-nav-toggle>
+                Menu
+            </button>
+            <nav class="staff-nav" data-nav>
+                <p class="nav-label">Bảng điều phối</p>
+                <div class="nav-links">
+                    @foreach (var item in navItems)
+                    {
+                        <a href="@Url.Action(item.Action, item.Controller, new { area = "Staff" })"
+                           class="nav-link @(activeSection == item.Section ? "active" : string.Empty)">
+                            <div>@item.Label</div>
+                            <span>@item.Section</span>
+                        </a>
+                    }
+                </div>
+            </nav>
+            <section class="staff-stage">
+                <div class="stage-headline">
+                    <div class="stage-title">
+                        <small>Realtime desk</small>
+                        <h1>@(ViewBag.Title ?? "Bảng điều phối")</h1>
+                    </div>
+                    <div class="stage-actions">
+                        <a class="cta" href="@Url.Action("Index", "DeskBooking", new { area = "Staff" })">
+                            Đặt phòng nhanh
+                        </a>
+                        <a href="@Url.Action("Index", "ServicePrebooking", new { area = "Staff" })">
+                            Dịch vụ đính kèm
+                        </a>
+                    </div>
+                </div>
+                <div class="stage-body">
+                    @RenderBody()
+                </div>
+            </section>
+        </main>
+
+        <footer class="staff-footer">
+            © @DateTime.Now.Year DKS Hotel Manager — Khu vực lễ tân
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        (function () {
+            var nav = document.querySelector('[data-nav]');
+            var toggle = document.querySelector('[data-nav-toggle]');
+            if (!nav || !toggle) {
+                return;
+            }
+
+            toggle.addEventListener('click', function () {
+                nav.classList.toggle('is-open');
+            });
+        })();
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

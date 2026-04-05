@@ -1,0 +1,62 @@
+@model DKS_HotelManager.Areas.Admin.ViewModels.RevenuePageViewModel
+@using System.Web.Helpers
+
+<section class="admin-section">
+    <div class="section-header">
+        <div>
+            <h2>Doanh thu</h2>
+            <small class="overview-note">Biểu đồ doanh thu 6 tháng gần nhất và tổng doanh thu.</small>
+        </div>
+        <div class="revenue-chip">@String.Format("{0:N0} VND", Model.TotalRevenue)</div>
+    </div>
+    <div class="revenue-card">
+        <canvas id="revenueChart" height="200"></canvas>
+    </div>
+</section>
+
+@section scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const revenueLabels = @Html.Raw(Json.Encode(Model.RevenueSeries.Select(r => r.Label)));
+        const revenueValues = @Html.Raw(Json.Encode(Model.RevenueSeries.Select(r => r.Value)));
+        const revenueCtx = document.getElementById('revenueChart');
+        if (revenueCtx) {
+            new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: revenueLabels,
+                    datasets: [{
+                        label: 'Doanh thu (VND)',
+                        data: revenueValues,
+                        fill: true,
+                        backgroundColor: 'rgba(212, 175, 55, 0.2)',
+                        borderColor: '#d4af37',
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString() + ' đ';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' đ';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+}

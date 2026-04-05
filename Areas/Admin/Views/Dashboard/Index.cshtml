@@ -1,0 +1,21 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<div class="p-10 bg-white rounded-3xl shadow-lg">
+    <h1 class="text-3xl font-semibold mb-4">Bảng điều khiển quản lý</h1>
+    <p class="text-slate-600 mb-6">Tại đây, quản lý có thể giám sát hệ thống đặt phòng, xem báo cáo và phân quyền nhân viên.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+            <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Phòng</p>
+            <p class="text-2xl font-semibold">120+</p>
+            <p class="text-xs text-slate-500">Đang được quản lý</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+            <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Đặt chỗ hôm nay</p>
+            <p class="text-2xl font-semibold">42</p>
+            <p class="text-xs text-slate-500">Đang chờ xác nhận</p>
+        </div>
+    </div>
+</div>

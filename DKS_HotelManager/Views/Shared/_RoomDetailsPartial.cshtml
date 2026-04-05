@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DKS_HotelManager.Presentation.RoomDetailsViewModel>
+
+<table style="width: 100%; border: 1px solid #808080;" id="myTable" class="table table-striped">
+    <thead style="background-color: cornflowerblue">
+        <tr>
+            <th class="text-center">
+                Action
+            </th>
+            <th class="text-center">
+                Room Image
+            </th>
+            <th class="text-center">
+                Room No.
+            </th>
+            <th class="text-center">
+                Room Price
+            </th>
+            <th class="text-center">
+                Booking Status
+            </th>
+            <th class="text-center">
+                Room Type
+            </th>
+            <th class="text-center">
+                Room Capacity
+            </th>
+            <th class="text-center">
+                Room Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    <button id="btnDelete" class="btn btn-danger" onclick="DeleteRoom(@item.ID)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <button id="btnEdit" class="btn btn-success" onclick="EditRoom(@item.ID)">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                </td>
+                <td class="text-center" style="margin:auto">
+                    <img src="@Url.Content("~/RoomImages/"+item.RoomImage)" width="200" height="50" class="img-responsive" style="border: 1px solid black" />
+                </td>
+                <td class="text-center">
+                    Room @item.RoomNumber
+                </td>
+                <td class="text-center">
+                    @item.RoomPrice.ToString("#,##0.00") $
+                </td>
+                <td class="text-center">
+                    @item.BookingStatus Status
+                </td>
+                <td class="text-center">
+                    @item.RoomType Type
+                </td>
+                <td class="text-center">
+                    @item.RoomCapacity Persons
+                </td>
+                <td class="text-center">
+                    @item.RoomDescription
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

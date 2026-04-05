@@ -1,0 +1,339 @@
+@model DKS_HotelManager.Areas.Staff.ViewModels.StaffOperationsViewModel
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Web;
+@using System.Web.Helpers;
+@{
+    Layout = "~/Areas/Staff/Views/Shared/_Layout.cshtml";
+}
+
+<section class="staff-hero">
+    <div class="hero-text">
+        <p class="eyebrow">Khu lễ tân</p>
+        <h1>Trạng thái phòng và khách đang ở</h1>
+        <p>Theo dõi mọi phòng, trạng thái và thông tin khách khi nhấn vào từng phòng.</p>
+    </div>
+    <div class="hero-meta">
+        <span>@(Model.SelectedHotelName ?? "Chưa chọn chi nhánh")</span>
+        <span>Nhân viên: @Model.StaffName</span>
+        <span>Giờ hệ thống: @Model.ServerTime.ToString("HH:mm dd/MM/yyyy")</span>
+    </div>
+</section>
+
+@{
+    var guestStaysByRoom = (Model.ActiveGuests ?? Enumerable.Empty<GuestStayInfo>())
+        .GroupBy(g => g.RoomId)
+        .ToDictionary(grp => grp.Key, grp => grp.First());
+}
+
+@if (!Model.SelectedHotelId.HasValue)
+{
+    <div class="card alert-card">
+        <p>Chọn chi nhánh phía trên để xem trạng thái phòng.</p>
+    </div>
+}
+else
+{
+    <section class="status-summary">
+        @foreach (var summary in Model.StatusSummaries)
+        {
+            <article class="status-card">
+                <p>@summary.Label</p>
+                <strong>@summary.Count</strong>
+                <span>@summary.Category</span>
+            </article>
+        }
+    </section>
+
+    <section class="room-grid">
+        @foreach (var tile in Model.RoomTiles)
+        {
+            GuestStayInfo guestStay = null;
+            var hasGuestInfo = guestStaysByRoom.TryGetValue(tile.RoomId, out guestStay);
+            var guestNameAttr = hasGuestInfo ? guestStay.GuestName : null;
+            var bookingCodeAttr = hasGuestInfo ? guestStay.BookingCode : null;
+            var checkInIso = hasGuestInfo && guestStay.CheckIn.HasValue ? guestStay.CheckIn.Value.ToString("o") : null;
+            var checkOutIso = hasGuestInfo && guestStay.CheckOut.HasValue ? guestStay.CheckOut.Value.ToString("o") : null;
+            <button type="button"
+                    class="room-card"
+                    data-room-id="@tile.RoomId"
+                    data-room-name="@HttpUtility.HtmlAttributeEncode(tile.RoomName ?? string.Empty)"
+                    data-badge="@HttpUtility.HtmlAttributeEncode(tile.BadgeText ?? string.Empty)"
+                    data-detail="@HttpUtility.HtmlAttributeEncode(tile.Detail ?? string.Empty)"
+                    data-status="@tile.Category"
+                    data-guest-name="@HttpUtility.HtmlAttributeEncode(guestNameAttr ?? string.Empty)"
+                    data-booking-code="@HttpUtility.HtmlAttributeEncode(bookingCodeAttr ?? string.Empty)"
+                    data-checkin="@HttpUtility.HtmlAttributeEncode(checkInIso ?? string.Empty)"
+                    data-checkout="@HttpUtility.HtmlAttributeEncode(checkOutIso ?? string.Empty)">
+                <header>
+                    <h4>@tile.RoomName</h4>
+                    <span>@tile.BadgeText</span>
+                </header>
+                <p>@tile.Detail</p>
+            </button>
+        }
+    </section>
+
+    <section class="room-detail card" id="room-detail-panel">
+        <div class="detail-headline">
+            <div>
+                <h3 id="detail-room-name">Chọn phòng để xem</h3>
+                <p id="detail-room-status">Thông tin chi tiết sẽ xuất hiện ở đây.</p>
+            </div>
+            <span class="badge" id="detail-room-badge"></span>
+        </div>
+        <div class="detail-body">
+            <dl>
+                <dt>Khách hiện tại</dt>
+                <dd id="detail-guest">Không có</dd>
+                <dt>Booking</dt>
+                <dd id="detail-booking">---</dd>
+                <dt>Check-in</dt>
+                <dd id="detail-checkin">---</dd>
+                <dt>Check-out</dt>
+                <dd id="detail-checkout">---</dd>
+            </dl>
+            <p class="detail-note" id="detail-note">Hệ thống sẽ cập nhật trạng thái sau khi có hành động thanh toán.</p>
+        </div>
+    </section>
+}
+
+<script>
+    (function () {
+        const hydrateRoomDetail = function () {
+            const detailPanel = document.getElementById("room-detail-panel");
+            if (!detailPanel) {
+                return;
+            }
+
+            const detailName = document.getElementById("detail-room-name");
+            const detailBadge = document.getElementById("detail-room-badge");
+            const detailStatus = document.getElementById("detail-room-status");
+            const detailGuest = document.getElementById("detail-guest");
+            const detailBooking = document.getElementById("detail-booking");
+            const detailCheckIn = document.getElementById("detail-checkin");
+            const detailCheckOut = document.getElementById("detail-checkout");
+            const detailNote = document.getElementById("detail-note");
+            const roomCards = document.querySelectorAll(".room-card");
+
+            function parseIsoDate(value) {
+                if (!value) {
+                    return null;
+                }
+                const parsed = Date.parse(value);
+                if (Number.isNaN(parsed)) {
+                    return null;
+                }
+                return new Date(parsed);
+            }
+
+            function formatGuestDate(value, fallback) {
+                const date = parseIsoDate(value);
+                if (!date) {
+                    return fallback;
+                }
+
+                const pad = num => num.toString().padStart(2, "0");
+                const day = pad(date.getDate());
+                const month = pad(date.getMonth() + 1);
+                const hours = pad(date.getHours());
+                const minutes = pad(date.getMinutes());
+                return `${day}/${month} ${hours}:${minutes}`;
+            }
+
+            function renderDetail(card) {
+                if (!card) {
+                    detailName.textContent = "Chọn phòng để xem";
+                    detailStatus.textContent = "Thông tin chi tiết sẽ xuất hiện ở đây.";
+                    detailBadge.textContent = "";
+                    detailGuest.textContent = "Không có";
+                    detailBooking.textContent = "---";
+                    detailCheckIn.textContent = "---";
+                    detailCheckOut.textContent = "---";
+                    detailNote.textContent = "Hệ thống sẽ cập nhật trạng thái sau khi có hành động thanh toán.";
+                    return;
+                }
+
+                detailName.textContent = card.dataset.roomName;
+                detailBadge.textContent = card.dataset.badge;
+                detailStatus.textContent = card.dataset.detail;
+
+                const guestName = card.dataset.guestName;
+                if (guestName) {
+                    detailGuest.textContent = guestName;
+                    detailBooking.textContent = card.dataset.bookingCode || "Không có mã";
+                    detailCheckIn.textContent = formatGuestDate(card.dataset.checkin, "Chưa nhận phòng");
+                    detailCheckOut.textContent = formatGuestDate(card.dataset.checkout, "Chưa trả phòng");
+                } else {
+                    detailGuest.textContent = "Chưa có khách";
+                    detailBooking.textContent = "---";
+                    detailCheckIn.textContent = "---";
+                    detailCheckOut.textContent = "---";
+                }
+
+                detailNote.textContent = "Trạng thái được cập nhật tự động theo booking.";
+            }
+
+            function clearActive() {
+                for (let i = 0; i < roomCards.length; i++) {
+                    roomCards[i].classList.remove("active");
+                }
+            }
+
+            for (let i = 0; i < roomCards.length; i++) {
+                const card = roomCards[i];
+                card.addEventListener("click", function () {
+                    clearActive();
+                    this.classList.add("active");
+                    renderDetail(this);
+                });
+            }
+
+            if (roomCards.length) {
+                roomCards[0].click();
+            }
+        };
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", hydrateRoomDetail);
+        } else {
+            hydrateRoomDetail();
+        }
+    })();
+</script>
+
+<style>
+    .room-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .room-card {
+        border-radius: 18px;
+        padding: 18px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        box-shadow: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    .room-card.active {
+        border-color: #38bdf8;
+        transform: translateY(-4px);
+    }
+
+    .room-card header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .room-card span {
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #38bdf8;
+    }
+
+    .room-detail {
+        background: rgba(10, 15, 30, 0.95);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 24px;
+    }
+
+    .detail-headline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        gap: 12px;
+    }
+
+    .detail-headline .badge {
+        background: rgba(56, 189, 248, 0.15);
+        padding: 8px 14px;
+        border-radius: 50px;
+        font-size: 12px;
+    }
+
+    .detail-body dl {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 24px;
+        margin: 0;
+    }
+
+    .detail-body dt {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .detail-body dd {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .detail-note {
+        margin-top: 16px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .status-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+
+    .status-card {
+        padding: 16px;
+        border-radius: 16px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .status-card strong {
+        display: block;
+        margin-top: 6px;
+        font-size: 1.8rem;
+    }
+
+    .alert-card {
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 18px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .feedback {
+        margin-bottom: 16px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+
+    .feedback.success {
+        background: #dcfce7;
+        color: #14532d;
+    }
+
+    .feedback.error {
+        background: #fee2e2;
+        color: #7f1d1d;
+    }
+</style>

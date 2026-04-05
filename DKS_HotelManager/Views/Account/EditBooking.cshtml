@@ -1,0 +1,63 @@
+@model DKS_HotelManager.Models.ViewModels.AccountBookingEditViewModel
+@{
+    ViewBag.Title = "Chỉnh sửa đặt phòng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roomOptions = Model.RoomOptions ?? Enumerable.Empty<SelectListItem>();
+}
+
+<style>
+    .edit-booking-page { padding: 24px 0 40px; }
+    .card { background: #fff; border-radius: 16px; padding: 20px; border: 1px solid #e5e7eb; box-shadow: 0 10px 20px rgba(0,0,0,0.04); max-width: 720px; margin: 0 auto; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-control { border: 1px solid #d1d5db; border-radius: 10px; padding: 10px 12px; min-height: 44px; }
+    .btn-primary { background: #d4af37; color: #fff; border: none; border-radius: 10px; padding: 12px 18px; font-weight: 700; cursor: pointer; }
+    .btn-secondary { background: #fff; color: #374151; border: 1px solid #d1d5db; border-radius: 10px; padding: 10px 14px; font-weight: 600; text-decoration: none; display: inline-block; }
+    .alert { padding: 12px 14px; border-radius: 12px; margin-bottom: 12px; }
+    .alert.error { background: #fef2f2; border: 1px solid #f87171; color: #991b1b; }
+</style>
+
+<div class="edit-booking-page">
+    <div class="card">
+        <h2 style="margin-top:0;">Chỉnh sửa đặt phòng</h2>
+        <p style="margin:4px 0 14px;color:#6b7280;">Khách sạn: <strong>@Model.HotelName</strong></p>
+
+        @if (TempData["AccountError"] != null)
+        {
+            <div class="alert error">@TempData["AccountError"]</div>
+        }
+
+        @Html.ValidationSummary(false, "", new { @class = "alert error" })
+
+        @using (Html.BeginForm("EditBooking", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.BookingId)
+            @Html.HiddenFor(m => m.HotelId)
+
+            <div class="form-grid">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.RoomId, "Chọn phòng")
+                    @Html.DropDownListFor(m => m.RoomId, roomOptions, "-- Chọn phòng --", new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CheckIn, "Ngày nhận phòng")
+                    @Html.TextBoxFor(m => m.CheckIn, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CheckOut, "Ngày trả phòng")
+                    @Html.TextBoxFor(m => m.CheckOut, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Deposit, "Đặt cọc (VND)")
+                    @Html.TextBoxFor(m => m.Deposit, new { @class = "form-control", type = "number", min = "0", step = "50000", placeholder = "Tùy chọn" })
+                </div>
+            </div>
+
+            <div style="margin-top:16px;display:flex;gap:10px;">
+                <button type="submit" class="btn-primary">Lưu thay đổi</button>
+                <a href="@Url.Action("Index", "Account")" class="btn-secondary">Quay lại tài khoản</a>
+            </div>
+        }
+    </div>
+</div>

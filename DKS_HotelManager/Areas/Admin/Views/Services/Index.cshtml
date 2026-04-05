@@ -1,0 +1,500 @@
+@model DKS_HotelManager.Areas.Admin.ViewModels.ServicesPageViewModel
+
+<section class="admin-section">
+    <div class="section-header">
+        <div>
+            <h2>Quản lý dịch vụ</h2>
+            <small class="overview-note">Thêm và điều chỉnh dịch vụ phòng.</small>
+        </div>
+    </div>
+
+    <div class="management-grid">
+        <div class="table-panel">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:40%;">Tên dịch vụ</th>
+                            <th style="width:25%;">Giá</th>
+                            <th style="width:15%;">Lượt sử dụng</th>
+                            <th style="width:20%;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Services != null && Model.Services.Any())
+                        {
+                            foreach (var service in Model.Services)
+                            {
+                                <tr class="@(service.TenDV == "Spa" ? "highlight-row" : "")">
+                                    <td>@service.TenDV</td>
+                                    <td class="text-nowrap">@String.Format("{0:N0}", service.DGDV) VNĐ</td>
+                                    <td>@service.UsageCount</td>
+                                    <td>
+                                        <button type="button" class="btn-link btn-edit-service"
+                                                data-id="@service.MaDV"
+                                                data-name="@service.TenDV"
+                                                data-price="@service.DGDV">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </button>
+                                        <form method="post" action="@Url.Action("DeleteService", "Services", new { area = "Admin" })" class="inline-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="maDV" value="@service.MaDV" />
+                                            <button type="submit" class="btn-link text-danger">
+                                                <i class="fas fa-trash-alt"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center-placeholder">Không có dịch vụ nào để hiển thị.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <h3 id="formTitle">Thêm mới Dịch vụ</h3>
+            <form id="serviceForm" method="post" action="@Url.Action("SaveService", "Services", new { area = "Admin" })">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="MaDV" id="serviceId" value="0" />
+
+                <label for="serviceName">Tên dịch vụ <span class="required-star">*</span></label>
+                <input id="serviceName" name="TenDV" type="text" placeholder="Ví dụ: Dọn phòng, Ăn sáng tại phòng" required />
+
+                <label for="servicePrice">Giá dịch vụ (VNĐ) <span class="required-star">*</span></label>
+                <input id="servicePrice" name="DGDV" type="number" step="1000" min="0" placeholder="Giá dịch vụ (Ví dụ: 250000)" required />
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="resetServiceForm">
+                        <i class="fas fa-undo"></i> Làm mới
+                    </button>
+                    <button type="submit" class="btn-luxury" id="saveServiceBtn">
+                        <i class="fas fa-save"></i> Lưu dịch vụ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ======================================================= */
+    /* TÙY CHỈNH KÍCH THƯỚC VÀ NỘI DUNG THANH ĐIỀU HƯỚNG BÊN TRÁI (SIDEBAR) */
+    /* LƯU Ý: Phần này phải được đặt trong Layout chính của Admin, nhưng tôi đặt ở đây nếu bạn muốn nó là style cục bộ */
+    /* ======================================================= */
+
+    /* 1. Thanh điều hướng chính (Sidebar) */
+    .sidebar {
+        /* TĂNG CHIỀU RỘNG: Đặt ở mức cân bằng 230px (thay vì mặc định/250px) */
+        width: 230px;
+        transition: width 0.3s ease, transform 0.3s ease;
+    }
+
+    /* 2. Nội dung chính (Main Content) */
+    .admin-content-wrapper {
+        /* Đẩy nội dung chính bắt đầu từ 230px */
+        margin-left: 230px;
+        width: calc(100% - 230px);
+        transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    /* 3. Kích thước chữ và padding cho Menu Item */
+    .sidebar .nav-item {
+        /* PADDING: Giữ mức 15px trên dưới, 20px trái phải để tạo khoảng cách thoải mái */
+        padding: 15px 20px;
+    }
+
+    .sidebar .nav-link {
+        /* FONT CHỮ: Đặt ở mức 1.05rem, vừa đủ dễ đọc */
+        font-size: 1.05rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+
+        /* 4. Kích thước Icon */
+        .sidebar .nav-link i {
+            /* ICON: Đặt ở mức 1.2rem, vừa đủ nổi bật so với font chữ */
+            font-size: 1.2rem;
+            margin-right: 10px; /* Khoảng cách vừa phải */
+            color: var(--text-muted);
+        }
+
+    /* 5. Tiêu đề nhỏ (ví dụ: ĐIỀU HƯỚNG) */
+    .sidebar .menu-title {
+        font-size: 0.8rem; /* Giữ nhỏ để phân biệt */
+        padding: 15px 20px 5px;
+        text-transform: uppercase;
+        color: var(--text-muted-darker);
+        letter-spacing: 0.05em;
+    }
+
+    /* 6. Logo/Tiêu đề Admin Center */
+    .sidebar .admin-logo-text {
+        font-size: 1.05rem; /* Điều chỉnh font size vừa đủ */
+        font-weight: 700;
+    }
+
+    /* 7. Xử lý trạng thái khi Sidebar được thu gọn (nếu có) */
+    .sidebar.collapsed {
+        width: 70px;
+    }
+
+    .admin-content-wrapper.collapsed-state {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+    }
+
+    /* ==================================== */
+    /* PHẦN CHUNG CỦA TRANG (ĐÃ ĐIỀU CHỈNH FONT VÀ TỈ LỆ) */
+    /* ==================================== */
+    .admin-section {
+        margin-bottom: 40px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 35px; /* Tăng khoảng cách */
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 20px; /* Tăng khoảng cách */
+    }
+
+        .section-header h2 {
+            font-size: 2.2rem; /* Tăng từ 2rem lên 2.2rem */
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .section-header .overview-note {
+            font-size: 1.1rem; /* Tăng từ 1rem lên 1.1rem */
+            color: var(--text-muted);
+        }
+
+    .management-grid {
+        display: grid;
+        /* ĐÃ THAY ĐỔI: Tỷ lệ 4fr (lớn hơn) cho bảng (trái), 1.2fr cho form (phải) */
+        grid-template-columns: 4fr 1.2fr;
+        gap: 30px;
+    }
+
+    /* TABLE PANEL */
+    .table-panel {
+        background: var(--surface);
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        padding: 30px; /* Tăng padding tổng thể */
+        box-shadow: 0 15px 30px rgba(2, 6, 23, 0.55);
+        overflow-x: auto;
+    }
+
+    .table-wrapper {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text);
+        min-width: 650px; /* Tăng kích thước tối thiểu của bảng */
+    }
+
+        table thead {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        table th {
+            font-weight: 600;
+            text-align: left;
+            padding: 16px 20px; /* Tăng padding */
+            font-size: 1rem; /* Tăng từ 0.95rem lên 1rem */
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        table td {
+            padding: 16px 20px; /* Tăng padding */
+            border-bottom: 1px solid var(--border);
+            font-size: 1.05rem; /* Tăng từ 1rem lên 1.05rem */
+            color: var(--text);
+            vertical-align: top;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Highlight cho Spa */
+        table tbody tr.highlight-row {
+            background-color: rgba(56, 189, 248, 0.15);
+        }
+
+        table tbody tr:hover:not(.highlight-row) {
+            background-color: rgba(56, 189, 248, 0.08); /* Đậm hơn một chút */
+        }
+
+        table tbody tr.highlight-row:hover {
+            background-color: rgba(56, 189, 248, 0.2);
+        }
+
+    .text-center-placeholder {
+        text-align: center;
+        color: var(--text-muted);
+        font-style: italic;
+        padding: 40px 18px !important; /* Tăng padding */
+    }
+
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+        background: var(--surface);
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        padding: 30px; /* Tăng padding tổng thể */
+        box-shadow: 0 15px 30px rgba(2, 6, 23, 0.55);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+        .form-panel h3 {
+            font-size: 1.6rem; /* Tăng từ 1.5rem lên 1.6rem */
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .form-panel form {
+            display: flex;
+            flex-direction: column;
+        }
+
+    .required-star {
+        color: var(--danger);
+        font-weight: 700;
+        margin-left: 2px;
+    }
+
+    .form-panel label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px; /* Tăng margin */
+        font-size: 16px; /* Tăng từ 15px lên 16px */
+        color: var(--text-muted);
+        letter-spacing: 0.02em;
+        margin-top: 20px; /* Tăng khoảng cách giữa các trường */
+    }
+
+    .form-panel form label:first-of-type {
+        margin-top: 0;
+    }
+
+    .form-panel input[type="text"],
+    .form-panel input[type="number"],
+    .form-panel select,
+    .form-panel textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: var(--surface-alt);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 14px 16px; /* Tăng padding */
+        font-size: 17px; /* Tăng từ 16px lên 17px */
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        appearance: none;
+    }
+
+        .form-panel input[type="text"]:focus,
+        .form-panel input[type="number"]:focus,
+        .form-panel select:focus,
+        .form-panel textarea:focus {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.1);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+    /* FORM ACTIONS & BUTTONS */
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 30px; /* Tăng khoảng cách */
+        justify-content: flex-end;
+    }
+
+    /* Nút chính (Lưu/Lưu dịch vụ) */
+    .btn-luxury {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--primary);
+        color: var(--bg);
+        padding: 14px 24px; /* Tăng padding */
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        min-width: 130px; /* Tăng min-width */
+        font-size: 1.05rem; /* Tăng font size nút */
+    }
+
+        .btn-luxury:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--accent-strong), #0ea5e9);
+            box-shadow: 0 8px 18px rgba(56, 189, 248, 0.35);
+        }
+
+    /* Nút Cảnh báo/Cập nhật (Màu Cam) */
+    .btn-warn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--warn, #f4a261);
+        color: var(--bg);
+        padding: 14px 24px; /* Tăng padding */
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        min-width: 130px; /* Tăng min-width */
+        font-size: 1.05rem; /* Tăng font size nút */
+    }
+
+        .btn-warn:hover {
+            transform: translateY(-2px);
+            background: #e77e38;
+            box-shadow: 0 8px 18px rgba(244, 162, 97, 0.4);
+        }
+
+    /* Nút phụ (Làm mới) */
+    .btn.btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--surface-alt);
+        color: var(--text-muted);
+        padding: 14px 24px; /* Tăng padding */
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        font-weight: 600;
+        min-width: 100px;
+        font-size: 1.05rem; /* Tăng font size nút */
+    }
+
+        .btn.btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+    /* Nút hành động trong bảng (Sửa, Xóa) */
+    .btn-link {
+        background: none;
+        border: none;
+        padding: 8px 10px; /* Tăng padding */
+        font-size: 1.05rem; /* Tăng từ 1rem lên 1.05rem */
+        font-weight: 500;
+        color: var(--accent);
+        cursor: pointer;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+            color: var(--accent-strong);
+        }
+
+        .btn-link.text-danger {
+            color: var(--danger, #ef4444);
+        }
+
+            .btn-link.text-danger:hover {
+                color: var(--warn, #f4a261);
+            }
+
+    .inline-form {
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    /* RESPONSIVE */
+    @@media (max-width: 992px) {
+        .management-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+@section scripts
+{
+    <script>
+        $(function () {
+
+            // Khởi tạo tiêu đề form lần đầu
+            $('#formTitle').text('Thêm mới Dịch vụ');
+
+            // Reset Form và đổi nút về trạng thái Lưu
+            function resetForm() {
+                $('#serviceId').val(0);
+                $('#serviceForm')[0].reset();
+                $('#saveServiceBtn').html('<i class="fas fa-save"></i> Lưu dịch vụ')
+                    .removeClass('btn-warn')
+                    .addClass('btn-luxury');
+                $('#formTitle').text('Thêm mới Dịch vụ');
+            }
+
+            // Xử lý sự kiện nút Làm mới (Reset)
+            $('#resetServiceForm').on('click', resetForm);
+
+            // Xử lý sự kiện nút Sửa
+            $('.btn-edit-service').on('click', function () {
+                var btn = $(this);
+                var serviceId = btn.data('id');
+
+                // Đổ dữ liệu vào Form
+                $('#serviceId').val(serviceId);
+                $('#serviceName').val(btn.data('name'));
+                $('#servicePrice').val(btn.data('price'));
+
+                // Cập nhật nút thành Cập nhật (Màu Cam/Warn)
+                $('#saveServiceBtn').html('<i class="fas fa-sync-alt"></i> Cập nhật')
+                    .removeClass('btn-luxury')
+                    .addClass('btn-warn');
+
+                // Cập nhật tiêu đề Form
+                $('#formTitle').text('Cập nhật Dịch vụ (ID: ' + serviceId + ')');
+
+                // Cuộn lên form
+                $('html, body').animate({
+                    scrollTop: $(".form-panel").offset().top - 20
+                }, 500);
+            });
+
+            // Đảm bảo nút Lưu có icon ngay cả khi load trang
+            $('#saveServiceBtn').html('<i class="fas fa-save"></i> Lưu dịch vụ');
+        });
+    </script>
+}

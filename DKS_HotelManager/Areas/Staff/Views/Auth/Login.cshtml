@@ -1,0 +1,90 @@
+@{
+    Layout = "~/Areas/Staff/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Đăng nhập nhân viên lễ tân";
+}
+
+<section class="staff-login-panel">
+    <div class="glass-card">
+        <h2>Đăng nhập nhân viên lễ tân</h2>
+        <p>Truy cập nhanh khu vực vận hành lễ tân.</p>
+        @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { area = "Staff" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="username">Tài khoản</label>
+                <input id="username" name="username" type="text" placeholder="Nhập tên đăng nhập" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" required />
+            </div>
+            <button type="submit" class="primary-button">Đăng nhập</button>
+        }
+        <p class="note">Nếu bạn là quản trị viên, hãy dùng trang <a href="@Url.Action("Login", "Auth", new { area = "Admin" })">Admin</a>.</p>
+    </div>
+</section>
+
+<style>
+    .staff-login-panel {
+        min-height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(180deg, #0f172a, #1e293b);
+        color: #fff;
+        padding: 40px 16px;
+    }
+
+    .glass-card {
+        width: 100%;
+        max-width: 420px;
+        background: rgba(15, 23, 42, 0.85);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 20px 60px rgba(2, 6, 23, 0.45);
+    }
+
+    .glass-card h2 {
+        margin-bottom: 10px;
+    }
+
+    .glass-card p {
+        margin-bottom: 24px;
+        color: #cbd5f5;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: #fff;
+    }
+
+    .primary-button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        background: #38bdf8;
+        color: #0f172a;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .primary-button:hover {
+        transform: translateY(-1px);
+    }
+
+    .note {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #94a3b8;
+    }
+</style>

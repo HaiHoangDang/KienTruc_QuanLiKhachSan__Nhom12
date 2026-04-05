@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\programming\\Do_AN\\DKS-HotelManager\\DKS-HotelManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\programming\\Do_AN\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\programming\\Do_AN\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\About.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\programming\\Do_AN\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "..\\..\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\programming\\Do_AN\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "..\\..\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\Index.cshtml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-14T00:34:57.297Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "About.cshtml",
+              "DocumentMoniker": "D:\\programming\\Do_AN\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\About.cshtml",
+              "RelativeDocumentMoniker": "..\\..\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\About.cshtml",
+              "ToolTip": "D:\\programming\\Do_AN\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\About.cshtml",
+              "RelativeToolTip": "..\\..\\Hotel-Management-System-main\\Hotel-Management-System-main\\HotelManagementSystem\\HotelManagementSystem\\Views\\Home\\About.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-14T00:34:54.34Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

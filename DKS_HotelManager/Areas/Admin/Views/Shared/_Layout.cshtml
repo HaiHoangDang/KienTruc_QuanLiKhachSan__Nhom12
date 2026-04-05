@@ -1,0 +1,541 @@
+﻿@using System
+@{
+    // Thiết lập mã hóa UTF-8
+    Response.Charset = "utf-8";
+    Response.ContentEncoding = System.Text.Encoding.UTF8;
+    var adminName = Session["AdminName"] as string ?? "Quản trị";
+
+    // Logic cho Menu Active
+    var controllerValue = ViewContext.RouteData.Values["controller"];
+    var currentController = controllerValue != null ? controllerValue.ToString() : string.Empty;
+    Func<string, bool> isActive = name => string.Equals(currentController, name, StringComparison.OrdinalIgnoreCase);
+        var navItems = new[]
+        {
+            new { Controller = "Dashboard", Icon = "fa-chart-pie", Label = "Tổng quan" },
+            new { Controller = "Hotels", Icon = "fa-building", Label = "Khách sạn" },
+            new { Controller = "Rooms", Icon = "fa-bed", Label = "Phòng" },
+            new { Controller = "Services", Icon = "fa-bell-concierge", Label = "Dịch vụ" },
+            new { Controller = "Comments", Icon = "fa-comments", Label = "Bình luận" },
+            new { Controller = "Staff", Icon = "fa-user-tie", Label = "Nhân sự" },
+            new { Controller = "Revenue", Icon = "fa-sack-dollar", Label = "Doanh thu" },
+        };
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - @adminName</title>
+    @* Giả định các styles/scripts bundles của bạn *@
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/tailwind.generated.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <style>
+        /* ==================================== */
+        /* CÁC BIẾN CSS (CUSTOM PROPERTIES) */
+        /* ==================================== */
+        :root {
+            --bg: #050913;
+            --sidebar: #0b1221;
+            --sidebar-hover: rgba(62, 124, 255, 0.12);
+            --surface: #0f182b;
+            --surface-alt: #151f35;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f8fbff;
+            /* Tăng độ sáng nhẹ cho chữ nhạt */
+            --text-muted: rgba(248, 251, 255, 0.75);
+            --accent: #5eead4; /* Màu xanh ngọc */
+            --accent-strong: #38bdf8; /* Màu xanh dương */
+            --primary: #38bdf8; /* Màu chính cho nút quan trọng */
+            --warn: #f4a261;
+            --sidebar-width: 280px;
+            --topbar-height: 68px;
+        }
+
+        /* ==================================== */
+        /* CÁC STYLE CHUNG & LAYOUT */
+        /* ==================================== */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 22px;
+            background: radial-gradient(circle at top, rgba(14, 165, 233, 0.15), transparent 45%), var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .admin-shell {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            min-height: 100vh;
+        }
+
+        /* ==================================== */
+        /* TOP BAR */
+        /* ==================================== */
+        .admin-topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--topbar-height);
+            z-index: 900;
+            padding: 0 clamp(20px, 5vw, 48px);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(5, 9, 19, 0.95);
+            backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--border);
+            font-size: 1.7rem;
+        }
+
+        .sidebar-toggle {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, border 0.2s ease;
+        }
+
+            .sidebar-toggle:hover {
+                border-color: var(--accent);
+                transform: translateY(-1px);
+            }
+
+        .brand-mark {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .brand-mark span {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .brand-sigil {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #22d3ee, #2563eb);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #051027;
+        }
+
+        .topbar-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+            font-size: 1.5rem;
+        }
+
+        .meta-chip, .profile-chip {
+            /* Tinh chỉnh màu nền để nổi bật hơn Topbar */
+            background: var(--surface-alt);
+            font-size: 1.5rem;
+        }
+
+        .meta-chip {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+            .meta-chip strong {
+                font-size: 1.4rem;
+                letter-spacing: normal;
+                text-transform: none;
+            }
+
+        .profile-chip {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+            .profile-chip small {
+                display: block;
+                font-size: 1.2rem;
+                color: var(--accent);
+                font-weight: 500;
+            }
+
+        /* ==================================== */
+        /* SIDEBAR */
+        /* ==================================== */
+        .admin-sidebar {
+            position: sticky;
+            top: var(--topbar-height);
+            height: calc(100vh - var(--topbar-height));
+            padding: 32px 22px 32px 32px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-header h3 {
+            font-size: 2.2rem;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+        }
+
+        .sidebar-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 4px;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Tối ưu menu section title */
+        .menu-section-title {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em; /* Giảm giãn chữ */
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .menu-item a {
+            position: relative; /* Quan trọng cho active marker */
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: background 0.25s ease, color 0.25s ease, border 0.25s ease;
+            border: 1px solid transparent;
+        }
+
+            .menu-item a i {
+                width: 20px;
+                text-align: center;
+            }
+            /* Hover state */
+            .menu-item a:hover {
+                background: var(--sidebar-hover);
+                color: var(--text);
+                border-color: transparent; /* Chỉ dùng viền cho active */
+            }
+
+            /* Active state với Active Marker */
+            .menu-item a.active {
+                background: var(--sidebar-hover);
+                color: var(--text);
+                border-color: transparent; /* Xóa viền cũ */
+                font-weight: 600;
+            }
+
+                .menu-item a.active::before { /* Thêm Active Marker */
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 5px;
+                    height: 70%;
+                    background-color: var(--accent);
+                    border-radius: 0 4px 4px 0;
+                    box-shadow: 0 0 10px rgba(94, 234, 212, 0.6); /* Hiệu ứng sáng nhẹ */
+                }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.75);
+            z-index: 800;
+        }
+
+        /* ==================================== */
+        /* MAIN CONTENT */
+        /* ==================================== */
+        .admin-main {
+            margin-top: var(--topbar-height);
+            padding: clamp(24px, 4vw, 56px);
+            background: linear-gradient(180deg, rgba(56, 189, 248, 0.08), transparent 60%), radial-gradient(circle at top right, rgba(14, 116, 144, 0.12), transparent 45%), var(--bg);
+        }
+
+        .admin-main,
+        .admin-content,
+        .admin-section h2,
+        .stat-card,
+        .table-wrapper th,
+        .table-wrapper td {
+            font-size: 1.35rem;
+        }
+
+        .admin-hero .hero-content h1,
+        .page-hero h1,
+        .page-hero p {
+            font-size: inherit;
+        }
+
+        .admin-content {
+            margin-top: 30px;
+        }
+
+        /* HERO SECTION (Sửa lỗi màu chữ tương phản) */
+        .page-hero {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            padding: clamp(24px, 3vw, 40px);
+            background: linear-gradient(120deg, rgba(56, 189, 248, 0.28), rgba(5, 150, 105, 0.22));
+            box-shadow: 0 35px 70px rgba(15, 23, 42, 0.55);
+        }
+
+            .page-hero h1 {
+                font-size: clamp(1.6rem, 3vw, 2.4rem);
+                margin-bottom: 10px;
+                color: var(--text); /* Đổi sang màu chữ sáng */
+            }
+
+            .page-hero p {
+                color: var(--text-muted); /* Dùng màu nhạt hơn một chút */
+                font-weight: 500;
+                max-width: 680px;
+            }
+
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+        }
+
+        /* Nút Primary (Luxury Button) trong Hero */
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary); /* Màu nổi bật */
+            color: var(--bg); /* Chữ tối trên nền sáng */
+            padding: 12px 20px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .btn-luxury:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+            }
+
+        .btn-ghost {
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: var(--text);
+            padding: 12px 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Các thành phần khác */
+        .table-panel,
+        .form-panel,
+        .revenue-card {
+            background: var(--surface);
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            box-shadow: 0 35px 70px rgba(2, 6, 23, 0.55);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--text);
+        }
+
+            table thead {
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            table th {
+                font-weight: 600;
+                text-align: left;
+            }
+
+            table th,
+            table td {
+                padding: 12px 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+        /* ==================================== */
+        /* RESPONSIVENESS */
+        /* ==================================== */
+        @@media (max-width: 1100px) {
+            .admin-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: fixed;
+                inset: 0 auto 0 0;
+                width: var(--sidebar-width);
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 900;
+            }
+
+                .admin-sidebar.open {
+                    transform: translateX(0);
+                }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-shell">
+        <header class="admin-topbar" id="topNavbar">
+            <button class="sidebar-toggle" id="toggleSidebarBtn" type="button" aria-label="Mở điều hướng">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="brand-mark" href="@Url.Action("Index", "Dashboard", new { area = "Admin" })">
+                <div class="brand-sigil">DKS</div>
+                <div>
+                    <span>Hotel Manager</span>
+                    <div style="font-size:12px;color:var(--text-muted);letter-spacing:0.2em;text-transform:uppercase;">Admin Center</div>
+                </div>
+            </a>
+            <div class="topbar-meta">
+                <div class="meta-chip">
+                    <i class="fa-regular fa-clock"></i>
+                    <strong>@DateTime.Now.ToString("HH:mm")</strong>
+                </div>
+                <div class="meta-chip">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <strong>@adminName</strong>
+                </div>
+                <div class="profile-chip">
+                    <i class="fa-solid fa-circle-user fa-lg"></i>
+                    <div>
+                        <span>Quyền quản trị</span>
+                        <small>@(Session["AdminRole"] ?? "Administrator")</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>DKS Hotel</h3>
+                <p>Giám sát - Điều hành</p>
+            </div>
+            <nav class="sidebar-menu">
+                <span class="menu-section-title">Điều hướng</span>
+                @foreach (var item in navItems)
+                {
+                    <div class="menu-item">
+                        <a href="@Url.Action("Index", item.Controller, new { area = "Admin" })" class="@(isActive(item.Controller) ? "active" : string.Empty)">
+                            <i class="fas @item.Icon"></i>
+                            <span>@item.Label</span>
+                        </a>
+                    </div>
+                }
+                <div class="menu-item">
+                    <a href="@Url.Action("Logout", "Auth", new { area = "Admin" })">
+                        <i class="fas fa-right-from-bracket"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="admin-main" id="mainContent">
+            <div class="admin-content">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        $(function () {
+            const sidebar = $('#sidebar');
+            const toggleBtn = $('#toggleSidebarBtn');
+            const overlay = $('#sidebarOverlay');
+
+            toggleBtn.on('click', function () {
+                sidebar.toggleClass('open');
+                overlay.toggleClass('active');
+            });
+
+            overlay.on('click', function () {
+                sidebar.removeClass('open');
+                overlay.removeClass('active');
+            });
+
+            $(window).on('resize', function () {
+                if (window.innerWidth > 1100) {
+                    sidebar.removeClass('open');
+                    overlay.removeClass('active');
+                }
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

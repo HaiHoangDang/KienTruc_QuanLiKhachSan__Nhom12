@@ -1,0 +1,89 @@
+@model DKS_HotelManager.Models.PHONG
+
+@{
+    ViewBag.Title = "Sửa Thông Tin Phòng";
+}
+
+<div class="container">
+    <div class="page-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #d4af37; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+        <h1>Sửa Thông Tin Phòng <small>Luxury Hotel Chain</small></h1>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaPhong)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TenPhong, "Tên Phòng", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenPhong, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.TenPhong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaKS, "Khách Sạn", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("MaKS", null, "Chọn Khách Sạn", htmlAttributes: new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.MaKS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaLoai, "Loại Phòng", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("MaLoai", null, "Chọn Loại Phòng", htmlAttributes: new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.MaLoai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SucChua, "Sức Chứa", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SucChua, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.SucChua, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tang, "Tầng", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tang, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Tang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DienTich, "Diện Tích (m²)", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DienTich, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01", min = "0" } })
+                    @Html.ValidationMessageFor(model => model.DienTich, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DGNgay, "Đơn Giá/Ngày (VNĐ)", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DGNgay, new { htmlAttributes = new { @class = "form-control", type = "number", min = "0", step = "1000", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.DGNgay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Lưu Thay Đổi" class="btn btn-luxury" />
+                    @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

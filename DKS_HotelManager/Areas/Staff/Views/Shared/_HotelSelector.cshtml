@@ -1,0 +1,21 @@
+@using System.Linq;
+@model DKS_HotelManager.Areas.Staff.ViewModels.HotelSelectorViewModel
+
+@if (Model != null && Model.Hotels.Any())
+{
+    using (Html.BeginForm("SelectHotel", "Operations", FormMethod.Post, new { area = "Staff" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="hotel-selector">
+            <label>Chi nhánh</label>
+            <select name="hotelId" required>
+                <option value="">-- Chọn chi nhánh --</option>
+                @foreach (var hotel in Model.Hotels)
+                {
+                    <option value="@hotel.Value" @(hotel.Selected ? "selected" : "")>@hotel.Text</option>
+                }
+            </select>
+            <button type="submit">Cập nhật</button>
+        </div>
+    }
+}

@@ -1,0 +1,43 @@
+@model DKS_HotelManager.Models.PHONG
+
+@{
+    ViewBag.Title = "Xóa Phòng";
+}
+
+<div class="container">
+    <div class="page-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #d4af37; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+        <h1>Xóa Phòng <small>Luxury Hotel Chain</small></h1>
+    </div>
+
+    <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+        <h3 style="color: #e74c3c;">Bạn có chắc chắn muốn xóa phòng này?</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Mã Phòng:</dt>
+            <dd>@Model.MaPhong</dd>
+
+            <dt>Tên Phòng:</dt>
+            <dd>@Model.TenPhong</dd>
+
+            <dt>Khách Sạn:</dt>
+            <dd>@(Model.KHACHSAN != null ? Model.KHACHSAN.TenKS : "Chưa cập nhật")</dd>
+
+            <dt>Loại Phòng:</dt>
+            <dd>@(Model.LOAIPHONG != null ? Model.LOAIPHONG.TenLoai : "Chưa cập nhật")</dd>
+
+            <dt>Đơn Giá/Ngày:</dt>
+            <dd>@Model.DGNgay.ToString("N0") VNĐ</dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color" style="margin-top: 30px;">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        }
+    </div>
+</div>
+

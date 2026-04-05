@@ -1,0 +1,340 @@
+﻿@model IEnumerable<DKS_HotelManager.Models.PHONG>
+@using DKS_HotelManager.Helpers
+@{
+    ViewBag.Title = LanguageHelper.Translate("RoomList");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions {
+    private string ResolveRoomImage(string imagePath)
+    {
+        if (string.IsNullOrWhiteSpace(imagePath))
+        {
+            return Url.Content("~/Images/no_image.jpg");
+        }
+
+        if (imagePath.StartsWith("http", StringComparison.OrdinalIgnoreCase) || imagePath.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+        {
+            return imagePath;
+        }
+
+        if (imagePath.StartsWith("~") || imagePath.StartsWith("/"))
+        {
+            return Url.Content(imagePath);
+        }
+
+        return Url.Content("~/RoomImages/" + imagePath.TrimStart('/'));
+    }
+    
+    private string GetRoomImageUrl(DKS_HotelManager.Models.PHONG room)
+    {
+        if (room.HINHANHs != null && room.HINHANHs.Any())
+        {
+            var firstImage = room.HINHANHs
+                .Where(h => !string.IsNullOrEmpty(h.DuongDan))
+                .OrderBy(h => h.MaHinh)
+                .FirstOrDefault();
+            if (firstImage != null)
+            {
+                return ResolveRoomImage(firstImage.DuongDan);
+            }
+        }
+        return ResolveRoomImage(null);
+    }
+}
+
+<style>
+    .room-page {
+        padding: 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        min-height: calc(100vh - 75px);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+        color: #d4af37;
+        padding: 50px 0;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    .page-header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .page-header h1 {
+        font-size: 42px;
+        font-weight: 900;
+        margin: 0;
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        letter-spacing: -0.5px;
+    }
+
+    .page-header small {
+        display: block;
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(212, 175, 55, 0.8);
+        margin-top: 8px;
+    }
+
+    .btn-luxury {
+        background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+        border: none;
+        color: #0a0a1a;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        padding: 14px 28px;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .btn-luxury:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+        background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+        color: #0a0a1a;
+        text-decoration: none;
+    }
+
+    .btn-luxury:active {
+        transform: translateY(-1px);
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px 60px;
+    }
+
+    .table-luxury {
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 2px solid #e2e8f0;
+    }
+
+    .table-luxury table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-luxury thead {
+        background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+    }
+
+    .table-luxury th {
+        padding: 20px 24px;
+        text-align: left;
+        color: #d4af37;
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .table-luxury td {
+        padding: 20px 24px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .table-luxury tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table-luxury tbody tr:hover {
+        background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.02));
+        transform: translateX(5px);
+    }
+
+    .table-luxury tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .btn-sm {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .price-badge {
+        font-weight: 800;
+        color: #d4af37;
+        font-size: 15px;
+    }
+
+    @@media (max-width: 768px) {
+        .page-header-content {
+            padding: 0 20px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+        }
+
+        .container {
+            padding: 0 20px 40px;
+        }
+
+        .table-luxury {
+            overflow-x: auto;
+        }
+
+        .table-luxury table {
+            min-width: 1200px;
+        }
+    }
+</style>
+
+<div class="room-page">
+    <div class="page-header">
+        <div class="page-header-content">
+            <div>
+                <h1>@LanguageHelper.Translate("RoomList")</h1>
+                <small>Luxury Hotel Chain</small>
+            </div>
+            <div>
+                @Html.ActionLink(LanguageHelper.Translate("AddNewRoom"), "Create", null, new { @class = "btn-luxury" })
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table-luxury">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>@LanguageHelper.Translate("RoomCode")</th>
+                        <th>@LanguageHelper.Translate("RoomName")</th>
+                        <th>@LanguageHelper.Translate("Hotel")</th>
+                        <th>@LanguageHelper.Translate("RoomType")</th>
+                        <th>@LanguageHelper.Translate("Capacity")</th>
+                        <th>@LanguageHelper.Translate("Floor")</th>
+                        <th>@LanguageHelper.Translate("Area")</th>
+                        <th>@LanguageHelper.Translate("PricePerDay")</th>
+                        <th>@LanguageHelper.Translate("Actions")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@GetRoomImageUrl(item)" alt="@item.TenPhong" style="width: 120px; height: 90px; object-fit: cover; border-radius: 8px; border: 2px solid #e2e8f0; display: block;" />
+                            </td>
+                            <td><strong>@item.MaPhong</strong></td>
+                            <td>@item.TenPhong</td>
+                            <td>@(item.KHACHSAN != null ? item.KHACHSAN.TenKS : "")</td>
+                            <td>@(item.LOAIPHONG != null ? item.LOAIPHONG.TenLoai : "")</td>
+                            <td>@item.SucChua</td>
+                            <td>@item.Tang</td>
+                            <td>@(item.DienTich.HasValue ? item.DienTich.Value.ToString("F2") + " m²" : "")</td>
+                            <td><span class="price-badge">@item.DGNgay.ToString("N0") VNĐ</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    @Html.ActionLink(LanguageHelper.Translate("Details"), "Details", new { id = item.MaPhong }, new { @class = "btn btn-info btn-sm" })
+                                    @Html.ActionLink(LanguageHelper.Translate("Edit"), "Edit", new { id = item.MaPhong }, new { @class = "btn btn-warning btn-sm" })
+                                    @Html.ActionLink(LanguageHelper.Translate("Delete"), "Delete", new { id = item.MaPhong }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Bạn có chắc chắn muốn xóa phòng này?');" })
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
