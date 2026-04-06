@@ -90,11 +90,11 @@
                     <i class="fas fa-chevron-down dropdown-arrow"></i>
                 </button>
                 <div id="navLanguageDropdown" class="language-dropdown">
-                    <a href="@Url.Action("SetLanguage", "DKS_Nhom1", new { lang = "vi", returnUrl = Request.RawUrl })" class="language-option @(LanguageHelper.GetCurrentLanguage() == "vi" ? "active" : "")">
+                    <a href="@Url.Action("SetLanguage", "DKS_Nhom12", new { lang = "vi", returnUrl = Request.RawUrl })" class="language-option @(LanguageHelper.GetCurrentLanguage() == "vi" ? "active" : "")">
                         <i class="fas fa-flag"></i>
                         <span>@LanguageHelper.Translate("Vietnamese")</span>
                     </a>
-                    <a href="@Url.Action("SetLanguage", "DKS_Nhom1", new { lang = "en", returnUrl = Request.RawUrl })" class="language-option @(LanguageHelper.GetCurrentLanguage() == "en" ? "active" : "")">
+                    <a href="@Url.Action("SetLanguage", "DKS_Nhom12", new { lang = "en", returnUrl = Request.RawUrl })" class="language-option @(LanguageHelper.GetCurrentLanguage() == "en" ? "active" : "")">
                         <i class="fas fa-flag"></i>
                         <span>@LanguageHelper.Translate("English")</span>
                     </a>

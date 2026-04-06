@@ -8,17 +8,14 @@ using DKS_HotelManager.Models;
 
 namespace DKS_HotelManager.Controllers
 {
-    public class DKS_Nhom1Controller : Controller
+    public class DKS_Nhom12Controller : Controller
     {
         private DKS_HotelManagerEntities db = new DKS_HotelManagerEntities();
 
-        // GET: DKS_Nhom1
         public ActionResult Index()
         {
             return View();
         }
-
-        // GET: DKS_Nhom1/TrangChu
         public ActionResult TrangChu()
         {
             // Thống kê tổng quan
@@ -32,14 +29,12 @@ namespace DKS_HotelManager.Controllers
             return View();
         }
 
-        // GET: DKS_Nhom1/QuanLyKhachHang
         public ActionResult QuanLyKhachHang()
         {
             var khachHangs = db.KHACHHANGs.ToList();
             return View(khachHangs);
         }
 
-        // GET: DKS_Nhom1/ChiTietKhachHang/5
         public ActionResult ChiTietKhachHang(int? id)
         {
             if (id == null)
@@ -62,14 +57,10 @@ namespace DKS_HotelManager.Controllers
             ViewBag.LichSuDatPhong = lichSuDatPhong;
             return View(khachHang);
         }
-
-        // GET: DKS_Nhom1/ThemKhachHang
         public ActionResult ThemKhachHang()
         {
             return View();
         }
-
-        // POST: DKS_Nhom1/ThemKhachHang
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ThemKhachHang([Bind(Include = "MKH,HoTen,SDT,Email,DiaChi,CMND,GioiTinh,NgaySinh")] KHACHHANG khachHang)
@@ -83,7 +74,6 @@ namespace DKS_HotelManager.Controllers
             return View(khachHang);
         }
 
-        // GET: DKS_Nhom1/SuaKhachHang/5
         public ActionResult SuaKhachHang(int? id)
         {
             if (id == null)
@@ -97,8 +87,6 @@ namespace DKS_HotelManager.Controllers
             }
             return View(khachHang);
         }
-
-        // POST: DKS_Nhom1/SuaKhachHang/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SuaKhachHang([Bind(Include = "MKH,HoTen,SDT,Email,DiaChi,CMND,GioiTinh,NgaySinh")] KHACHHANG khachHang)
@@ -112,7 +100,6 @@ namespace DKS_HotelManager.Controllers
             return View(khachHang);
         }
 
-        // GET: DKS_Nhom1/XoaKhachHang/5
         public ActionResult XoaKhachHang(int? id)
         {
             if (id == null)
@@ -127,7 +114,6 @@ namespace DKS_HotelManager.Controllers
             return View(khachHang);
         }
 
-        // POST: DKS_Nhom1/XoaKhachHang/5
         [HttpPost, ActionName("XoaKhachHang")]
         [ValidateAntiForgeryToken]
         public ActionResult XacNhanXoaKhachHang(int id)
@@ -201,8 +187,6 @@ namespace DKS_HotelManager.Controllers
             return View();
         }
 
-
-        // GET: DKS_Nhom1/SetLanguage (for easy access from any page)
         [HttpGet]
         public ActionResult SetLanguage(string lang, string returnUrl = "")
         {
@@ -231,7 +215,6 @@ namespace DKS_HotelManager.Controllers
             return RedirectToAction("CaiDat");
         }
 
-        // POST: DKS_Nhom1/SetLanguage
         [HttpPost]
         public ActionResult SetLanguagePost(string lang, string returnUrl = "")
         {

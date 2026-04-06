@@ -22,7 +22,6 @@ namespace DKS_HotelManager.Controllers
         private const string PendingInvoiceCachePrefix = "PendingInvoice:";
         private DKS_HotelManagerEntities db = new DKS_HotelManagerEntities();
 
-        // GET: Hotel
         public ActionResult Index(string location = "", string sort = "", int guests = 0, DateTime? checkIn = null, DateTime? checkOut = null, decimal? minPrice = null, decimal? maxPrice = null)
         {
             var hotelQuery = db.KHACHSANs
