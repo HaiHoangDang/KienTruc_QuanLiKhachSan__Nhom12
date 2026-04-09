@@ -288,9 +288,9 @@ INSERT INTO PHONG_TIENICH VALUES
 INSERT INTO NHANVIEN
 (MaNV, HoTen, NgaySinh, SoDT, ChucVu, TenDN, MatKhau, Email)
 VALUES
-(1,  N'Phan Nhat Dang',     '2005-08-20', N'0932816756', N'Quan ly',          'phannhatdang',    'phannhatdang',  '2324802010017@student.tdmu.edu.vn'),
+(1,  N'Dang Hoang Hai',     '2005-01-02', N'0374232805', N'Quan ly',          'danghoanghai',    'danghoanghai',  '2324802010209@student.tdmu.edu.vn'),
 (2,  N'Tran Thi Bich',     '1992-03-22', N'0912345678', N'Quan ly',         'tranthibich2',     'nv2@123',  'bich@hotel.com'),
-(3,  N'Le Van Cuong',      '1988-07-15', N'0987654321', N'Le tan',          'levancuong3',      'nv3@123',  'cuong@hotel.com'),
+(3,  N'Dang Hoang Hai 2',      '1988-07-15', N'0987654321', N'Le tan',          'danghoanghai2',      'danghoanghai',  'hai@hotel.com'),
 (4,  N'Pham Minh Duc',     '1995-11-05', N'0934567890', N'Le tan',         'phamminhduc4',     'nv4@123',  'duc@hotel.com'),
 (5,  N'Hoang Thi Ha',      '1993-12-18', N'0923456789', N'Nhan vien',          'hoangthiha5',      'nv5@123',  'ha@hotel.com'),
 (6,  N'Nguyen Khanh Nam',  '1986-09-20', N'0919876543', N'Quan ly',         'nguyenkhanhnam6',  'nv6@123',  'nam@hotel.com'),
@@ -303,7 +303,7 @@ VALUES
 INSERT INTO KHACHHANG
 (MKH, TKH, DiaChi, SDT, CMND_CCCD, TenDN, MatKhau, Email)
 VALUES
-(1,  N'Phan Nhat Dang',    N'TP Ho Chi Minh',          N'0932816756', N'074205001098', 'dangpn',    '20082005',  'phannhatdang2005@gmail.com'),
+(1,  N'Dang Hoang Hai',    N'TP Ho Chi Minh',          N'0374232805', N'074205001098', 'danghoanghai',    'danghoanghai',  '23248020102099@gmail.com'),
 (2,  N'Tran Van Hung',     N'TP Ho Chi Minh',  N'0912123456', N'0234567890', 'hungphan',      '20082005',  'midorima8726@@gmail.com'),
 (3,  N'Le Thi Thu',        N'Da Nang',         N'0921122334', N'0345678901', 'lethithu3',         'kh3@123',  'thu@gmail.com'),
 (4,  N'Hoang Van Nam',     N'Hai Phong',       N'0939988776', N'0456789012', 'hoangvannam4',      'kh4@123',  'nam@gmail.com'),
