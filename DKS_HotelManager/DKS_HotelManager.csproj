@@ -140,9 +140,11 @@
     <Compile Include="Areas\Admin\Controllers\RevenueController.cs" />
     <Compile Include="Areas\Admin\ViewModels\AdminViewModels.cs" />
     <Compile Include="Areas\Staff\StaffAreaRegistration.cs" />
+    <Compile Include="Common\BookingStatus.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AuthenticationViewModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\ChatBotController.cs" />
     <Compile Include="Controllers\DKS_Nhom12Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -154,6 +156,12 @@
     <Compile Include="Areas\Staff\Controllers\CheckInController.cs" />
     <Compile Include="Areas\Staff\Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
+    <Compile Include="DTOs\Booking\BookingResponse.cs" />
+    <Compile Include="DTOs\Booking\CreateBookingRequest.cs" />
+    <Compile Include="DTOs\Booking\UpdateBookingStatusRequest.cs" />
+    <Compile Include="DTOs\Room\CreateRoomRequest.cs" />
+    <Compile Include="DTOs\Room\RoomResponse.cs" />
+    <Compile Include="DTOs\Room\UpdateRoomRequest.cs" />
     <Compile Include="Helpers\BookingIdHelper.cs" />
     <Compile Include="Helpers\CustomerIdHelper.cs" />
     <Compile Include="Areas\Staff\ViewModels\StaffOperationsViewModels.cs" />
@@ -242,6 +250,12 @@
     <Compile Include="Models\ViewModels\HotelDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\HotelSearchPageViewModel.cs" />
     <Compile Include="Models\ViewModels\RoomViewModel.cs" />
+    <Compile Include="Repositories\Implementations\BookingRepository.cs" />
+    <Compile Include="Repositories\Implementations\RoomRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IBookingRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRoomRepository.cs" />
+    <Compile Include="Services\Implementations\BookingService.cs" />
+    <Compile Include="Services\Interfaces\IBookingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -383,6 +397,11 @@
     <Content Include="Views\Shared\_ChatBotPartial.cshtml" />
     <Content Include="Views\Hotel\ReviewBooking.cshtml" />
     <Content Include="Views\Hotel\PaymentConfirm.cshtml" />
+    <Content Include="Views\Booking\Create.cshtml" />
+    <Content Include="Views\Booking\Delete.cshtml" />
+    <Content Include="Views\Booking\Details.cshtml" />
+    <Content Include="Views\Booking\Edit.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
