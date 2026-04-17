@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DKS_HotelManager.DTOs.Common;
 using DKS_HotelManager.DTOs.Room;
 using DKS_HotelManager.Models;
 using DKS_HotelManager.Repositories.Interfaces;
 using DKS_HotelManager.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DKS_HotelManager.Services.Implementations
 {
@@ -16,7 +17,36 @@ namespace DKS_HotelManager.Services.Implementations
         {
             _roomRepository = roomRepository;
         }
+        public List<DropdownItem> GetHotels()
+        {
+            return _roomRepository.GetHotels()
+                .Select(x => new DropdownItem
+                {
+                    Value = x.MaKS,
+                    Text = x.TenKS
+                })
+                .ToList();
+        }
 
+        public List<DropdownItem> GetRoomTypes()
+        {
+            return _roomRepository.GetRoomTypes()
+                .Select(x => new DropdownItem
+                {
+                    Value = x.MaLoai,
+                    Text = x.TenLoai
+                })
+                .ToList();
+        }
+        //public List<KHACHSAN> GetHotels()
+        //{
+        //    return _roomRepository.GetHotels();
+        //}
+
+        //public List<LOAIPHONG> GetRoomTypes()
+        //{
+        //    return _roomRepository.GetRoomTypes();
+        //}
         public List<RoomResponse> GetAll()
         {
             return _roomRepository.GetAll()

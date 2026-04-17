@@ -156,9 +156,11 @@
     <Compile Include="Areas\Staff\Controllers\CheckInController.cs" />
     <Compile Include="Areas\Staff\Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="DTOs\Booking\BookingResponse.cs" />
     <Compile Include="DTOs\Booking\CreateBookingRequest.cs" />
     <Compile Include="DTOs\Booking\UpdateBookingStatusRequest.cs" />
+    <Compile Include="DTOs\Common\DropdownItem.cs" />
     <Compile Include="DTOs\Room\CreateRoomRequest.cs" />
     <Compile Include="DTOs\Room\RoomResponse.cs" />
     <Compile Include="DTOs\Room\UpdateRoomRequest.cs" />
@@ -255,7 +257,9 @@
     <Compile Include="Repositories\Interfaces\IBookingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoomRepository.cs" />
     <Compile Include="Services\Implementations\BookingService.cs" />
+    <Compile Include="Services\Implementations\RoomService.cs" />
     <Compile Include="Services\Interfaces\IBookingService.cs" />
+    <Compile Include="Services\Interfaces\IRoomService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -370,7 +374,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Comment.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Service.cshtml" />
     <Content Include="Views\DKS_Nhom12\_TopNavbarPartial.cshtml" />
     <Content Include="Views\DKS_Nhom12\_SidebarPartial.cshtml" />
@@ -406,6 +409,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="RoomImages\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

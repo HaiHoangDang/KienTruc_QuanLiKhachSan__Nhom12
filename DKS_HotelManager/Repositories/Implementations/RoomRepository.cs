@@ -14,7 +14,15 @@ namespace DKS_HotelManager.Repositories.Implementations
         {
             _context = context;
         }
+        public List<KHACHSAN> GetHotels()
+        {
+            return _context.KHACHSANs.ToList();
+        }
 
+        public List<LOAIPHONG> GetRoomTypes()
+        {
+            return _context.LOAIPHONGs.ToList();
+        }
         public List<PHONG> GetAll()
         {
             return _context.PHONGs

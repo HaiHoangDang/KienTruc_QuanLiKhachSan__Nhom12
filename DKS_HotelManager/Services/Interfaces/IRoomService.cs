@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using DKS_HotelManager.DTOs.Room;
+﻿using DKS_HotelManager.DTOs.Room;
+using DKS_HotelManager.Models;
+using DKS_HotelManager.DTOs.Common;
+using System.Collections.Generic;
 
 namespace DKS_HotelManager.Services.Interfaces
 {
@@ -10,5 +12,9 @@ namespace DKS_HotelManager.Services.Interfaces
         RoomResponse Create(CreateRoomRequest request);
         void Update(UpdateRoomRequest request);
         void Delete(int id);
+        List<DropdownItem> GetHotels();
+        List<DropdownItem> GetRoomTypes();
+        //List<KHACHSAN> GetHotels();
+        //List<LOAIPHONG> GetRoomTypes();
     }
 }

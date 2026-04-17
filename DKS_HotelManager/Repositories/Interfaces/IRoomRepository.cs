@@ -12,5 +12,7 @@ namespace DKS_HotelManager.Repositories.Interfaces
         void Delete(int id);
         int GetNextMaPhong();
         void Save();
+        List<KHACHSAN> GetHotels();
+        List<LOAIPHONG> GetRoomTypes();
     }
 }

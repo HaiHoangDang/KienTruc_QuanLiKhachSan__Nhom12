@@ -27,3 +27,9 @@
 {"timestampUtc":"2026-04-05T08:50:52.8637565Z","category":"auth_admin","action":"login_failed_wrong_password","severity":"warning","staffId":1,"username":"danghoanghai","ip":"::1","locked":false}
 {"timestampUtc":"2026-04-05T08:50:59.5602694Z","category":"auth_admin","action":"login_failed_wrong_password","severity":"warning","staffId":1,"username":"danghoanghai","ip":"::1","locked":false}
 {"timestampUtc":"2026-04-06T07:21:11.4758521Z","category":"payment","action":"vnpay_callback_missing_secret","severity":"error"}
+{"timestampUtc":"2026-04-17T04:55:35.6175595Z","category":"auth","action":"password_rehashed_on_login","severity":"info","username":"danghoanghai","customerId":1}
+{"timestampUtc":"2026-04-17T04:55:35.7102873Z","category":"auth","action":"login_success","severity":"info","username":"danghoanghai","customerId":1,"ip":"::1"}
+{"timestampUtc":"2026-04-17T05:26:43.7943709Z","category":"auth","action":"login_success","severity":"info","username":"danghoanghai","customerId":1,"ip":"::1"}
+{"timestampUtc":"2026-04-17T05:26:45.4860891Z","category":"auth","action":"login_success","severity":"info","username":"danghoanghai","customerId":1,"ip":"::1"}
+{"timestampUtc":"2026-04-17T05:27:44.0412964Z","category":"payment","action":"vnpay_missing_config","severity":"error"}
+{"timestampUtc":"2026-04-17T06:54:28.4486895Z","category":"auth","action":"google_login_missing_client_id","severity":"warning"}

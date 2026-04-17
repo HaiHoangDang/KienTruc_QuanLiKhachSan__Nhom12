@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DKS_HotelManager.Helpers;
+using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
 using DKS_HotelManager.Models;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -44,98 +47,112 @@ namespace DKS_HotelManager.Controllers
             return Redirect(response);
         }
 
-        // POST: Authentication/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, bool rememberMe = false, string returnUrl = "")
+        public async Task<ActionResult> Login(LoginViewModel model, bool rememberMe = false, string returnUrl = "")
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-                        var normalizedUsername = model.Username.Trim();
-            var clientIp = SecurityAuditLogger.GetClientIp(Request);
-            var lockState = LoginSecurityService.CheckLoginAllowed(normalizedUsername, clientIp);
-            if (!lockState.Allowed)
+            var httpClient = new HttpClient();
+
+            var json = JsonConvert.SerializeObject(new
             {
-                ModelState.AddModelError("", $"Tai khoan dang tam khoa do dang nhap sai nhieu lan. Vui long thu lai sau {lockState.RetryAfterSeconds} giay.");
-                SecurityAuditLogger.Log("auth", "login_blocked", "warning", new Dictionary<string, object>
-                {
-                    { "username", normalizedUsername },
-                    { "ip", clientIp },
-                    { "retryAfterSeconds", lockState.RetryAfterSeconds }
-                });
-                return View(model);
-            }
-
-            var khachHang = db.KHACHHANGs.FirstOrDefault(k => k.TenDN == normalizedUsername);
-
-            if (khachHang == null)
-            {
-                var failState = LoginSecurityService.RecordFailure(normalizedUsername, clientIp);
-                ModelState.AddModelError("", "Tai khoan khong ton tai.");
-                SecurityAuditLogger.Log("auth", "login_failed_unknown_user", "warning", new Dictionary<string, object>
-                {
-                    { "username", normalizedUsername },
-                    { "ip", clientIp },
-                    { "locked", !failState.Allowed },
-                    { "retryAfterSeconds", failState.RetryAfterSeconds }
-                });
-                return View(model);
-            }
-
-            if (!PasswordHasher.VerifyPassword(khachHang.MatKhau, model.Password, out var needsRehash))
-            {
-                var failState = LoginSecurityService.RecordFailure(normalizedUsername, clientIp);
-                ModelState.AddModelError("", "Mat khau khong dung.");
-                SecurityAuditLogger.Log("auth", "login_failed_wrong_password", "warning", new Dictionary<string, object>
-                {
-                    { "username", normalizedUsername },
-                    { "customerId", khachHang.MKH },
-                    { "ip", clientIp },
-                    { "locked", !failState.Allowed },
-                    { "retryAfterSeconds", failState.RetryAfterSeconds }
-                });
-                return View(model);
-            }
-
-            if (needsRehash)
-            {
-                khachHang.MatKhau = PasswordHasher.HashPassword(model.Password);
-                db.Entry(khachHang).State = EntityState.Modified;
-                db.SaveChanges();
-                SecurityAuditLogger.Log("auth", "password_rehashed_on_login", "info", new Dictionary<string, object>
-                {
-                    { "username", normalizedUsername },
-                    { "customerId", khachHang.MKH }
-                });
-            }
-
-            LoginSecurityService.ResetFailures(normalizedUsername, clientIp);
-
-            Session["KhachHang"] = khachHang;
-            Session["KhachHangId"] = khachHang.MKH;
-            Session["KhachHangTen"] = khachHang.TKH;
-
-            SecurityAuditLogger.Log("auth", "login_success", "info", new Dictionary<string, object>
-            {
-                { "username", normalizedUsername },
-                { "customerId", khachHang.MKH },
-                { "ip", clientIp }
+                Email = model.Username,
+                Password = model.Password
             });
-            if (rememberMe)
-            {
-                HttpCookie cookie = new HttpCookie("RememberMe");
-                cookie.Value = khachHang.MKH.ToString();
-                cookie.Expires = DateTime.Now.AddDays(30);
-                cookie.HttpOnly = true;
-                cookie.Secure = Request?.IsSecureConnection ?? false;
-                cookie.SameSite = SameSiteMode.Lax;
-                Response.Cookies.Add(cookie);
-            }
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(
+                "http://localhost:5199/api/auth/login",
+                content
+            );
 
+            //var errorBody = await response.Content.ReadAsStringAsync();
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    ModelState.AddModelError("", errorBody);
+            //    return View(model);
+            //}
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("", "Sai thông tin đăng nhập");
+                return View(model);
+            }
+            var resultString = await response.Content.ReadAsStringAsync();
+            dynamic result = JsonConvert.DeserializeObject(resultString);
+            Session["token"] = result.token;
+            Session["KhachHangTen"] = model.Username;
             return RedirectToLocalOrDefault(returnUrl, "login_return_url_rejected");
+            //var khachHang = db.KHACHHANGs.FirstOrDefault(k => k.TenDN == normalizedUsername);
+
+            //if (khachHang == null)
+            //{
+            //    var failState = LoginSecurityService.RecordFailure(normalizedUsername, clientIp);
+            //    ModelState.AddModelError("", "Tai khoan khong ton tai.");
+            //    SecurityAuditLogger.Log("auth", "login_failed_unknown_user", "warning", new Dictionary<string, object>
+            //    {
+            //        { "username", normalizedUsername },
+            //        { "ip", clientIp },
+            //        { "locked", !failState.Allowed },
+            //        { "retryAfterSeconds", failState.RetryAfterSeconds }
+            //    });
+            //    return View(model);
+            //}
+
+            //if (!PasswordHasher.VerifyPassword(khachHang.MatKhau, model.Password, out var needsRehash))
+            //{
+            //    var failState = LoginSecurityService.RecordFailure(normalizedUsername, clientIp);
+            //    ModelState.AddModelError("", "Mat khau khong dung.");
+            //    SecurityAuditLogger.Log("auth", "login_failed_wrong_password", "warning", new Dictionary<string, object>
+            //    {
+            //        { "username", normalizedUsername },
+            //        { "customerId", khachHang.MKH },
+            //        { "ip", clientIp },
+            //        { "locked", !failState.Allowed },
+            //        { "retryAfterSeconds", failState.RetryAfterSeconds }
+            //    });
+            //    return View(model);
+            //}
+
+            //if (needsRehash)
+            //{
+            //    khachHang.MatKhau = PasswordHasher.HashPassword(model.Password);
+            //    db.Entry(khachHang).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    SecurityAuditLogger.Log("auth", "password_rehashed_on_login", "info", new Dictionary<string, object>
+            //    {
+            //        { "username", normalizedUsername },
+            //        { "customerId", khachHang.MKH }
+            //    });
+            //}
+
+            //LoginSecurityService.ResetFailures(normalizedUsername, clientIp);
+
+            //Session["KhachHang"] = khachHang;
+            //Session["KhachHangId"] = khachHang.MKH;
+            //Session["KhachHangTen"] = khachHang.TKH;
+
+            //SecurityAuditLogger.Log("auth", "login_success", "info", new Dictionary<string, object>
+            //{
+            //    { "username", normalizedUsername },
+            //    { "customerId", khachHang.MKH },
+            //    { "ip", clientIp }
+            //});
+            //if (rememberMe)
+            //{
+            //    HttpCookie cookie = new HttpCookie("RememberMe");
+            //    cookie.Value = khachHang.MKH.ToString();
+            //    cookie.Expires = DateTime.Now.AddDays(30);
+            //    cookie.HttpOnly = true;
+            //    cookie.Secure = Request?.IsSecureConnection ?? false;
+            //    cookie.SameSite = SameSiteMode.Lax;
+            //    Response.Cookies.Add(cookie);
+            //}
+
+            //return RedirectToLocalOrDefault(returnUrl, "login_return_url_rejected");
         }
 
         public async Task<ActionResult> LoginGoogle(string code, string state, string error = null)
