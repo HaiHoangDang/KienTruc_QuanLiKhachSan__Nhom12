@@ -55,7 +55,7 @@ using auth_service.Data;
 using auth_service.DTOs;
 using auth_service.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using auth_service.Helpers;
 namespace auth_service.Controllers
 {
     [ApiController]
@@ -96,13 +96,15 @@ namespace auth_service.Controllers
             if (!ok)
                 return Unauthorized();
 
-            var token = _jwtService.GenerateToken(user.TenDN);
+            var token = _jwtService.GenerateToken(user.MKH.ToString());
 
             return Ok(new
             {
                 token,
+                userId = user.MKH,  
                 username = user.TKH,
                 email = user.TenDN
             });
         }
     }
+}

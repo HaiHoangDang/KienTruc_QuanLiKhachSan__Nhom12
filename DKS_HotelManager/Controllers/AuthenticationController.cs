@@ -84,7 +84,14 @@ namespace DKS_HotelManager.Controllers
             var resultString = await response.Content.ReadAsStringAsync();
             dynamic result = JsonConvert.DeserializeObject(resultString);
             Session["token"] = result.token;
-            Session["KhachHangTen"] = model.Username;
+            Session["KhachHangTen"] = result.username;
+            Session["KhachHangId"] = result.userId;
+
+            Session["KhachHang"] = new
+            {
+                MKH = result.userId,
+                TKH = result.username
+            };
             return RedirectToLocalOrDefault(returnUrl, "login_return_url_rejected");
             //var khachHang = db.KHACHHANGs.FirstOrDefault(k => k.TenDN == normalizedUsername);
 
