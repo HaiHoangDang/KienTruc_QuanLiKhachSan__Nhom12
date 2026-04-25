@@ -14,16 +14,17 @@ namespace auth_service.Services
             _config = config;
         }
 
-        public string GenerateToken(string email)
+        public string GenerateToken(string userId)
         {
             var jwtSettings = _config.GetSection("Jwt");
             var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, email),
-                new Claim(ClaimTypes.Role, "User")
-            };
+        new Claim(ClaimTypes.NameIdentifier, userId),
+        new Claim(ClaimTypes.Name, userId),
+        new Claim(ClaimTypes.Role, "User")
+    };
 
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],

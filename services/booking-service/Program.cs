@@ -10,20 +10,48 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes("YOUR_SECRET_KEY_123456")
+            Encoding.UTF8.GetBytes(jwtSettings["Key"])
         )
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            Console.WriteLine("TOKEN: " + context.Token);
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine("AUTH FAILED: " + context.Exception.Message);
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine("TOKEN OK");
+            return Task.CompletedTask;
+        }
+    };
 });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddControllers();
@@ -32,15 +60,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

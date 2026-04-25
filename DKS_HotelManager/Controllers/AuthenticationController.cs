@@ -57,10 +57,15 @@ namespace DKS_HotelManager.Controllers
             }
 
             var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization =
+    new System.Net.Http.Headers.AuthenticationHeaderValue(
+        "Bearer",
+        Session["token"]?.ToString()
+    );
 
             var json = JsonConvert.SerializeObject(new
             {
-                Email = model.Username,
+                Username = model.Username,
                 Password = model.Password
             });
             var content = new StringContent(json, Encoding.UTF8, "application/json");

@@ -15,14 +15,18 @@ namespace booking_service.Controllers
 
         public BookingController(IBookingService service)
         {
+            if (service == null)
+            {
+                throw new Exception("SERVICE IS NULL");
+            }
+
             _service = service;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAll();
-            return Ok(result);
+            return Ok(await _service.GetAll());
         }
 
         [HttpGet("{id}")]

@@ -1,0 +1,6 @@
+@notification_vervice_HostAddress = http://localhost:5259
+
+GET {{notification_vervice_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

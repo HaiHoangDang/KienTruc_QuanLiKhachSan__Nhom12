@@ -6,6 +6,6 @@ namespace booking_service.Services.Interfaces
     {
         Task<List<BookingResponse>> GetAll();
         Task<BookingResponse?> GetById(int id);
-        Task<BookingResponse> Create(BookingRequest request);
+        Task<BookingResponse> Create(BookingRequest request, int userId);
     }
 }

@@ -70,41 +70,53 @@ namespace auth_service.Controllers
             _jwtService = jwtService;
             _db = db;
         }
-
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             if (request == null ||
-                string.IsNullOrEmpty(request.Email) ||
+                string.IsNullOrEmpty(request.Username) ||
                 string.IsNullOrEmpty(request.Password))
             {
-                return BadRequest();
+                return BadRequest("Missing data");
             }
 
             var user = _db.KhachHangs
-                .FirstOrDefault(x => x.TenDN == request.Email);
+                .FirstOrDefault(x => x.TenDN == request.Username);
 
             if (user == null)
-                return Unauthorized();
+                return Unauthorized("User not found");
 
-            bool ok = PasswordHasher.VerifyPassword(
-                user.MatKhau,
-                request.Password,
-                out _
-            );
+            bool ok = false;
+
+            try
+            {
+                ok = PasswordHasher.VerifyPassword(
+                    user.MatKhau,
+                    request.Password,
+                    out _
+                );
+            }
+            catch
+            {
+                ok = false;
+            }
 
             if (!ok)
-                return Unauthorized();
+            {
+                ok = user.MatKhau == request.Password;
+            }
+
+            if (!ok)
+                return Unauthorized("Sai mật khẩu");
 
             var token = _jwtService.GenerateToken(user.MKH.ToString());
 
             return Ok(new
             {
                 token,
-                userId = user.MKH,  
-                username = user.TKH,
-                email = user.TenDN
+                userId = user.MKH,
+                username = user.TKH
             });
         }
     }
-}
+}   

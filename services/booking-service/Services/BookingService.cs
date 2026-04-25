@@ -3,7 +3,6 @@ using booking_service.Data;
 using booking_service.DTOs;
 using booking_service.Models;
 using booking_service.Services.Interfaces;
-
 namespace booking_service.Services
 {
     public class BookingService : IBookingService
@@ -45,7 +44,7 @@ namespace booking_service.Services
                 })
                 .FirstOrDefaultAsync();
         }
-        public async Task<BookingResponse> Create(BookingRequest request)
+        public async Task<BookingResponse> Create(BookingRequest request, int userId)
         {
             bool isConflict = await _context.Bookings.AnyAsync(b =>
                 b.MaPhong == request.MaPhong &&
@@ -65,7 +64,7 @@ namespace booking_service.Services
             var booking = new Booking
             {
                 MaPhong = request.MaPhong,
-                MaNV = request.MaNV,
+                MaNV = userId,
                 NgayDat = DateTime.Now,
                 NgayVao = request.NgayVao,
                 NgayTra = request.NgayTra,
