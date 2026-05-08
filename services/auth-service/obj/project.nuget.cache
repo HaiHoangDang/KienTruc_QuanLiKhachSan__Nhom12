@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/dy+aOA4tlM=",
+  "dgSpecHash": "4khB/2N4nBo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Downloads\\HHH\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

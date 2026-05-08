@@ -1,4 +1,4 @@
-@model DKS_HotelManager.Models.THUEPHONG
+@model DKS_HotelManager.DTOs.Booking.BookingResponse
 
 @{
     ViewBag.Title = "Chi Tiết Đặt Phòng";
@@ -17,11 +17,11 @@
             <dt>Mã Đặt Phòng:</dt>
             <dd>@Model.MaDatPhong</dd>
 
-            <dt>Phòng:</dt>
-            <dd>@(Model.PHONG != null ? Model.PHONG.TenPhong : "Chưa cập nhật")</dd>
+            <dt>Mã Phòng:</dt>
+            <dd>@(Model.MaPhong.HasValue ? Model.MaPhong.Value.ToString() : "Chưa cập nhật")</dd>
 
-            <dt>Nhân Viên:</dt>
-            <dd>@(Model.NHANVIEN != null ? Model.NHANVIEN.HoTen : "Chưa cập nhật")</dd>
+            <dt>Mã Nhân Viên:</dt>
+            <dd>@(Model.MaNV.HasValue ? Model.MaNV.Value.ToString() : "Chưa cập nhật")</dd>
 
             <dt>Ngày Đặt:</dt>
             <dd>@(Model.NgayDat.HasValue ? Model.NgayDat.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa cập nhật")</dd>
@@ -40,10 +40,8 @@
         </dl>
 
         <div style="margin-top: 30px;">
-            @Html.ActionLink("Sửa", "Edit", new { id = Model.MaThue }, new { @class = "btn btn-warning" })
             @Html.ActionLink("Xóa", "Delete", new { id = Model.MaThue }, new { @class = "btn btn-danger" })
             @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-default" })
         </div>
     </div>
 </div>
-

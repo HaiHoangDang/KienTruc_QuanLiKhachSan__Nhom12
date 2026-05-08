@@ -1,5 +1,4 @@
-﻿@model IEnumerable<DKS_HotelManager.Models.THUEPHONG>
-
+﻿@model IEnumerable<DKS_HotelManager.DTOs.Booking.BookingResponse>
 @{
     ViewBag.Title = "Danh Sách Đặt Phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,16 +20,16 @@
         overflow: hidden;
     }
 
-    .page-header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
-        border-radius: 50%;
-    }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
 
     .page-header-content {
         max-width: 1400px;
@@ -79,17 +78,17 @@
         font-size: 14px;
     }
 
-    .btn-luxury:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
-        background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
-        color: #0a0a1a;
-        text-decoration: none;
-    }
+        .btn-luxury:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+            color: #0a0a1a;
+            text-decoration: none;
+        }
 
-    .btn-luxury:active {
-        transform: translateY(-1px);
-    }
+        .btn-luxury:active {
+            transform: translateY(-1px);
+        }
 
     .container {
         max-width: 1400px;
@@ -105,46 +104,46 @@
         border: 2px solid #e2e8f0;
     }
 
-    .table-luxury table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        .table-luxury table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    .table-luxury thead {
-        background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    }
+        .table-luxury thead {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+        }
 
-    .table-luxury th {
-        padding: 20px 24px;
-        text-align: left;
-        color: #d4af37;
-        font-weight: 800;
-        font-size: 13px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        border-bottom: 2px solid rgba(212, 175, 55, 0.3);
-    }
+        .table-luxury th {
+            padding: 20px 24px;
+            text-align: left;
+            color: #d4af37;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
 
-    .table-luxury td {
-        padding: 20px 24px;
-        border-bottom: 1px solid #e2e8f0;
-        color: #475569;
-        font-size: 14px;
-        font-weight: 500;
-    }
+        .table-luxury td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-    .table-luxury tbody tr {
-        transition: all 0.3s ease;
-    }
+        .table-luxury tbody tr {
+            transition: all 0.3s ease;
+        }
 
-    .table-luxury tbody tr:hover {
-        background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.02));
-        transform: translateX(5px);
-    }
+            .table-luxury tbody tr:hover {
+                background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.02));
+                transform: translateX(5px);
+            }
 
-    .table-luxury tbody tr:last-child td {
-        border-bottom: none;
-    }
+            .table-luxury tbody tr:last-child td {
+                border-bottom: none;
+            }
 
     .btn {
         padding: 10px 18px;
@@ -168,25 +167,12 @@
         box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
-    .btn-info:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        color: #ffffff;
-        text-decoration: none;
-    }
-
-    .btn-warning {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        color: #ffffff;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-    }
-
-    .btn-warning:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-        color: #ffffff;
-        text-decoration: none;
-    }
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            color: #ffffff;
+            text-decoration: none;
+        }
 
     .btn-danger {
         background: linear-gradient(135deg, #ef4444, #dc2626);
@@ -194,12 +180,12 @@
         box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
     }
 
-    .btn-danger:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-        color: #ffffff;
-        text-decoration: none;
-    }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+            color: #ffffff;
+            text-decoration: none;
+        }
 
     .btn-sm {
         padding: 8px 14px;
@@ -222,16 +208,22 @@
         border: 1px solid #34d399;
     }
 
-    .status-pending {
-        background: linear-gradient(135deg, #fef3c7, #fde68a);
-        color: #92400e;
-        border: 1px solid #fbbf24;
+    .status-cancel {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #991b1b;
+        border: 1px solid #ef4444;
     }
 
-    .status-default {
+    .status-completed {
         background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
         color: #3730a3;
         border: 1px solid #6366f1;
+    }
+
+    .status-default {
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        color: #334155;
+        border: 1px solid #94a3b8;
     }
 
     .action-buttons {
@@ -240,7 +232,7 @@
         flex-wrap: wrap;
     }
 
-    @media (max-width: 768px) {
+    @@media (max-width: 768px) {
         .page-header-content {
             padding: 0 20px;
         }
@@ -257,9 +249,9 @@
             overflow-x: auto;
         }
 
-        .table-luxury table {
-            min-width: 1000px;
-        }
+            .table-luxury table {
+                min-width: 1000px;
+            }
     }
 </style>
 
@@ -283,8 +275,8 @@
                     <tr>
                         <th>Mã Thuê</th>
                         <th>Mã Đặt Phòng</th>
-                        <th>Phòng</th>
-                        <th>Nhân Viên</th>
+                        <th>Mã Phòng</th>
+                        <th>Mã Nhân Viên</th>
                         <th>Ngày Đặt</th>
                         <th>Ngày Vào</th>
                         <th>Ngày Trả</th>
@@ -299,8 +291,8 @@
                         <tr>
                             <td><strong>@item.MaThue</strong></td>
                             <td>@item.MaDatPhong</td>
-                            <td>@(item.PHONG != null ? item.PHONG.TenPhong : "")</td>
-                            <td>@(item.NHANVIEN != null ? item.NHANVIEN.HoTen : "")</td>
+                            <td>@item.MaPhong</td>
+                            <td>@item.MaNV</td>
                             <td>@(item.NgayDat.HasValue ? item.NgayDat.Value.ToString("dd/MM/yyyy") : "")</td>
                             <td>@(item.NgayVao.HasValue ? item.NgayVao.Value.ToString("dd/MM/yyyy") : "")</td>
                             <td>@(item.NgayTra.HasValue ? item.NgayTra.Value.ToString("dd/MM/yyyy") : "")</td>
@@ -309,13 +301,18 @@
                                 @{
                                     var statusClass = "status-default";
                                     var statusText = string.IsNullOrEmpty(item.TrangThai) ? "Chưa cập nhật" : item.TrangThai;
-                                    if (statusText.Contains("Xác nhận") || statusText.Contains("Active"))
+
+                                    if (statusText == "Dang o")
                                     {
                                         statusClass = "status-active";
                                     }
-                                    else if (statusText.Contains("Chờ") || statusText.Contains("Pending"))
+                                    else if (statusText == "Huy")
                                     {
-                                        statusClass = "status-pending";
+                                        statusClass = "status-cancel";
+                                    }
+                                    else if (statusText == "Da tra")
+                                    {
+                                        statusClass = "status-completed";
                                     }
                                 }
                                 <span class="status-badge @statusClass">@statusText</span>
@@ -323,8 +320,7 @@
                             <td>
                                 <div class="action-buttons">
                                     @Html.ActionLink("Chi Tiết", "Details", new { id = item.MaThue }, new { @class = "btn btn-info btn-sm" })
-                                    @Html.ActionLink("Sửa", "Edit", new { id = item.MaThue }, new { @class = "btn btn-warning btn-sm" })
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.MaThue }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Bạn có chắc chắn muốn xóa đặt phòng này?');" })
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.MaThue }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Bạn có chắc chắn muốn hủy đặt phòng này?');" })
                                 </div>
                             </td>
                         </tr>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj": {}
+    "C:\\Users\\Administrator\\Downloads\\HHH\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj": {
+    "C:\\Users\\Administrator\\Downloads\\HHH\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Downloads\\HHH\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
         "projectName": "auth-service",
-        "projectPath": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Downloads\\HHH\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Downloads\\HHH\\KienTruc_QuanLiKhachSan__Nhom12\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

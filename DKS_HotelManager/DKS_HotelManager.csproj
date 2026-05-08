@@ -140,9 +140,11 @@
     <Compile Include="Areas\Admin\Controllers\RevenueController.cs" />
     <Compile Include="Areas\Admin\ViewModels\AdminViewModels.cs" />
     <Compile Include="Areas\Staff\StaffAreaRegistration.cs" />
+    <Compile Include="Common\BookingStatus.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AuthenticationViewModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\ChatBotController.cs" />
     <Compile Include="Controllers\DKS_Nhom12Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Areas\Staff\Controllers\CheckInController.cs" />
     <Compile Include="Areas\Staff\Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Helpers\BookingIdHelper.cs" />
     <Compile Include="Helpers\CustomerIdHelper.cs" />
     <Compile Include="Areas\Staff\ViewModels\StaffOperationsViewModels.cs" />
@@ -356,7 +359,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Comment.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Service.cshtml" />
     <Content Include="Views\DKS_Nhom12\_TopNavbarPartial.cshtml" />
     <Content Include="Views\DKS_Nhom12\_SidebarPartial.cshtml" />
@@ -383,10 +385,16 @@
     <Content Include="Views\Shared\_ChatBotPartial.cshtml" />
     <Content Include="Views\Hotel\ReviewBooking.cshtml" />
     <Content Include="Views\Hotel\PaymentConfirm.cshtml" />
+    <Content Include="Views\Booking\Create.cshtml" />
+    <Content Include="Views\Booking\Delete.cshtml" />
+    <Content Include="Views\Booking\Details.cshtml" />
+    <Content Include="Views\Booking\Edit.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="RoomImages\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
