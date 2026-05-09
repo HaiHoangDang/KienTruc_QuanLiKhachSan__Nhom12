@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\auth-service",
+    "\\booking-service",
+    "\\booking-service\\Controllers"
   ],
-  "SelectedNode": "\\booking-service",
+  "SelectedNode": "\\booking-service\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }

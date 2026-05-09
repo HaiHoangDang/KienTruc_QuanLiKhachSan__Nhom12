@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("room-service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7abc7ba2a20285bd5cbe7ddcf453487a38146e0b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03d3f089dbdb6aca6e9188c55f73a8cddd2fbb4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("room-service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("room-service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

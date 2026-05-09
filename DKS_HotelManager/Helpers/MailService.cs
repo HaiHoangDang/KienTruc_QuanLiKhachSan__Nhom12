@@ -9,8 +9,8 @@ namespace DKS_HotelManager.Helpers
         private const string SmtpHost = "smtp.gmail.com";
         private const int SmtpPort = 587;
         private const string SmtpUser = "2324802010209@student.tdmu.edu.vn";
-        private const string SmtpPass = "vatm opnp enpv dztz";
-
+        //private const string SmtpPass = "vatm opnp enpv dztz";
+        private const string SmtpPass = "vjnz thni rent uuky";
         public static void SendMail(string email, string subject, string body, bool isHtml = true)
         {
             using (var client = new SmtpClient(SmtpHost, SmtpPort)

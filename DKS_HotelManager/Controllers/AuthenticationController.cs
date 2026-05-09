@@ -166,7 +166,6 @@ namespace DKS_HotelManager.Controllers
 
             //return RedirectToLocalOrDefault(returnUrl, "login_return_url_rejected");
         }
-
         public async Task<ActionResult> LoginGoogle(string code, string state, string error = null)
         {
             if (!string.IsNullOrEmpty(error))

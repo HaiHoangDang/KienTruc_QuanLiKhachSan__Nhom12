@@ -315,6 +315,7 @@
       <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\auto-logout.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />

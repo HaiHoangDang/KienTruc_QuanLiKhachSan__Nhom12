@@ -54,5 +54,15 @@ namespace booking_service.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new
+            {
+                message = "JWT hợp lệ",
+                user = User.Identity?.Name
+            });
+        }
     }
 }

@@ -51,6 +51,7 @@
 //        }
 //    }
 //}
+using Microsoft.AspNetCore.Authorization;
 using auth_service.Data;
 using auth_service.DTOs;
 using auth_service.Services;
@@ -116,6 +117,16 @@ namespace auth_service.Controllers
                 token,
                 userId = user.MKH,
                 username = user.TKH
+            });
+        }
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult Profile()
+        {
+            return Ok(new
+            {
+                message = "JWT OK",
+                user = User.Identity?.Name
             });
         }
     }
