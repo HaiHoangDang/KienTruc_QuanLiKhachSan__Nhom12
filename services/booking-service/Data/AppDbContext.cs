@@ -10,6 +10,7 @@ namespace booking_service.Data
         }
 
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<PHONG> PHONGs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
