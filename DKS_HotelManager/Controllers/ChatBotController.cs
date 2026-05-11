@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DKS_HotelManager.Models;
 using Newtonsoft.Json;
-
+using System.Text.RegularExpressions;
 namespace DKS_HotelManager.Controllers
 {
     public class ChatBotController : Controller
@@ -57,6 +57,90 @@ namespace DKS_HotelManager.Controllers
 
                     dynamic result = JsonConvert.DeserializeObject(responseBody);
                     string answer = result?.answer ?? "Không có câu trả lời.";
+                    // ===== AI yêu cầu đặt phòng =====
+                    if (answer.Contains("[BOOKING_REQUEST]"))
+                    {
+                        var roomMatch = Regex.Match(answer, @"ROOM_NAME=(.*)");
+                        var checkinMatch = Regex.Match(answer, @"CHECKIN=(.*)");
+                        var checkoutMatch = Regex.Match(answer, @"CHECKOUT=(.*)");
+
+                        if (roomMatch.Success)
+                        {
+                            string roomName = roomMatch.Groups[1].Value.Trim();
+
+                            var room = db.PHONGs
+                                .FirstOrDefault(p => p.TenPhong == roomName);
+
+                            if (room == null)
+                            {
+                                return Json(new
+                                {
+                                    reply = $"Không tìm thấy phòng {roomName}."
+                                });
+                            }
+
+                            DateTime? checkin = null;
+                            DateTime? checkout = null;
+
+                            if (checkinMatch.Success)
+                                checkin = DateTime.Parse(checkinMatch.Groups[1].Value.Trim());
+
+                            if (checkoutMatch.Success)
+                                checkout = DateTime.Parse(checkoutMatch.Groups[1].Value.Trim());
+
+                            // ===== GỌI BOOKING SERVICE =====
+                            using (var bookingClient = new HttpClient())
+                            {
+                                bookingClient.Timeout = TimeSpan.FromSeconds(30);
+
+                                // JWT token từ session/login
+                                string token = Session["JWT"]?.ToString();
+
+                                if (!string.IsNullOrEmpty(token))
+                                {
+                                    bookingClient.DefaultRequestHeaders.Authorization =
+                                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                                }
+
+                                var bookingPayload = new
+                                {
+                                    maPhong = room.MaPhong,
+                                    ngayVao = checkin,
+                                    ngayTra = checkout
+                                };
+
+                                var bookingJson = JsonConvert.SerializeObject(bookingPayload);
+
+                                var bookingContent = new StringContent(
+                                    bookingJson,
+                                    Encoding.UTF8,
+                                    "application/json"
+                                );
+
+                                var bookingResponse = await bookingClient.PostAsync(
+                                    "http://localhost:5050/api/booking",
+                                    bookingContent
+                                );
+
+                                var bookingResult = await bookingResponse.Content.ReadAsStringAsync();
+
+                                if (bookingResponse.IsSuccessStatusCode)
+                                {
+                                    return Json(new
+                                    {
+                                        reply = $"Đặt phòng {roomName} thành công! 🎉"
+                                    });
+                                }
+                                else
+                                {
+                                    return Json(new
+                                    {
+                                        reply = $"Không thể đặt phòng: {bookingResult}"
+                                    });
+                                }
+                            }
+                        }
+                    }
                     return Json(new { reply = answer });
                 }
             }
@@ -82,7 +166,21 @@ namespace DKS_HotelManager.Controllers
                 var lower = (userMessage ?? "").ToLowerInvariant();
                 var sb = new StringBuilder();
                 sb.AppendLine("=== DỮ LIỆU THỰC TẾ TỪ DATABASE (cập nhật realtime) ===\n");
+                // ===== THÔNG TIN ĐĂNG NHẬP =====
+                bool isLoggedIn = Session["KhachHang"] != null;
 
+                sb.AppendLine($"IS_LOGGED_IN={(isLoggedIn ? "true" : "false")}");
+
+                if (isLoggedIn)
+                {
+                    var kh = Session["KhachHang"] as KHACHHANG;
+
+                    if (kh != null)
+                    {
+                        sb.AppendLine($"CURRENT_CUSTOMER_NAME={kh.TKH}");
+                        sb.AppendLine($"CURRENT_CUSTOMER_EMAIL={kh.Email}");
+                    }
+                }
                 // ── 1. Danh sách khách sạn ──────────────────────────────────
                 var hotels = db.KHACHSANs
                     .Select(k => new { k.MaKS, k.TenKS, k.DiaDiem, k.MoTa })

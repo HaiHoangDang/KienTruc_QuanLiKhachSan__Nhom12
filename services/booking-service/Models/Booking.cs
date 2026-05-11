@@ -7,7 +7,7 @@ namespace booking_service.Models
         [Key]
         public int MaThue { get; set; }
 
-        public int MaNV { get; set; }
+        public int? MaKH { get; set; }
         public int MaPhong { get; set; }
 
         public DateTime? NgayDat { get; set; }

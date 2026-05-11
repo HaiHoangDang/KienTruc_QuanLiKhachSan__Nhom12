@@ -46,14 +46,26 @@ namespace booking_service.Services
         }
         public async Task<BookingResponse> Create(BookingRequest request, int userId)
         {
+            // validate ngày
+            if (request.NgayTra <= request.NgayVao)
+            {
+                throw new Exception("Ngày trả phải sau ngày vào.");
+            }
+
+            if (request.NgayVao.Date < DateTime.Now.Date)
+            {
+                throw new Exception("Không thể đặt phòng trong quá khứ.");
+            }
+
+            // kiểm tra trùng lịch
             bool isConflict = await _context.Bookings.AnyAsync(b =>
                 b.MaPhong == request.MaPhong &&
                 b.TrangThai != "Đã hủy" &&
-                (
-                    (request.NgayVao >= b.NgayVao && request.NgayVao < b.NgayTra) ||
-                    (request.NgayTra > b.NgayVao && request.NgayTra <= b.NgayTra) ||
-                    (request.NgayVao <= b.NgayVao && request.NgayTra >= b.NgayTra)
-                )
+                b.NgayVao.HasValue &&
+                b.NgayTra.HasValue &&
+
+                request.NgayVao < b.NgayTra &&
+                request.NgayTra > b.NgayVao
             );
 
             if (isConflict)
@@ -61,18 +73,42 @@ namespace booking_service.Services
                 throw new Exception("Phòng đã được đặt trong khoảng thời gian này.");
             }
 
+            // lấy thông tin phòng để tính giá
+            var room = await _context.PHONGs
+                .FirstOrDefaultAsync(p => p.MaPhong == request.MaPhong);
+
+            if (room == null)
+            {
+                throw new Exception("Không tìm thấy phòng.");
+            }
+
+            // số đêm
+            int totalDays = (request.NgayTra - request.NgayVao).Days;
+
+            if (totalDays <= 0)
+            {
+                totalDays = 1;
+            }
+
+            // tổng tiền
+            decimal totalPrice = room.DGNgay * totalDays;
+
+            // đặt cọc 30%
+            decimal datCoc = totalPrice * 0.3m;
+
             var booking = new Booking
             {
                 MaPhong = request.MaPhong,
-                MaNV = userId,
+                MaKH = userId,
                 NgayDat = DateTime.Now,
                 NgayVao = request.NgayVao,
                 NgayTra = request.NgayTra,
-                DatCoc = request.DatCoc,
+                DatCoc = datCoc,
                 TrangThai = "Đã đặt"
             };
 
             _context.Bookings.Add(booking);
+
             await _context.SaveChangesAsync();
 
             return new BookingResponse

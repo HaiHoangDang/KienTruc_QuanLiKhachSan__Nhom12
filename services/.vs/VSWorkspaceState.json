@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ai-service",
+    "\\ai-service\\services"
   ],
-  "SelectedNode": "\\auth-service",
+  "SelectedNode": "\\ai-service\\services\\ai_client.py",
   "PreviewInSolutionExplorer": false
 }
