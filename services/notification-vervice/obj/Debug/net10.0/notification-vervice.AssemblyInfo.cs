@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("notification-vervice")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03d3f089dbdb6aca6e9188c55f73a8cddd2fbb4b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf3af8bee8d0cd4787de30393bb7757a63077449")]
 [assembly: System.Reflection.AssemblyProductAttribute("notification-vervice")]
 [assembly: System.Reflection.AssemblyTitleAttribute("notification-vervice")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
