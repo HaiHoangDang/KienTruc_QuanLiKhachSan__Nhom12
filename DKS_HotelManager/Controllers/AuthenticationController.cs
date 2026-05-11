@@ -569,7 +569,7 @@ namespace DKS_HotelManager.Controllers
                 MKH = newMKH,
                 TKH = model.TKH,
                 SDT = model.SDT,
-                CMND_CCCD = model.CMND_CCCD,
+                CMND_CCCD = model.CMND_CCCD,    
                 DiaChi = model.DiaChi,
                 TenDN = model.TenDN?.Trim(),
                 MatKhau = PasswordHasher.HashPassword(model.MatKhau),

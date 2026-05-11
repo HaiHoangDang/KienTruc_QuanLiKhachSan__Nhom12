@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ai-service",
-    "\\ai-service\\services"
+    "\\booking-service",
+    "\\booking-service\\Controllers",
+    "\\booking-service\\Data",
+    "\\booking-service\\Services"
   ],
-  "SelectedNode": "\\ai-service\\services\\ai_client.py",
+  "SelectedNode": "\\booking-service\\Controllers\\ChatController.cs",
   "PreviewInSolutionExplorer": false
 }

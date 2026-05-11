@@ -13,7 +13,8 @@ namespace DKS_HotelManager.Controllers
 {
     public class ChatBotController : Controller
     {
-        private static readonly string AiServiceUrl = "http://127.0.0.1:8000/chat";
+        //private static readonly string AiServiceUrl = "http://127.0.0.1:8000/chat";
+        private static readonly string AiServiceUrl = "http://localhost:5279/api/chat/send";
         private readonly DKS_HotelManagerEntities db = new DKS_HotelManagerEntities();
 
         [HttpPost]
@@ -32,12 +33,27 @@ namespace DKS_HotelManager.Controllers
                     client.Timeout = TimeSpan.FromSeconds(120);
 
                     // Gửi cả câu hỏi lẫn context DB sang AI service
+                    var kh = Session["KhachHang"] as KHACHHANG;
+
+                    if (kh == null)
+                    {
+                        return Json(new
+                        {
+                            reply = "Bạn cần đăng nhập."
+                        });
+                    }
+
                     var payload = new
                     {
-                        question = message,
-                        context_type = "summary",
-                        db_context = dbContext   // AI service sẽ nhận thêm field này
+                        MKH = kh.MKH,
+                        Message = message
                     };
+                    //var payload = new
+                    //{
+                    //    question = message,
+                    //    context_type = "summary",
+                    //    db_context = dbContext   // AI service sẽ nhận thêm field này
+                    //};
 
                     var json = JsonConvert.SerializeObject(payload);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -94,7 +110,8 @@ namespace DKS_HotelManager.Controllers
                                 bookingClient.Timeout = TimeSpan.FromSeconds(30);
 
                                 // JWT token từ session/login
-                                string token = Session["JWT"]?.ToString();
+                                //string token = Session["JWT"]?.ToString();
+                                string token = Session["token"]?.ToString();
 
                                 if (!string.IsNullOrEmpty(token))
                                 {
@@ -154,7 +171,41 @@ namespace DKS_HotelManager.Controllers
                 return Json(new { reply = $"Lỗi kết nối: {ex.Message}" });
             }
         }
+        [HttpGet]
+        public async Task<ActionResult> History()
+        {
+            try
+            {
+                // kiểm tra login
+                var kh = Session["KhachHang"] as KHACHHANG;
 
+                if (kh == null)
+                {
+                    return Json(new List<object>(),
+                        JsonRequestBehavior.AllowGet);
+                }
+
+                int mkh = kh.MKH;
+
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(
+                        $"http://localhost:5279/api/chat/history/{mkh}"
+                    );
+
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    return Content(json, "application/json");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    error = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
         /// <summary>
         /// Truy vấn DB thực tế và xây dựng context cho AI.
         /// AI sẽ dùng dữ liệu này để trả lời phòng trống, đặt phòng, v.v.
@@ -173,12 +224,19 @@ namespace DKS_HotelManager.Controllers
 
                 if (isLoggedIn)
                 {
-                    var kh = Session["KhachHang"] as KHACHHANG;
+                    //var kh = Session["KhachHang"] as KHACHHANG;
+
+                    //if (kh != null)
+                    //{
+                    //    sb.AppendLine($"CURRENT_CUSTOMER_NAME={kh.TKH}");
+                    //    sb.AppendLine($"CURRENT_CUSTOMER_EMAIL={kh.Email}");
+                    //}
+                    dynamic kh = Session["KhachHang"];
 
                     if (kh != null)
                     {
                         sb.AppendLine($"CURRENT_CUSTOMER_NAME={kh.TKH}");
-                        sb.AppendLine($"CURRENT_CUSTOMER_EMAIL={kh.Email}");
+                        sb.AppendLine($"CURRENT_CUSTOMER_ID={kh.MKH}");
                     }
                 }
                 // ── 1. Danh sách khách sạn ──────────────────────────────────
@@ -307,6 +365,7 @@ namespace DKS_HotelManager.Controllers
             base.Dispose(disposing);
         }
     }
+
 }
 
 
