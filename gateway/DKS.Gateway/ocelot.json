@@ -14,6 +14,32 @@
       "Key": "ai-service"
     },
     {
+      "UpstreamPathTemplate": "/api/room/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5280
+        }
+      ],
+      "DownstreamPathTemplate": "/api/room/{everything}",
+      "Key": "room-service"
+    },
+    {
+      "UpstreamPathTemplate": "/api/payment/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5290
+        }
+      ],
+      "DownstreamPathTemplate": "/api/payment/{everything}",
+      "Key": "payment-service"
+    },
+    {
       "UpstreamPathTemplate": "/api/booking/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamScheme": "http",
@@ -27,17 +53,17 @@
       "Key": "booking-service"
     },
     {
-      "UpstreamPathTemplate": "/api/chat/{everything}",
+      "UpstreamPathTemplate": "/api/notification/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5279
+          "Port": 5300
         }
       ],
-      "DownstreamPathTemplate": "/api/chat/{everything}",
-      "Key": "chat-service"
+      "DownstreamPathTemplate": "/api/notification/{everything}",
+      "Key": "notification-service"
     },
     {
       "UpstreamPathTemplate": "/api/auth/{everything}",

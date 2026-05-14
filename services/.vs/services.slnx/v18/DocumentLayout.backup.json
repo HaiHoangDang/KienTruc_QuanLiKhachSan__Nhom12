@@ -132,8 +132,7 @@
               "RelativeToolTip": "booking-service\\Models\\BookingDetail.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:04:19.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-14T08:04:19.998Z"
             },
             {
               "$type": "Document",
@@ -145,8 +144,7 @@
               "RelativeToolTip": "booking-service\\DTOs\\BookingRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T06:51:54.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-14T06:51:54.466Z"
             },
             {
               "$type": "Document",
@@ -171,8 +169,7 @@
               "RelativeToolTip": "auth-service\\auth-service.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-11T04:45:21.667Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-11T04:45:21.667Z"
             },
             {
               "$type": "Document",
@@ -184,8 +181,7 @@
               "RelativeToolTip": "booking-service\\Program.cs",
               "ViewState": "AgIAAG4AAAAAAAAAAAAiwJUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-08T09:41:29.624Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-08T09:41:29.624Z"
             },
             {
               "$type": "Document",
@@ -197,8 +193,7 @@
               "RelativeToolTip": "booking-service\\DTOs\\BookingResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T08:17:08.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-11T08:17:08.278Z"
             },
             {
               "$type": "Document",
@@ -210,8 +205,7 @@
               "RelativeToolTip": "booking-service\\Controllers\\BookingController.cs",
               "ViewState": "AgIAAG8AAAAAAAAAAAAiwJYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T04:58:36.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-14T04:58:36.377Z"
             },
             {
               "$type": "Document",
@@ -223,8 +217,7 @@
               "RelativeToolTip": "booking-service\\Data\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T08:11:38.573Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-11T08:11:38.573Z"
             },
             {
               "$type": "Document",
@@ -236,8 +229,7 @@
               "RelativeToolTip": "ai-service\\services\\ai_client.py",
               "ViewState": "AgIAAIEAAAAAAAAAAAAIwKwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-11T08:04:06.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-11T08:04:06.116Z"
             },
             {
               "$type": "Document",
@@ -249,8 +241,7 @@
               "RelativeToolTip": "booking-service\\Models\\Booking.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAiwC8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T08:12:07.591Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-11T08:12:07.591Z"
             },
             {
               "$type": "Document",
@@ -262,8 +253,7 @@
               "RelativeToolTip": "ai-service\\main.py",
               "ViewState": "AgIAACQAAAAAAAAAAAAAwHYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-14T05:11:01.646Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-14T05:11:01.646Z"
             },
             {
               "$type": "Document",

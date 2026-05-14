@@ -16,41 +16,52 @@ namespace room_service.Services
 
         public async Task<List<RoomResponse>> GetRooms()
         {
-            return await (from r in _context.Rooms
-                          join l in _context.RoomTypes on r.MaLoai equals l.MaLoai
-                          let latestStatus = _context.RoomStatuses
-                                .Where(s => s.MaPhong == r.MaPhong)
-                                .OrderByDescending(s => s.NgayCapNhat)
-                                .FirstOrDefault()
-                          select new RoomResponse
-                          {
-                              MaPhong = r.MaPhong,
-                              TenPhong = r.TenPhong,
-                              SucChua = r.SucChua,
-                              DGNgay = r.DGNgay,
-                              LoaiPhong = l.TenLoai,
-                              TrangThai = latestStatus != null ? latestStatus.TrangThai : "Chưa cập nhật"
-                          }).ToListAsync();
+            var rooms = await (
+                from p in _context.Rooms
+                join l in _context.RoomTypes on p.MaLoai equals l.MaLoai
+                join tt in _context.RoomStatuses on p.MaPhong equals tt.MaPhong into statusGroup
+                from status in statusGroup
+                    .OrderByDescending(x => x.NgayCapNhat)
+                    .Take(1)
+                    .DefaultIfEmpty()
+                orderby p.MaPhong
+                select new RoomResponse
+                {
+                    MaPhong = p.MaPhong,
+                    TenPhong = p.TenPhong,
+                    SucChua = p.SucChua,
+                    DGNgay = p.DGNgay,
+                    LoaiPhong = l.TenLoai,
+                    TrangThai = status != null ? status.TrangThai : "Chưa cập nhật"
+                }
+            ).ToListAsync();
+
+            return rooms;
         }
 
         public async Task<RoomResponse?> GetById(int id)
         {
-            return await (from r in _context.Rooms
-                          join l in _context.RoomTypes on r.MaLoai equals l.MaLoai
-                          let latestStatus = _context.RoomStatuses
-                                .Where(s => s.MaPhong == r.MaPhong)
-                                .OrderByDescending(s => s.NgayCapNhat)
-                                .FirstOrDefault()
-                          where r.MaPhong == id
-                          select new RoomResponse
-                          {
-                              MaPhong = r.MaPhong,
-                              TenPhong = r.TenPhong,
-                              SucChua = r.SucChua,
-                              DGNgay = r.DGNgay,
-                              LoaiPhong = l.TenLoai,
-                              TrangThai = latestStatus != null ? latestStatus.TrangThai : "Chưa cập nhật"
-                          }).FirstOrDefaultAsync();
+            var room = await (
+                from p in _context.Rooms
+                join l in _context.RoomTypes on p.MaLoai equals l.MaLoai
+                join tt in _context.RoomStatuses on p.MaPhong equals tt.MaPhong into statusGroup
+                from status in statusGroup
+                    .OrderByDescending(x => x.NgayCapNhat)
+                    .Take(1)
+                    .DefaultIfEmpty()
+                where p.MaPhong == id
+                select new RoomResponse
+                {
+                    MaPhong = p.MaPhong,
+                    TenPhong = p.TenPhong,
+                    SucChua = p.SucChua,
+                    DGNgay = p.DGNgay,
+                    LoaiPhong = l.TenLoai,
+                    TrangThai = status != null ? status.TrangThai : "Chưa cập nhật"
+                }
+            ).FirstOrDefaultAsync();
+
+            return room;
         }
     }
 }
