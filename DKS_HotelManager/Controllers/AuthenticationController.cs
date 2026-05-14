@@ -70,7 +70,8 @@ namespace DKS_HotelManager.Controllers
             });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(
-                "http://localhost:5199/api/auth/login",
+                //"http://localhost:5199/api/auth/login",
+                "http://localhost:6000/api/auth/login",
                 content
             );
 

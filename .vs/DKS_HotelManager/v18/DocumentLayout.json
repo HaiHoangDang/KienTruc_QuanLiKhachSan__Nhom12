@@ -3,35 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\Downloads\\solutions\\gateway\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\views\\shared\\_chatbotpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\views\\shared\\_chatbotpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
-      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|c:\\users\\administrator\\source\\repos\\kientruc_quanlikhachsan__nhom12\\dks_hotelmanager\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|c:\\users\\administrator\\source\\repos\\kientruc_quanlikhachsan__nhom12\\dks_hotelmanager\\views\\account\\editbooking.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\views\\account\\editbooking.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\views\\shared\\_chatbotpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\views\\shared\\_chatbotpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,24 +64,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\solutions\\gateway\\appsettings.json",
-              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\solutions\\gateway\\appsettings.json",
-              "ToolTip": "C:\\Users\\Administrator\\Downloads\\solutions\\gateway\\appsettings.json",
-              "RelativeToolTip": "..\\..\\..\\Downloads\\solutions\\gateway\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-14T05:17:55.105Z",
+              "DocumentIndex": 3,
+              "Title": "EditBooking.cshtml",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Views\\Account\\EditBooking.cshtml",
+              "RelativeDocumentMoniker": "DKS_HotelManager\\Views\\Account\\EditBooking.cshtml",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Views\\Account\\EditBooking.cshtml",
+              "RelativeToolTip": "DKS_HotelManager\\Views\\Account\\EditBooking.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-14T07:00:49.077Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "db.edmx [Diagram1]",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Models\\db.edmx",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Models\\db.edmx",
@@ -91,7 +92,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Views\\Shared\\_Layout.cshtml",
@@ -99,7 +100,8 @@
               "RelativeToolTip": "DKS_HotelManager\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAJUEAAAAAAAAAAAAAK0EAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-11T08:37:08.528Z"
+              "WhenOpened": "2026-05-11T08:37:08.528Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -127,19 +129,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ChatBotController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\ChatBotController.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Controllers\\ChatBotController.cs",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\ChatBotController.cs",
               "RelativeToolTip": "DKS_HotelManager\\Controllers\\ChatBotController.cs",
-              "ViewState": "AgIAAMEAAAAAAAAAAAAcwOEAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T04:33:04.835Z"
+              "WhenOpened": "2026-05-11T04:33:04.835Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Web.config",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Web.config",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Web.config",
@@ -152,19 +155,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "AuthenticationController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\AuthenticationController.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Controllers\\AuthenticationController.cs",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\AuthenticationController.cs",
               "RelativeToolTip": "DKS_HotelManager\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AgIAABUCAAAAAAAAAAAUwDsCAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAowEwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-08T11:20:24.446Z"
+              "WhenOpened": "2026-05-08T11:20:24.446Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "_ChatBotPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Views\\Shared\\_ChatBotPartial.cshtml",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Views\\Shared\\_ChatBotPartial.cshtml",
@@ -176,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Controllers\\AccountController.cs",

@@ -59,71 +59,114 @@ CHỦ ĐỀ TƯ VẤN:
 class AIClient:
     def __init__(self, base_url: str, api_key: str):
         self.base_url = base_url.rstrip("/")
-        self.api_key = api_key
-        self.headers = {
+        self.api_key  = api_key
+        self.headers  = {
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
+            "Content-Type":  "application/json",
         }
 
     async def chat(
         self,
-        question: str,
+        question:      str,
         hotel_context: str,
-        history: Optional[list[dict]] = None,   # ← lịch sử hội thoại
-        model: str = "deepseek-v4-flash",
+        history:       Optional[list[dict]] = None,
+        model:         str = "deepseek-v4-flash",
     ) -> str:
-        """
-        Gửi câu hỏi + hotel context + lịch sử hội thoại → AI trả lời có trí nhớ.
+        MAX_CTX  = 4_000   # Giảm xuống 4K để tránh lỗi upload ds2api
+        MAX_HIST = 20      # 8 lượt = 16 messages
 
-        history: list[{"role": "user"|"assistant", "content": "..."}]
-                 do chat_history.get_history() cung cấp.
-        """
-        max_context_chars = 50_000
-        if len(hotel_context) > max_context_chars:
-            hotel_context = hotel_context[:max_context_chars] + "\n[... dữ liệu bị cắt bớt ...]"
+        if len(hotel_context) > MAX_CTX:
+            hotel_context = hotel_context[:MAX_CTX] + "\n[dữ liệu bị cắt bớt]"
 
-        # ── Xây dựng messages[] với đầy đủ lịch sử ──────────────────────────
+        if history and len(history) > MAX_HIST * 2:
+            history = history[-(MAX_HIST * 2):]
+
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-
-        # Đưa hotel context vào tin nhắn đầu tiên của assistant (invisible to user)
-        # để AI luôn có data mới nhất dù đang ở giữa cuộc trò chuyện
         messages.append({
-            "role": "user",
-            "content": f"[DỮ LIỆU HỆ THỐNG - cập nhật mới nhất]\n{hotel_context}"
+            "role":    "user",
+            "content": f"<hotel_data>\n{hotel_context}\n</hotel_data>\nBắt đầu hỗ trợ."
         })
         messages.append({
-            "role": "assistant",
-            "content": "Đã nhận dữ liệu hệ thống. Tôi sẵn sàng hỗ trợ khách hàng."
+            "role":    "assistant",
+            "content": "Xin chào! Tôi là trợ lý AI của DKS Hotel. Tôi có thể giúp gì cho bạn?"
         })
 
-        # Chèn lịch sử hội thoại (tối đa 20 lượt = 40 messages)
         if history:
             messages.extend(history)
 
-        # Câu hỏi hiện tại
         messages.append({"role": "user", "content": question})
 
         payload = {
-            "model": model,
-            "messages": messages,
-            "stream": False,
+            "model":      model,
+            "messages":   messages,
+            "stream":     False,
             "temperature": 0.4,
+            "max_tokens": 600,
         }
 
-        async with httpx.AsyncClient(timeout=120) as client:
-            response = await client.post(
-                f"{self.base_url}/v1/chat/completions",
-                headers=self.headers,
-                json=payload,
-            )
-            response.raise_for_status()
-            data = response.json()
-            return data["choices"][0]["message"]["content"]
+        total_chars = sum(len(m["content"]) for m in messages)
+        logger.info(f"Gửi {len(messages)} messages, tổng ~{total_chars} chars")
 
-    async def health_check(self) -> bool:
-        try:
-            async with httpx.AsyncClient(timeout=5) as client:
-                r = await client.get(f"{self.base_url}/healthz")
-                return r.status_code == 200
-        except Exception:
-            return False
+        # Retry 1 lần nếu lỗi 500 (ds2api đôi khi flaky)
+        for attempt in range(2):
+            try:
+                async with httpx.AsyncClient(timeout=90) as client:
+                    response = await client.post(
+                        f"{self.base_url}/v1/chat/completions",
+                        headers=self.headers,
+                        json=payload,
+                    )
+
+                    if response.status_code == 500:
+                        err = response.text
+                        logger.error(f"ds2api 500 (attempt {attempt+1}): {err}")
+                        if attempt == 0:
+                            await asyncio.sleep(2)
+                            continue   # retry
+                        # Sau retry vẫn lỗi → trả fallback thay vì raise
+                        return self._fallback_reply(question, hotel_context)
+
+                    response.raise_for_status()
+                    data = response.json()
+                    return data["choices"][0]["message"]["content"]
+
+            except httpx.TimeoutException:
+                if attempt == 0:
+                    continue
+                return "Xin lỗi, hệ thống AI đang bận. Vui lòng thử lại sau ít phút."
+            except Exception as e:
+                logger.error(f"Chat error (attempt {attempt+1}): {e}")
+                if attempt == 0:
+                    await asyncio.sleep(1)
+                    continue
+                return self._fallback_reply(question, hotel_context)
+
+    def _fallback_reply(self, question: str, context: str) -> str:
+        """
+        Trả lời cơ bản từ DB data khi ds2api không khả dụng.
+        Tránh để người dùng thấy lỗi kỹ thuật.
+        """
+        q = question.lower()
+
+        # Phòng trống
+        if any(k in q for k in ["phòng trống", "còn phòng", "trống", "giá phòng"]):
+            lines = [l for l in context.splitlines() if l.startswith("• ") and "₫/đêm" in l]
+            if lines:
+                result = "Các phòng trống hiện tại:\n" + "\n".join(lines[:10])
+                if len(lines) > 10:
+                    result += f"\n... và {len(lines)-10} phòng khác."
+                return result
+
+        # Khách sạn
+        if any(k in q for k in ["khách sạn", "địa điểm", "ở đâu"]):
+            lines = [l for l in context.splitlines()
+                     if l.startswith("• ") and "₫/đêm" not in l]
+            if lines:
+                return "Các khách sạn DKS:\n" + "\n".join(lines[:8])
+
+        # Đặt phòng chưa đăng nhập
+        if "IS_LOGGED_IN=false" in context and any(k in q for k in ["đặt", "book"]):
+            return "Để đặt phòng, bạn vui lòng đăng nhập vào tài khoản trước nhé! 😊"
+
+        return ("Xin lỗi, hệ thống AI đang tạm thời gián đoạn. "
+                "Vui lòng thử lại sau hoặc liên hệ lễ tân để được hỗ trợ trực tiếp.")

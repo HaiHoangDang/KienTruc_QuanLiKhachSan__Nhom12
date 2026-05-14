@@ -13,45 +13,53 @@ namespace DKS_HotelManager.Controllers
 {
     public class ChatBotController : Controller
     {
-        private static readonly string AiServiceUrl = "http://127.0.0.1:8000";
+        //private static readonly string AiServiceUrl = "http://127.0.0.1:8000";
+        private static readonly string AiServiceUrl = "http://localhost:6000/api/ai/chat";
         private readonly DKS_HotelManagerEntities db = new DKS_HotelManagerEntities();
 
-        // ── Trang chat (GET) ────────────────────────────────────────────────
         public async Task<ActionResult> Index()
         {
             var customerId = GetCustomerId();
-
-            // Nếu đã đăng nhập → load lịch sử từ AI service
-            if (customerId != "guest")
-            {
-                try
-                {
-                    using (var client = new HttpClient())
-                    {
-                        client.Timeout = TimeSpan.FromSeconds(10);
-                        var res = await client.GetAsync($"{AiServiceUrl}/history/{customerId}?limit=50");
-                        if (res.IsSuccessStatusCode)
-                        {
-                            var body = await res.Content.ReadAsStringAsync();
-                            dynamic data = JsonConvert.DeserializeObject(body);
-                            ViewBag.ChatHistory = data?.messages ?? new List<object>();
-                        }
-                    }
-                }
-                catch { /* lịch sử không load được → hiển thị trống */ }
-            }
+            var isLoggedIn = customerId != "guest";
 
             ViewBag.CustomerId = customerId;
-            ViewBag.IsLoggedIn = customerId != "guest";
+            ViewBag.IsLoggedIn = isLoggedIn;
+            ViewBag.ChatHistory = new List<dynamic>();
+
+            if (!isLoggedIn)
+            {
+                return View();
+            }
+
+            try
+            {
+                using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
+                {
+                    var res = await client.GetAsync($"{AiServiceUrl}/history/{customerId}?limit=50");
+
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var body = await res.Content.ReadAsStringAsync();
+                        dynamic data = JsonConvert.DeserializeObject(body);
+                        ViewBag.ChatHistory = data?.messages ?? new List<object>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[ChatBot] Load history error: {ex.Message}");
+            }
+
             return View();
         }
 
-        // ── Gửi tin nhắn (POST) ─────────────────────────────────────────────
         [HttpPost]
         public async Task<ActionResult> Ask(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
+            {
                 return Json(new { reply = "Nội dung câu hỏi đang trống." });
+            }
 
             var customerId = GetCustomerId();
             var isLoggedIn = customerId != "guest";
@@ -59,15 +67,12 @@ namespace DKS_HotelManager.Controllers
 
             try
             {
-                using (var client = new HttpClient())
+                using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(120) })
                 {
-                    client.Timeout = TimeSpan.FromSeconds(120);
-
                     var payload = new
                     {
                         question = message,
-                        customer_id = customerId,   // ← gửi customer_id để AI service lưu history
-                        context_type = "summary",
+                        customer_id = customerId,
                         db_context = dbContext
                     };
 
@@ -79,16 +84,19 @@ namespace DKS_HotelManager.Controllers
                     System.Diagnostics.Debug.WriteLine($"[ChatBot] {response.StatusCode}: {body}");
 
                     if (!response.IsSuccessStatusCode)
+                    {
                         return Json(new { reply = $"AI service lỗi ({(int)response.StatusCode}): {body}" });
+                    }
 
                     dynamic result = JsonConvert.DeserializeObject(body);
-                    string answer = result?.answer ?? "Không có câu trả lời.";
-                    return Json(new { reply = answer, customerId });
+                    string answer = result?.answer != null ? (string)result.answer : "Không có câu trả lời.";
+
+                    return Json(new { reply = answer });
                 }
             }
             catch (TaskCanceledException)
             {
-                return Json(new { reply = "AI service phản hồi quá lâu, vui lòng thử lại." });
+                return Json(new { reply = "AI phản hồi quá lâu, vui lòng thử lại." });
             }
             catch (Exception ex)
             {
@@ -96,23 +104,25 @@ namespace DKS_HotelManager.Controllers
             }
         }
 
-        // ── Xóa lịch sử chat (POST) ─────────────────────────────────────────
         [HttpPost]
         public async Task<ActionResult> ClearHistory()
         {
             var customerId = GetCustomerId();
+
             if (customerId == "guest")
+            {
                 return Json(new { success = false, message = "Chưa đăng nhập." });
+            }
 
             try
             {
                 using (var client = new HttpClient())
                 {
-                    var request = new HttpRequestMessage(HttpMethod.Delete,
-                        $"{AiServiceUrl}/history/{customerId}");
-                    await client.SendAsync(request);
+                    var req = new HttpRequestMessage(HttpMethod.Delete, $"{AiServiceUrl}/history/{customerId}");
+                    await client.SendAsync(req);
                 }
-                return Json(new { success = true, message = "Đã xóa lịch sử chat." });
+
+                return Json(new { success = true });
             }
             catch
             {
@@ -120,20 +130,23 @@ namespace DKS_HotelManager.Controllers
             }
         }
 
-        // ── Helper: lấy customer ID từ Session ─────────────────────────────
         private string GetCustomerId()
         {
-            // Ưu tiên lấy MaKH (int), fallback sang Email nếu có
             if (Session["KhachHangId"] != null)
-                return Session["KhachHangId"].ToString();
+            {
+                return "kh_" + Session["KhachHangId"].ToString();
+            }
 
-            if (Session["KhachHang"] is KHACHHANG kh && !string.IsNullOrEmpty(kh.Email))
-                return $"kh_{kh.Email}";
+            var kh = Session["KhachHang"] as KHACHHANG;
+
+            if (kh != null && !string.IsNullOrEmpty(kh.Email))
+            {
+                return "kh_" + kh.Email;
+            }
 
             return "guest";
         }
 
-        // ── Helper: xây DB context realtime ────────────────────────────────
         private string BuildDatabaseContext(string userMessage, bool isLoggedIn)
         {
             try
@@ -143,99 +156,159 @@ namespace DKS_HotelManager.Controllers
 
                 sb.AppendLine($"IS_LOGGED_IN={isLoggedIn.ToString().ToLower()}");
 
-                // Thông tin tài khoản đang đăng nhập
-                if (isLoggedIn && Session["KhachHang"] is KHACHHANG kh)
+                var kh = Session["KhachHang"] as KHACHHANG;
+
+                if (isLoggedIn && kh != null)
                 {
                     sb.AppendLine($"CUSTOMER_NAME={kh.TKH}");
-                    sb.AppendLine($"CUSTOMER_EMAIL={kh.Email}");
                 }
 
                 sb.AppendLine();
-                sb.AppendLine("=== DỮ LIỆU THỰC TẾ TỪ DATABASE ===");
 
-                // Danh sách khách sạn
                 var hotels = db.KHACHSANs
-                    .Select(k => new { k.MaKS, k.TenKS, k.DiaDiem })
-                    .ToList();
-
-                sb.AppendLine("\nKHÁCH SẠN:");
-                foreach (var h in hotels)
-                    sb.AppendLine($"• [{h.MaKS}] {h.TenKS} — {h.DiaDiem}");
-
-                // Phòng trống
-                var now = DateTime.Now;
-                var bookedIds = db.THUEPHONGs
-                    .Where(t => t.TrangThai != null
-                        && !t.TrangThai.Contains("hủy")
-                        && !t.TrangThai.Contains("trả phòng")
-                        && (t.NgayVao <= now && t.NgayTra >= now
-                            || t.TrangThai.Contains("đang")
-                            || t.TrangThai.Contains("đặt")))
-                    .Select(t => t.MaPhong)
-                    .Distinct().ToList();
-
-                var available = db.PHONGs
-                    .Include("KHACHSAN")
-                    .Include("LOAIPHONG")
-                    .Where(p => !bookedIds.Contains(p.MaPhong))
-                    .Select(p => new
+                    .Select(k => new
                     {
-                        TenPhong = p.TenPhong,
-                        LoaiPhong = p.LOAIPHONG.TenLoai,
-                        p.DGNgay,
-                        KhachSan = p.KHACHSAN.TenKS,
-                        DiaDiem = p.KHACHSAN.DiaDiem
+                        k.TenKS,
+                        k.DiaDiem
                     })
-                    .OrderBy(p => p.DGNgay)
+                    .Take(10)
                     .ToList();
 
-                sb.AppendLine($"\nPHÒNG TRỐNG ({available.Count} phòng):");
-                foreach (var r in available)
+                sb.AppendLine("KHÁCH SẠN:");
+
+                foreach (var h in hotels)
                 {
-                    sb.AppendLine($"• {r.TenPhong} — {r.LoaiPhong} — {r.DGNgay:N0}₫/đêm — {r.KhachSan}, {r.DiaDiem}");
+                    sb.AppendLine($"• {h.TenKS} — {h.DiaDiem}");
                 }
 
-                // Dịch vụ (chỉ khi hỏi liên quan)
-                if (lower.Contains("dịch vụ") || lower.Contains("service")
-                    || lower.Contains("spa") || lower.Contains("ăn sáng"))
+                var askRoom =
+                    lower.Contains("phòng") ||
+                    lower.Contains("giá") ||
+                    lower.Contains("trống") ||
+                    lower.Contains("đặt");
+
+                if (askRoom)
                 {
-                    var services = db.DICHVUs.OrderBy(d => d.TenDV).ToList();
-                    sb.AppendLine($"\nDỊCH VỤ ({services.Count}):");
+                    var now = DateTime.Now;
+
+                    var bookedIds = db.THUEPHONGs
+                        .Where(t =>
+                            t.TrangThai != null &&
+                            !t.TrangThai.Contains("hủy") &&
+                            !t.TrangThai.Contains("trả phòng") &&
+                            (
+                                (t.NgayVao <= now && t.NgayTra >= now) ||
+                                t.TrangThai.Contains("đang") ||
+                                t.TrangThai.Contains("đặt")
+                            )
+                        )
+                        .Select(t => t.MaPhong)
+                        .Distinct()
+                        .ToList();
+
+                    var available = db.PHONGs
+                        .Include("KHACHSAN")
+                        .Include("LOAIPHONG")
+                        .Where(p => !bookedIds.Contains(p.MaPhong))
+                        .Select(p => new
+                        {
+                            TenPhong = p.TenPhong,
+                            LoaiPhong = p.LOAIPHONG.TenLoai,
+                            p.DGNgay,
+                            KhachSan = p.KHACHSAN.TenKS
+                        })
+                        .OrderBy(p => p.DGNgay)
+                        .Take(15)
+                        .ToList();
+
+                    sb.AppendLine($"\nPHÒNG TRỐNG ({available.Count} phòng hiển thị):");
+
+                    foreach (var r in available)
+                    {
+                        sb.AppendLine($"• {r.TenPhong} — {r.LoaiPhong} — {r.DGNgay:N0}₫/đêm — {r.KhachSan}");
+                    }
+                }
+
+                if (lower.Contains("dịch vụ") || lower.Contains("spa") || lower.Contains("ăn sáng"))
+                {
+                    var services = db.DICHVUs
+                        .OrderBy(d => d.TenDV)
+                        .Take(10)
+                        .ToList();
+
+                    sb.AppendLine("\nDỊCH VỤ:");
+
                     foreach (var s in services)
+                    {
                         sb.AppendLine($"• {s.TenDV} — {s.DGDV:N0}₫");
+                    }
                 }
 
-                //// Booking của khách đang đăng nhập
-                //if (isLoggedIn && Session["KhachHangId"] != null
-                //    && (lower.Contains("đặt phòng của tôi") || lower.Contains("lịch sử")
-                //        || lower.Contains("booking của tôi") || lower.Contains("phòng tôi")))
-                //{
-                //    int khId = Convert.ToInt32(Session["KhachHangId"]);
-                //    var myBookings = db.THUEPHONGs
-                //      .Include("PHONG.KHACHSAN")
-                //      .Where(t => t.MaKH == khId)
-                //      .OrderByDescending(t => t.NgayDat)
-                //      .Take(5).ToList();
+                var askMyBooking =
+                    lower.Contains("đặt phòng của tôi") ||
+                    lower.Contains("booking của tôi") ||
+                    lower.Contains("phòng tôi đang") ||
+                    lower.Contains("lịch sử đặt");
 
-                //    if (myBookings.Any())
-                //    {
-                //        sb.AppendLine("\nĐẶT PHÒNG CỦA BẠN (5 gần nhất):");
-                //        foreach (var b in myBookings)
-                //            sb.AppendLine($"• Phòng {b.PHONG?.SoPhong} tại {b.PHONG?.KHACHSAN?.TenKS} | Vào: {b.NgayVao:dd/MM/yyyy} | Ra: {b.NgayTra:dd/MM/yyyy} | Trạng thái: {b.TrangThai}");
-                //    }
-                //}
+                if (isLoggedIn && askMyBooking && Session["KhachHangId"] != null)
+                {
+                    int khId = Convert.ToInt32(Session["KhachHangId"]);
+
+                    var myBookings = (
+                        from ct in db.CTTHUEPHONGs
+                        join tp in db.THUEPHONGs.Include("PHONG.KHACHSAN")
+                            on ct.MaThue equals tp.MaThue
+                        where ct.KHACH == khId
+                        orderby tp.NgayDat descending
+                        select new
+                        {
+                            TenPhong = tp.PHONG.TenPhong,
+                            TenKS = tp.PHONG.KHACHSAN.TenKS,
+                            tp.NgayVao,
+                            tp.NgayTra,
+                            tp.TrangThai,
+                            ct.VaiTro
+                        }
+                    )
+                    .Take(5)
+                    .ToList();
+
+                    if (myBookings.Any())
+                    {
+                        sb.AppendLine("\nĐẶT PHÒNG CỦA BẠN (5 gần nhất):");
+
+                        foreach (var b in myBookings)
+                        {
+                            sb.AppendLine(
+                                $"• {b.TenPhong} tại {b.TenKS} | " +
+                                $"Vào: {b.NgayVao:dd/MM/yyyy} | " +
+                                $"Ra: {b.NgayTra:dd/MM/yyyy} | " +
+                                $"Trạng thái: {b.TrangThai} | " +
+                                $"Vai trò: {b.VaiTro}"
+                            );
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendLine("\nBạn chưa có đặt phòng nào.");
+                    }
+                }
 
                 return sb.ToString();
             }
             catch (Exception ex)
             {
-                return $"IS_LOGGED_IN={isLoggedIn.ToString().ToLower()}\n[Lỗi đọc database: {ex.Message}]";
+                return $"IS_LOGGED_IN={isLoggedIn.ToString().ToLower()}\n[Lỗi DB: {ex.Message}]";
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) db.Dispose();
+            if (disposing)
+            {
+                db.Dispose();
+            }
+
             base.Dispose(disposing);
         }
     }

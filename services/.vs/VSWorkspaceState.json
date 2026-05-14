@@ -1,16 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ai-service",
     "\\ai-service\\examples",
     "\\ai-service\\services",
-    "\\booking-service",
     "\\booking-service\\Controllers",
     "\\booking-service\\Data",
     "\\booking-service\\DTOs",
     "\\booking-service\\Models",
     "\\booking-service\\Services"
   ],
-  "SelectedNode": "\\booking-service\\Controllers\\BookingController.cs",
+  "SelectedNode": "\\auth-service",
   "PreviewInSolutionExplorer": false
 }
