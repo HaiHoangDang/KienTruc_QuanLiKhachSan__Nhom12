@@ -5,7 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using DKS_HotelManager.Models;
-
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 namespace DKS_HotelManager.Controllers
 {
     public class DKS_BookingController : Controller
@@ -43,24 +47,79 @@ namespace DKS_HotelManager.Controllers
         }
 
         // POST: Booking/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "MaThue,MaNV,MaPhong,NgayDat,NgayVao,NgayTra,DatCoc,MaDatPhong,TrangThai")] THUEPHONG booking)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        booking.NgayDat = DateTime.Now;
+        //        booking.MaDatPhong = "DP" + DateTime.Now.ToString("yyyyMMddHHmmss");
+        //        db.THUEPHONGs.Add(booking);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.MaNV = new SelectList(db.NHANVIENs, "MaNV", "HoTen", booking.MaNV);
+        //    ViewBag.MaPhong = new SelectList(db.PHONGs, "MaPhong", "TenPhong", booking.MaPhong);
+        //    return View(booking);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaThue,MaNV,MaPhong,NgayDat,NgayVao,NgayTra,DatCoc,MaDatPhong,TrangThai")] THUEPHONG booking)
+        public async Task<ActionResult> Create([Bind(Include = "MaNV,MaPhong,NgayVao,NgayTra,DatCoc")] THUEPHONG booking)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                booking.NgayDat = DateTime.Now;
-                booking.MaDatPhong = "DP" + DateTime.Now.ToString("yyyyMMddHHmmss");
-                db.THUEPHONGs.Add(booking);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.MaNV = new SelectList(db.NHANVIENs, "MaNV", "HoTen", booking.MaNV);
+                ViewBag.MaPhong = new SelectList(db.PHONGs, "MaPhong", "TenPhong", booking.MaPhong);
+                return View(booking);
             }
-            ViewBag.MaNV = new SelectList(db.NHANVIENs, "MaNV", "HoTen", booking.MaNV);
-            ViewBag.MaPhong = new SelectList(db.PHONGs, "MaPhong", "TenPhong", booking.MaPhong);
-            return View(booking);
+
+            var token = Session["token"]?.ToString();
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                TempData["BookingError"] = "Bạn cần đăng nhập trước khi đặt phòng.";
+                return RedirectToAction("Login", "Authentication");
+            }
+
+            var payload = new
+            {
+                maNV = booking.MaNV,
+                maPhong = booking.MaPhong,
+                ngayVao = booking.NgayVao,
+                ngayTra = booking.NgayTra,
+                datCoc = booking.DatCoc
+            };
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
+
+                var json = JsonConvert.SerializeObject(payload);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync(
+                    "http://localhost:6000/api/booking",
+                    content
+                );
+                System.Diagnostics.Debug.WriteLine("[BOOKING MVC] Đang gọi API qua Ocelot: http://localhost:6000/api/booking");
+                var responseBody = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    System.Diagnostics.Debug.WriteLine("[BOOKING MVC] API lỗi: " + responseBody);
+                    TempData["BookingError"] = responseBody;
+                    ViewBag.MaNV = new SelectList(db.NHANVIENs, "MaNV", "HoTen", booking.MaNV);
+                    ViewBag.MaPhong = new SelectList(db.PHONGs, "MaPhong", "TenPhong", booking.MaPhong);
+                    return View(booking);
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
-        // GET: Booking/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)

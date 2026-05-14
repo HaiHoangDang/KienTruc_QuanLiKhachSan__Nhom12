@@ -13,7 +13,10 @@ using DKS_HotelManager.Helpers;
 using DKS_HotelManager.Models;
 using DKS_HotelManager.Models.ViewModels;
 using Newtonsoft.Json;
-
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 namespace DKS_HotelManager.Controllers
 {
     public class HotelController : Controller
@@ -633,11 +636,43 @@ namespace DKS_HotelManager.Controllers
             var invoiceModel = BuildBookingInvoice(bookingForm, room, hotel);
             return View("ReviewBooking", invoiceModel);
         }
+        ///////////////////////////trước sửa/////////////////////////
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[CustomerAuthorize]
+        //public ActionResult BookRoom([Bind(Prefix = "BookingForm")] HotelBookingFormViewModel bookingForm)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        TempData["BookingError"] = string.Join(" ", ModelState.Values
+        //            .SelectMany(v => v.Errors)
+        //            .Select(e => e.ErrorMessage)
+        //            .Where(m => !string.IsNullOrWhiteSpace(m)));
+        //        return RedirectToBookingForm(bookingForm);
+        //    }
 
+        //    var buildResult = TryBuildBookingInvoice(bookingForm);
+        //    if (!buildResult.Success)
+        //    {
+        //        TempData["BookingError"] = buildResult.ErrorMessage ?? "Ngày trả phòng phải sau ngày nhận phòng.";
+        //        return RedirectToBookingForm(bookingForm);
+        //    }
+
+        //    var persistResult = PersistBooking(bookingForm, buildResult.Invoice, false);
+        //    if (!persistResult.Success)
+        //    {
+        //        TempData["BookingError"] = persistResult.ErrorMessage ?? "Không thể xử lý đặt phòng.";
+        //        return RedirectToBookingForm(bookingForm);
+        //    }
+
+        //    TempData["BookingSuccess"] = $"Đặt phòng thành công! Đã nhận {buildResult.Invoice.DepositAmount:N0}₫ đặt cọc.";
+        //    return RedirectToBookingForm(bookingForm);
+        //}
+        /////////////////////đã sửa//////////////////////////////////////
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomerAuthorize]
-        public ActionResult BookRoom([Bind(Prefix = "BookingForm")] HotelBookingFormViewModel bookingForm)
+        public async Task<ActionResult> BookRoom([Bind(Prefix = "BookingForm")] HotelBookingFormViewModel bookingForm)
         {
             if (!ModelState.IsValid)
             {
@@ -645,26 +680,128 @@ namespace DKS_HotelManager.Controllers
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)
                     .Where(m => !string.IsNullOrWhiteSpace(m)));
+
                 return RedirectToBookingForm(bookingForm);
             }
 
             var buildResult = TryBuildBookingInvoice(bookingForm);
+
             if (!buildResult.Success)
             {
                 TempData["BookingError"] = buildResult.ErrorMessage ?? "Ngày trả phòng phải sau ngày nhận phòng.";
                 return RedirectToBookingForm(bookingForm);
             }
 
-            var persistResult = PersistBooking(bookingForm, buildResult.Invoice, false);
-            if (!persistResult.Success)
+            var apiResult = await CreateBookingByApi(bookingForm, buildResult.Invoice);
+
+            if (!apiResult.Success)
             {
-                TempData["BookingError"] = persistResult.ErrorMessage ?? "Không thể xử lý đặt phòng.";
+                TempData["BookingError"] = apiResult.ErrorMessage ?? "Không thể xử lý đặt phòng qua API.";
                 return RedirectToBookingForm(bookingForm);
             }
 
-            TempData["BookingSuccess"] = $"Đặt phòng thành công! Đã nhận {buildResult.Invoice.DepositAmount:N0}₫ đặt cọc.";
+            TempData["BookingSuccess"] = $"Đặt phòng thành công qua API! Đã nhận {buildResult.Invoice.DepositAmount:N0}₫ đặt cọc.";
             return RedirectToBookingForm(bookingForm);
         }
+        private async Task<(bool Success, string ErrorMessage, JObject Data)> CreateBookingByApi(
+    HotelBookingFormViewModel bookingForm,
+    HotelBookingInvoiceViewModel invoice)
+        {
+            if (!bookingForm.RoomId.HasValue)
+            {
+                return (false, "Phòng không hợp lệ.", null);
+            }
+
+            if (!bookingForm.CheckIn.HasValue || !bookingForm.CheckOut.HasValue)
+            {
+                return (false, "Ngày nhận/trả phòng không hợp lệ.", null);
+            }
+
+            var token = Session["token"]?.ToString();
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return (false, "Bạn cần đăng nhập trước khi đặt phòng.", null);
+            }
+
+            var employee = db.NHANVIENs.FirstOrDefault();
+
+            if (employee == null)
+            {
+                return (false, "Chưa có nhân viên nào được cấu hình tiếp nhận đặt phòng.", null);
+            }
+
+            var payload = new
+            {
+                maPhong = bookingForm.RoomId.Value,
+                maNV = employee.MaNV,
+                ngayVao = bookingForm.CheckIn.Value,
+                ngayTra = bookingForm.CheckOut.Value,
+                datCoc = invoice.DepositAmount
+            };
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.Timeout = TimeSpan.FromSeconds(30);
+
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", token);
+
+                    var json = JsonConvert.SerializeObject(payload);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Gọi API: http://localhost:6000/api/booking");
+                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Payload: " + json);
+
+                    var response = await httpClient.PostAsync(
+                        "http://localhost:6000/api/booking",
+                        content
+                    );
+
+                    var responseBody = await response.Content.ReadAsStringAsync();
+
+                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Status: " + response.StatusCode);
+                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Body: " + responseBody);
+
+                    //if (!response.IsSuccessStatusCode)
+                    //{
+                    //    return (false, responseBody, null);
+                    //}
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        var cleanMessage = responseBody;
+
+                        try
+                        {
+                            var errorJson = JObject.Parse(responseBody);
+                            cleanMessage = errorJson["message"]?.ToString() ?? responseBody;
+                        }
+                        catch
+                        {
+                            cleanMessage = responseBody;
+                        }
+
+                        return (false, cleanMessage, null);
+                    }
+
+                    JObject data = null;
+
+                    if (!string.IsNullOrWhiteSpace(responseBody))
+                    {
+                        data = JObject.Parse(responseBody);
+                    }
+
+                    return (true, null, data);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, "Không kết nối được API booking: " + ex.Message, null);
+            }
+        }
+        /////////////////////////////////////////////////Đã sửa//////////////////////////////////////////////////////
 
         [HttpPost]
         [ValidateAntiForgeryToken]
