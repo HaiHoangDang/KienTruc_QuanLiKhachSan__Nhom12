@@ -1,12 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\payment-service\\Controllers",
-    "\\payment-service\\DTOs",
-    "\\payment-service\\Models",
-    "\\payment-service\\Services",
-    "\\payment-service\\Services\\Interfaces"
+    "\\booking-service",
+    "\\booking-service\\Controllers",
+    "\\booking-service\\Services"
   ],
-  "SelectedNode": "\\payment-service",
+  "SelectedNode": "\\booking-service\\Controllers\\BookingController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,39 +1,26 @@
-# KIẾN TRÚC MỤC TIÊU
+# Kiến trúc mục tiêu
 
-## 1. Mục tiêu tổng quát
-Chuyển hệ thống hiện tại từ monolith sang kiến trúc gần với microservices, trong đó mỗi service có cấu trúc rõ ràng:
-- Controller/API
-- Service
-- Repository
-- Database
+## 1. Mục tiêu
 
-## 2. Thành phần kiến trúc đích
+Mục tiêu của hệ thống là chuyển dần từ kiến trúc MVC nguyên khối sang kiến trúc hướng microservices. Ứng dụng MVC chỉ giữ vai trò giao diện, còn các nghiệp vụ chính được xử lý bởi các service độc lập thông qua API Gateway.
 
-### Client
-- ReactJS frontend
+## 2. Mô hình mục tiêu
 
-### API Gateway
-- Điều hướng request
-- Kiểm tra JWT
-- Giới hạn request
-
-### Các service chính
-- Auth Service
-- User Service
-- Room Service
-- Booking Service
-- Payment Service
-- Notification Service
-- AI Chatbot Service
-
-### Giao tiếp bất đồng bộ
-- RabbitMQ
-
-### Triển khai
-- Docker
-- Docker Compose
-
-## 3. Hướng triển khai
-- Giai đoạn 1: Chuẩn hóa monolith hiện tại
-- Giai đoạn 2: Tách dần từng service
-- Giai đoạn 3: Bổ sung API Gateway, RabbitMQ và Docker
+```txt
+Người dùng
+   |
+   v
+DKS_HotelManager MVC Web
+   |
+   v
+Ocelot API Gateway
+   |
+   |-- auth-service
+   |-- room-service
+   |-- booking-service
+   |-- payment-service
+   |-- notification-service
+   |-- ai-service
+   |
+   v
+SQL Server: DKS_HotelManager

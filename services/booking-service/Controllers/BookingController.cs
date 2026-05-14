@@ -71,6 +71,8 @@ using booking_service.DTOs;
 using booking_service.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace booking_service.Controllers
 {
@@ -151,14 +153,13 @@ namespace booking_service.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("test")]
         public IActionResult Test()
         {
             return Ok(new
             {
-                message = "JWT hợp lệ",
-                user = User.Identity?.Name,
-                id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                message = "booking-service hoạt động"
             });
         }
     }
