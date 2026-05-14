@@ -31,5 +31,14 @@ namespace room_service.Controllers
 
             return Ok(room);
         }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new
+            {
+                message = "room-service hoạt động"
+            });
+        }
     }
 }

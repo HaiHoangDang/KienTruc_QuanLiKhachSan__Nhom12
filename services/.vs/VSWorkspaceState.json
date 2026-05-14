@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\booking-service",
     "\\booking-service\\Controllers",
     "\\booking-service\\Services"
   ],
-  "SelectedNode": "\\booking-service\\Controllers\\BookingController.cs",
+  "SelectedNode": "\\room-service",
   "PreviewInSolutionExplorer": false
 }

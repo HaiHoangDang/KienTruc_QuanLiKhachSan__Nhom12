@@ -17,6 +17,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using DKS_HotelManager.Services.ApiClients;
 namespace DKS_HotelManager.Controllers
 {
     public class HotelController : Controller
@@ -24,6 +25,11 @@ namespace DKS_HotelManager.Controllers
         private const string PendingInvoiceSessionKey = "PendingInvoice";
         private const string PendingInvoiceCachePrefix = "PendingInvoice:";
         private DKS_HotelManagerEntities db = new DKS_HotelManagerEntities();
+        //////////////////////////////
+        private readonly BookingApiClient bookingApiClient = new BookingApiClient();
+        private readonly PaymentApiClient paymentApiClient = new PaymentApiClient();
+        private readonly NotificationApiClient notificationApiClient = new NotificationApiClient();
+        ///
 
         public ActionResult Index(string location = "", string sort = "", int guests = 0, DateTime? checkIn = null, DateTime? checkOut = null, decimal? minPrice = null, decimal? maxPrice = null)
         {
@@ -703,9 +709,107 @@ namespace DKS_HotelManager.Controllers
             TempData["BookingSuccess"] = $"Đặt phòng thành công qua API! Đã nhận {buildResult.Invoice.DepositAmount:N0}₫ đặt cọc.";
             return RedirectToBookingForm(bookingForm);
         }
+        //    private async Task<(bool Success, string ErrorMessage, JObject Data)> CreateBookingByApi(
+        //HotelBookingFormViewModel bookingForm,
+        //HotelBookingInvoiceViewModel invoice)
+        //    {
+        //        if (!bookingForm.RoomId.HasValue)
+        //        {
+        //            return (false, "Phòng không hợp lệ.", null);
+        //        }
+
+        //        if (!bookingForm.CheckIn.HasValue || !bookingForm.CheckOut.HasValue)
+        //        {
+        //            return (false, "Ngày nhận/trả phòng không hợp lệ.", null);
+        //        }
+
+        //        var token = Session["token"]?.ToString();
+
+        //        if (string.IsNullOrWhiteSpace(token))
+        //        {
+        //            return (false, "Bạn cần đăng nhập trước khi đặt phòng.", null);
+        //        }
+
+        //        var employee = db.NHANVIENs.FirstOrDefault();
+
+        //        if (employee == null)
+        //        {
+        //            return (false, "Chưa có nhân viên nào được cấu hình tiếp nhận đặt phòng.", null);
+        //        }
+
+        //        var payload = new
+        //        {
+        //            maPhong = bookingForm.RoomId.Value,
+        //            maNV = employee.MaNV,
+        //            ngayVao = bookingForm.CheckIn.Value,
+        //            ngayTra = bookingForm.CheckOut.Value,
+        //            datCoc = invoice.DepositAmount
+        //        };
+
+        //        try
+        //        {
+        //            using (var httpClient = new HttpClient())
+        //            {
+        //                httpClient.Timeout = TimeSpan.FromSeconds(30);
+
+        //                httpClient.DefaultRequestHeaders.Authorization =
+        //                    new AuthenticationHeaderValue("Bearer", token);
+
+        //                var json = JsonConvert.SerializeObject(payload);
+        //                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //                System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Gọi API: http://localhost:6000/api/booking");
+        //                System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Payload: " + json);
+
+        //                var response = await httpClient.PostAsync(
+        //                    "http://localhost:6000/api/booking",
+        //                    content
+        //                );
+
+        //                var responseBody = await response.Content.ReadAsStringAsync();
+
+        //                System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Status: " + response.StatusCode);
+        //                System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Body: " + responseBody);
+
+        //                //if (!response.IsSuccessStatusCode)
+        //                //{
+        //                //    return (false, responseBody, null);
+        //                //}
+        //                if (!response.IsSuccessStatusCode)
+        //                {
+        //                    var cleanMessage = responseBody;
+
+        //                    try
+        //                    {
+        //                        var errorJson = JObject.Parse(responseBody);
+        //                        cleanMessage = errorJson["message"]?.ToString() ?? responseBody;
+        //                    }
+        //                    catch
+        //                    {
+        //                        cleanMessage = responseBody;
+        //                    }
+
+        //                    return (false, cleanMessage, null);
+        //                }
+
+        //                JObject data = null;
+
+        //                if (!string.IsNullOrWhiteSpace(responseBody))
+        //                {
+        //                    data = JObject.Parse(responseBody);
+        //                }
+
+        //                return (true, null, data);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return (false, "Không kết nối được API booking: " + ex.Message, null);
+        //        }
+        //    }
         private async Task<(bool Success, string ErrorMessage, JObject Data)> CreateBookingByApi(
-    HotelBookingFormViewModel bookingForm,
-    HotelBookingInvoiceViewModel invoice)
+        HotelBookingFormViewModel bookingForm,
+        HotelBookingInvoiceViewModel invoice)
         {
             if (!bookingForm.RoomId.HasValue)
             {
@@ -731,75 +835,21 @@ namespace DKS_HotelManager.Controllers
                 return (false, "Chưa có nhân viên nào được cấu hình tiếp nhận đặt phòng.", null);
             }
 
-            var payload = new
+            var result = await bookingApiClient.CreateBookingAsync(
+                token,
+                bookingForm.RoomId.Value,
+                employee.MaNV,
+                bookingForm.CheckIn.Value,
+                bookingForm.CheckOut.Value,
+                invoice.DepositAmount
+            );
+
+            if (!result.Success)
             {
-                maPhong = bookingForm.RoomId.Value,
-                maNV = employee.MaNV,
-                ngayVao = bookingForm.CheckIn.Value,
-                ngayTra = bookingForm.CheckOut.Value,
-                datCoc = invoice.DepositAmount
-            };
-
-            try
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.Timeout = TimeSpan.FromSeconds(30);
-
-                    httpClient.DefaultRequestHeaders.Authorization =
-                        new AuthenticationHeaderValue("Bearer", token);
-
-                    var json = JsonConvert.SerializeObject(payload);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Gọi API: http://localhost:6000/api/booking");
-                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Payload: " + json);
-
-                    var response = await httpClient.PostAsync(
-                        "http://localhost:6000/api/booking",
-                        content
-                    );
-
-                    var responseBody = await response.Content.ReadAsStringAsync();
-
-                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Status: " + response.StatusCode);
-                    System.Diagnostics.Debug.WriteLine("[HOTEL BOOKING] Body: " + responseBody);
-
-                    //if (!response.IsSuccessStatusCode)
-                    //{
-                    //    return (false, responseBody, null);
-                    //}
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        var cleanMessage = responseBody;
-
-                        try
-                        {
-                            var errorJson = JObject.Parse(responseBody);
-                            cleanMessage = errorJson["message"]?.ToString() ?? responseBody;
-                        }
-                        catch
-                        {
-                            cleanMessage = responseBody;
-                        }
-
-                        return (false, cleanMessage, null);
-                    }
-
-                    JObject data = null;
-
-                    if (!string.IsNullOrWhiteSpace(responseBody))
-                    {
-                        data = JObject.Parse(responseBody);
-                    }
-
-                    return (true, null, data);
-                }
+                return (false, result.Message, null);
             }
-            catch (Exception ex)
-            {
-                return (false, "Không kết nối được API booking: " + ex.Message, null);
-            }
+
+            return (true, null, result.Data);
         }
         /////////////////////////////////////////////////Đã sửa//////////////////////////////////////////////////////
 
