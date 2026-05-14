@@ -34,7 +34,6 @@
 
 <script>
     (function () {
-
         const widget = document.getElementById('dkshChatWidget');
         const toggle = document.getElementById('dkshChatToggle');
         const panel = document.getElementById('dkshChatPanel');
@@ -43,105 +42,34 @@
         const input = document.getElementById('dkshChatInput');
         const body = document.getElementById('dkshChatBody');
 
-        // =========================
-        // render message
-        // =========================
         const appendMessage = (type, text) => {
-
             const message = document.createElement('div');
-
-            message.className =
-                `dksh-chat-message dksh-chat-message-${type}`;
-
+            message.className = `dksh-chat-message dksh-chat-message-${type}`;
             message.textContent = text;
-
             body.appendChild(message);
-
             body.scrollTop = body.scrollHeight;
         };
 
-        // =========================
-        // LOAD HISTORY
-        // =========================
-        const loadHistory = async () => {
-            console.log("LOADING HISTORY");
-
-            try {
-
-                const response = await fetch('/ChatBot/History');
-
-                const messages = await response.json();
-
-                body.innerHTML = '';
-
-                if (messages.length === 0) {
-
-                    appendMessage(
-                        'bot',
-                        'Chào bạn! Mình có thể giúp bạn với thông tin khách sạn, phòng trống và dịch vụ trong chuỗi DKS.'
-                    );
-
-                    return;
-                }
-
-                messages.forEach(msg => {
-
-                    const type =
-                        msg.role === "assistant"
-                            ? "bot"
-                            : "user";
-
-                    appendMessage(type, msg.content);
-
-                });
-
-            }
-            catch (error) {
-
-                console.error('Load history error:', error);
-
-            }
-        };
-
-        // =========================
-        // OPEN / CLOSE PANEL
-        // =========================
-        const togglePanel = async () => {
-
-            const isHidden =
-                !panel.classList.contains('active');
-
+        const togglePanel = () => {
+            const isHidden = !panel.classList.contains('active');
             panel.classList.toggle('active', isHidden);
-
             panel.setAttribute('aria-hidden', !isHidden);
 
             if (isHidden) {
-
-                await loadHistory();
-
                 input.focus();
             }
         };
 
         toggle.addEventListener('click', function () {
-
             togglePanel();
-
         });
 
         closeBtn.addEventListener('click', function () {
-
             panel.classList.remove('active');
-
             panel.setAttribute('aria-hidden', 'true');
-
         });
 
-        // =========================
-        // SEND MESSAGE
-        // =========================
         form.addEventListener('submit', async function (event) {
-
             event.preventDefault();
 
             const text = input.value.trim();
@@ -153,70 +81,44 @@
             appendMessage('user', text);
 
             input.value = '';
-
             input.disabled = true;
 
             try {
-
                 const response = await fetch('/ChatBot/Ask', {
-
                     method: 'POST',
-
                     headers: {
-                        'Content-Type':
-                            'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-
-                    body:
-                        `message=${encodeURIComponent(text)}`
+                    body: `message=${encodeURIComponent(text)}`
                 });
 
-                const result =
-                    await response.json().catch(() => null);
+                const result = await response.json().catch(() => null);
 
                 if (!response.ok) {
-
-                    const serverReply =
-                        result && result.reply
-                            ? result.reply
-                            : 'Không thể kết nối máy chủ.';
+                    const serverReply = result && result.reply
+                        ? result.reply
+                        : 'Không thể kết nối máy chủ.';
 
                     appendMessage('bot', serverReply);
-
                     return;
                 }
 
-                const reply =
-                    result && result.reply
-                        ? result.reply
-                        : 'Không nhận được phản hồi từ AI.';
+                const reply = result && result.reply
+                    ? result.reply
+                    : 'Không nhận được phản hồi từ hệ thống.';
 
                 appendMessage('bot', reply);
-
             }
             catch (error) {
-
-                appendMessage(
-                    'bot',
-                    'Xin lỗi, hiện tại hệ thống đang lỗi.'
-                );
-
+                appendMessage('bot', 'Xin lỗi, hệ thống đang gặp sự cố. Bạn thử lại sau nhé.');
                 console.error(error);
-
             }
             finally {
-
                 input.disabled = false;
-
                 input.focus();
-
             }
         });
-
     })();
 </script>
-
-
-
 
 

@@ -11,9 +11,6 @@ namespace booking_service.Data
 
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<PHONG> PHONGs { get; set; }
-        public DbSet<Conversation> Conversations { get; set; }
-        public DbSet<Message> Messages { get; set; }
-        public DbSet<MessageLog> MessageLogs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Booking>()

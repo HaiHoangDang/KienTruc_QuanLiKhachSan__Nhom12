@@ -1,0 +1,39 @@
+{
+  "Routes": [
+
+    // ── AI Service (Python FastAPI :8000) ──────────────────────────────────
+    {
+      "UpstreamPathTemplate":   "/api/ai/{everything}",
+      "UpstreamHttpMethod":     [ "GET", "POST", "DELETE" ],
+      "DownstreamScheme":       "http",
+      "DownstreamHostAndPorts": [ { "Host": "127.0.0.1", "Port": 8000 } ],
+      "DownstreamPathTemplate": "/{everything}",
+      "Key": "ai-service"
+    },
+
+    // ── Booking Service (:5002 — điều chỉnh port theo project) ────────────
+    {
+      "UpstreamPathTemplate":   "/api/booking/{everything}",
+      "UpstreamHttpMethod":     [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme":       "http",
+      "DownstreamHostAndPorts": [ { "Host": "127.0.0.1", "Port": 5002 } ],
+      "DownstreamPathTemplate": "/{everything}",
+      "Key": "booking-service"
+    },
+
+    // ── Auth Service (:5003 — điều chỉnh port theo project) ───────────────
+    {
+      "UpstreamPathTemplate":   "/api/auth/{everything}",
+      "UpstreamHttpMethod":     [ "GET", "POST" ],
+      "DownstreamScheme":       "http",
+      "DownstreamHostAndPorts": [ { "Host": "127.0.0.1", "Port": 5003 } ],
+      "DownstreamPathTemplate": "/{everything}",
+      "Key": "auth-service"
+    }
+
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

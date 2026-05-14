@@ -5,7 +5,7 @@ AI đóng vai nhân viên tư vấn khách sạn, không phải trợ lý lập 
  
 import httpx
 import logging
- 
+from typing import Optional
 logger = logging.getLogger(__name__)
  
 SYSTEM_PROMPT = """Bạn là nhân viên tư vấn AI của chuỗi khách sạn DKS Hotel - Nhom12. Nhiệm vụ của bạn là hỗ trợ khách hàng đặt phòng, tư vấn dịch vụ và giải đáp mọi thắc mắc liên quan đến lưu trú.
@@ -64,34 +64,52 @@ class AIClient:
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
         }
- 
-    async def chat(self, question: str, hotel_context: str, model: str = "deepseek-v4-flash") -> str:
+
+    async def chat(
+        self,
+        question: str,
+        hotel_context: str,
+        history: Optional[list[dict]] = None,   # ← lịch sử hội thoại
+        model: str = "deepseek-v4-flash",
+    ) -> str:
         """
-        Gửi câu hỏi kèm hotel context (DB data + project summary) đến ds2api.
+        Gửi câu hỏi + hotel context + lịch sử hội thoại → AI trả lời có trí nhớ.
+
+        history: list[{"role": "user"|"assistant", "content": "..."}]
+                 do chat_history.get_history() cung cấp.
         """
-        max_context_chars = 60_000
+        max_context_chars = 50_000
         if len(hotel_context) > max_context_chars:
-            logger.warning(f"Context quá dài ({len(hotel_context)} chars), cắt xuống {max_context_chars}")
-            hotel_context = hotel_context[:max_context_chars] + "\n\n[... dữ liệu bị cắt bớt ...]"
- 
-        user_message = f"""Dưới đây là dữ liệu thực tế của hệ thống khách sạn:
- 
-<hotel_data>
-{hotel_context}
-</hotel_data>
- 
-Khách hàng hỏi: {question}"""
- 
+            hotel_context = hotel_context[:max_context_chars] + "\n[... dữ liệu bị cắt bớt ...]"
+
+        # ── Xây dựng messages[] với đầy đủ lịch sử ──────────────────────────
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+
+        # Đưa hotel context vào tin nhắn đầu tiên của assistant (invisible to user)
+        # để AI luôn có data mới nhất dù đang ở giữa cuộc trò chuyện
+        messages.append({
+            "role": "user",
+            "content": f"[DỮ LIỆU HỆ THỐNG - cập nhật mới nhất]\n{hotel_context}"
+        })
+        messages.append({
+            "role": "assistant",
+            "content": "Đã nhận dữ liệu hệ thống. Tôi sẵn sàng hỗ trợ khách hàng."
+        })
+
+        # Chèn lịch sử hội thoại (tối đa 20 lượt = 40 messages)
+        if history:
+            messages.extend(history)
+
+        # Câu hỏi hiện tại
+        messages.append({"role": "user", "content": question})
+
         payload = {
             "model": model,
-            "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user",   "content": user_message},
-            ],
+            "messages": messages,
             "stream": False,
             "temperature": 0.4,
         }
- 
+
         async with httpx.AsyncClient(timeout=120) as client:
             response = await client.post(
                 f"{self.base_url}/v1/chat/completions",
@@ -101,7 +119,7 @@ Khách hàng hỏi: {question}"""
             response.raise_for_status()
             data = response.json()
             return data["choices"][0]["message"]["content"]
- 
+
     async def health_check(self) -> bool:
         try:
             async with httpx.AsyncClient(timeout=5) as client:
@@ -109,4 +127,3 @@ Khách hàng hỏi: {question}"""
                 return r.status_code == 200
         except Exception:
             return False
- 
