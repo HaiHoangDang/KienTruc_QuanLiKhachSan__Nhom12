@@ -1,15 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ai-service\\examples",
-    "\\ai-service\\services",
-    "\\booking-service",
-    "\\booking-service\\Controllers",
-    "\\booking-service\\Data",
-    "\\booking-service\\DTOs",
-    "\\booking-service\\Models",
-    "\\booking-service\\Services"
+    "\\payment-service\\Controllers",
+    "\\payment-service\\DTOs",
+    "\\payment-service\\Models",
+    "\\payment-service\\Services",
+    "\\payment-service\\Services\\Interfaces"
   ],
-  "SelectedNode": "\\booking-service\\Services\\BookingService.cs",
+  "SelectedNode": "\\payment-service",
   "PreviewInSolutionExplorer": false
 }

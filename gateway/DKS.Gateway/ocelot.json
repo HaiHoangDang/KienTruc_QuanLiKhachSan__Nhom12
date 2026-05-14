@@ -20,7 +20,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5280
+          "Port": 5278
         }
       ],
       "DownstreamPathTemplate": "/api/room/{everything}",
@@ -33,7 +33,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5290
+          "Port": 5038
         }
       ],
       "DownstreamPathTemplate": "/api/payment/{everything}",
@@ -59,7 +59,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5300
+          "Port": 5259
         }
       ],
       "DownstreamPathTemplate": "/api/notification/{everything}",
