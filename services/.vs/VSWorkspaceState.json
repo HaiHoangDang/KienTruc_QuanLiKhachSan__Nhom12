@@ -3,12 +3,13 @@
     "",
     "\\ai-service\\examples",
     "\\ai-service\\services",
+    "\\booking-service",
     "\\booking-service\\Controllers",
     "\\booking-service\\Data",
     "\\booking-service\\DTOs",
     "\\booking-service\\Models",
     "\\booking-service\\Services"
   ],
-  "SelectedNode": "\\auth-service",
+  "SelectedNode": "\\booking-service\\Services\\BookingService.cs",
   "PreviewInSolutionExplorer": false
 }
