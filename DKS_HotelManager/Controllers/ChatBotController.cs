@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -17,7 +18,7 @@ namespace DKS_HotelManager.Controllers
         private readonly DKS_HotelManagerEntities db = new DKS_HotelManagerEntities();
         private readonly AiApiClient aiApiClient = new AiApiClient();
 
-        // ─── GET: /ChatBot/Index — load trang chat riêng (nếu có) ────────────
+        // ─── GET: /ChatBot/Index ──────────────────────────────────────────────
         public async Task<ActionResult> Index()
         {
             var customerId = GetCustomerId();
@@ -28,59 +29,142 @@ namespace DKS_HotelManager.Controllers
             ViewBag.ChatHistory = new List<object>();
 
             if (isLoggedIn)
-            {
                 ViewBag.ChatHistory = await LoadHistoryAsync(customerId);
-            }
 
             return View();
         }
 
-        // ─── POST: /ChatBot/Ask — gửi tin nhắn ───────────────────────────────
+        // ─── POST: /ChatBot/Ask ───────────────────────────────────────────────
         [HttpPost]
         public async Task<ActionResult> Ask(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
-            {
                 return Json(new { reply = "Nội dung câu hỏi đang trống." });
-            }
 
             var customerId = GetCustomerId();
             var isLoggedIn = customerId != "guest";
-            var kh = Session["KhachHang"] as KHACHHANG;
-            var customerName = kh?.TKH ?? null;
 
-            var dbContext = BuildDatabaseContext(message, isLoggedIn, kh);
+            // Lấy tên khách từ Session["KhachHangTen"] — đúng key bạn lưu khi login
+            var customerName = Session["KhachHangTen"]?.ToString();
+            var dbContext = BuildDatabaseContext(message, isLoggedIn, customerName);
 
-            // Gửi đủ 5 field lên AI Service
             var payload = new
             {
                 question = message,
                 customer_id = customerId,
-                customer_name = customerName,    // TÊN khách (để AI xưng hô đúng)
-                is_logged_in = isLoggedIn,      // TRẠNG THÁI đăng nhập (một dòng, rõ ràng)
+                customer_name = customerName,
+                is_logged_in = isLoggedIn,
                 db_context = dbContext
             };
 
             var result = await aiApiClient.AskAsync(payload);
+            string reply = result.Answer;
 
-            return Json(new
-            {
-                reply = result.Answer,
-                customerId = customerId,
-                isLoggedIn = isLoggedIn
-            });
+            // Nếu AI trả về [BOOKING_REQUEST] và người dùng đã đăng nhập → thực hiện đặt phòng thật
+            if (isLoggedIn && reply.Contains("[BOOKING_REQUEST]"))
+                reply = await HandleBookingRequestAsync(reply);
+
+            return Json(new { reply, customerId, isLoggedIn });
         }
 
-        // ─── GET: /ChatBot/LoadHistory — widget gọi khi mở ──────────────────
+        // ─── Xử lý đặt phòng thật qua Booking API ────────────────────────────
+        private async Task<string> HandleBookingRequestAsync(string aiReply)
+        {
+            // 1. Lấy token từ Session["token"] — đúng key bạn đang lưu khi login
+            var token = Session["token"]?.ToString();
+            if (string.IsNullOrEmpty(token))
+                return "Phiên đăng nhập đã hết hạn. Bạn vui lòng đăng nhập lại để đặt phòng nhé.";
+
+            // 2. Parse block [BOOKING_REQUEST] do AI trả về
+            string roomName = null, checkIn = null, checkOut = null;
+            foreach (var rawLine in aiReply.Split('\n'))
+            {
+                var line = rawLine.Trim();
+                if (line.StartsWith("ROOM_NAME=")) roomName = line.Substring("ROOM_NAME=".Length).Trim();
+                if (line.StartsWith("CHECKIN=")) checkIn = line.Substring("CHECKIN=".Length).Trim();
+                if (line.StartsWith("CHECKOUT=")) checkOut = line.Substring("CHECKOUT=".Length).Trim();
+            }
+
+            if (roomName == null || checkIn == null || checkOut == null)
+                return "Mình chưa xác định được đầy đủ thông tin đặt phòng. " +
+                       "Bạn cho mình biết lại tên phòng, ngày vào và ngày ra nhé?";
+
+            // 3. Tra MaPhong từ DB theo tên phòng AI trả về
+            var phong = db.PHONGs.FirstOrDefault(p => p.TenPhong == roomName);
+            if (phong == null)
+                return $"Xin lỗi, không tìm thấy phòng {roomName} trong hệ thống. " +
+                       "Bạn muốn mình gợi ý phòng khác không?";
+
+            // 4. Gọi Booking API với Bearer token của người dùng
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", token);
+
+                    var body = JsonConvert.SerializeObject(new
+                    {
+                        maPhong = phong.MaPhong,
+                        maNV = 1,                        // nhân viên hệ thống mặc định
+                        ngayVao = checkIn + "T00:00:00",
+                        ngayTra = checkOut + "T00:00:00",
+                        datCoc = 0
+                    });
+
+                    var response = await client.PostAsync(
+                        "http://localhost:6000/api/booking",
+                        new StringContent(body, Encoding.UTF8, "application/json")
+                    );
+
+                    // Thành công
+                    if (response.IsSuccessStatusCode)
+                    {
+                        dynamic data = JsonConvert.DeserializeObject(
+                            await response.Content.ReadAsStringAsync()
+                        );
+                        string maThue = data?.maThue?.ToString() ?? "—";
+                        string trangThai = data?.trangThai?.ToString() ?? "Đã đặt";
+
+                        return $"Đặt phòng thành công!\n" +
+                               $"• Phòng: {roomName}\n" +
+                               $"• Ngày vào: {checkIn}\n" +
+                               $"• Ngày trả: {checkOut}\n" +
+                               $"• Mã đặt phòng: #{maThue}\n" +
+                               $"• Trạng thái: {trangThai}\n\n" +
+                               $"Cảm ơn bạn đã tin tưởng DKS Hotel! Có gì cần hỗ trợ thêm không?";
+                    }
+
+                    // Token hết hạn
+                    if ((int)response.StatusCode == 401)
+                    {
+                        Session.Remove("token");
+                        return "Phiên đăng nhập đã hết hạn. Bạn vui lòng đăng nhập lại để đặt phòng nhé.";
+                    }
+
+                    // Lỗi khác từ API
+                    var errBody = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"[Booking] HTTP {(int)response.StatusCode}: {errBody}");
+                    return "Rất tiếc, phòng này có thể vừa được đặt hoặc có lỗi xảy ra. " +
+                           "Bạn muốn mình tìm phòng khác không?";
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[Booking] Exception: {ex.Message}");
+                return "Hệ thống đặt phòng đang gặp sự cố. " +
+                       "Bạn vui lòng thử lại sau hoặc liên hệ lễ tân nhé.";
+            }
+        }
+
+        // ─── GET: /ChatBot/LoadHistory ────────────────────────────────────────
         [HttpGet]
         public async Task<ActionResult> LoadHistory()
         {
             var customerId = GetCustomerId();
 
             if (customerId == "guest")
-            {
                 return Json(new { messages = new List<object>() }, JsonRequestBehavior.AllowGet);
-            }
 
             var messages = await LoadHistoryAsync(customerId);
             return Json(new { messages }, JsonRequestBehavior.AllowGet);
@@ -93,9 +177,7 @@ namespace DKS_HotelManager.Controllers
             var customerId = GetCustomerId();
 
             if (customerId == "guest")
-            {
                 return Json(new { success = false, message = "Chưa đăng nhập." });
-            }
 
             try
             {
@@ -119,17 +201,9 @@ namespace DKS_HotelManager.Controllers
         // ─── Helper: lấy customer_id từ session ──────────────────────────────
         private string GetCustomerId()
         {
+            // Session["KhachHangId"] = result.userId (int) được lưu khi login
             if (Session["KhachHangId"] != null)
-            {
                 return "kh_" + Session["KhachHangId"].ToString();
-            }
-
-            var kh = Session["KhachHang"] as KHACHHANG;
-
-            if (kh != null && !string.IsNullOrEmpty(kh.Email))
-            {
-                return "kh_" + kh.Email;
-            }
 
             return "guest";
         }
@@ -175,27 +249,28 @@ namespace DKS_HotelManager.Controllers
             return new List<object>();
         }
 
-        // ─── Helper: build db_context — CHỈ 1 dòng IS_LOGGED_IN ─────────────
-        private string BuildDatabaseContext(string userMessage, bool isLoggedIn, KHACHHANG kh)
+        // ─── Helper: build db_context ─────────────────────────────────────────
+        private string BuildDatabaseContext(string userMessage, bool isLoggedIn, string customerName)
         {
             try
             {
                 var lower = (userMessage ?? "").ToLowerInvariant();
                 var sb = new StringBuilder();
 
-                // ── Trạng thái đăng nhập (CHỈ 1 dòng, không lặp) ──
                 sb.AppendLine($"IS_LOGGED_IN={isLoggedIn.ToString().ToLower()}");
 
-                if (isLoggedIn && kh != null)
+                if (isLoggedIn)
                 {
-                    sb.AppendLine($"CUSTOMER_NAME={kh.TKH}");
+                    if (!string.IsNullOrEmpty(customerName))
+                        sb.AppendLine($"CUSTOMER_NAME={customerName}");
+
                     if (Session["KhachHangId"] != null)
                         sb.AppendLine($"CUSTOMER_ID=kh_{Session["KhachHangId"]}");
                 }
 
                 sb.AppendLine();
 
-                // ── Danh sách khách sạn ──
+                // Danh sách khách sạn
                 var hotels = db.KHACHSANs
                     .Select(k => new { k.TenKS, k.DiaDiem })
                     .Take(10)
@@ -205,7 +280,7 @@ namespace DKS_HotelManager.Controllers
                 foreach (var h in hotels)
                     sb.AppendLine($"• {h.TenKS} — {h.DiaDiem}");
 
-                // ── Phòng trống (khi hỏi liên quan) ──
+                // Phòng trống
                 bool askRoom = lower.Contains("phòng") || lower.Contains("giá")
                     || lower.Contains("trống") || lower.Contains("đặt")
                     || lower.Contains("book");
@@ -249,7 +324,7 @@ namespace DKS_HotelManager.Controllers
                         sb.AppendLine($"• {r.TenPhong} — {r.LoaiPhong} — {r.DGNgay:N0}₫/đêm — {r.KhachSan}");
                 }
 
-                // ── Dịch vụ ──
+                // Dịch vụ
                 if (lower.Contains("dịch vụ") || lower.Contains("spa") || lower.Contains("ăn sáng"))
                 {
                     var services = db.DICHVUs.OrderBy(d => d.TenDV).Take(10).ToList();
@@ -258,7 +333,7 @@ namespace DKS_HotelManager.Controllers
                         sb.AppendLine($"• {s.TenDV} — {s.DGDV:N0}₫");
                 }
 
-                // ── Lịch sử đặt phòng của khách ──
+                // Lịch sử đặt phòng của khách
                 bool askMyBooking = lower.Contains("đặt phòng của tôi")
                     || lower.Contains("booking của tôi")
                     || lower.Contains("phòng tôi đang")
@@ -318,6 +393,7 @@ namespace DKS_HotelManager.Controllers
         }
     }
 }
+
 
 //using System;
 //using System.Collections.Generic;
