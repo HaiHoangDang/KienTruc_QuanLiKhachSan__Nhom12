@@ -87,6 +87,7 @@ curl -X POST http://localhost:8000/chat \
 3. Thêm vào `app/.env.local`:
    ```
    AI_SERVICE_URL=http://localhost:8000
+   AI_SERVICE_URL=http://localhost:6000 sau  khi đã qua ocelot gateway
    ```
 4. Dùng component:
    ```tsx

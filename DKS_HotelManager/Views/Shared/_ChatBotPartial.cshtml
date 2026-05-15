@@ -1,6 +1,7 @@
-﻿@* Floating chat assistant *@
+﻿@* Floating chat assistant — DKS Hotel *@
 
 <link rel="stylesheet" href="~/Content/dksh-chat.css" />
+
 <div id="dkshChatWidget" class="dksh-chat-widget" aria-live="polite">
     <button id="dkshChatToggle" class="dksh-chat-toggle" type="button" aria-label="Mở chat hỗ trợ">
         <i class="fas fa-comment-alt"></i>
@@ -10,21 +11,26 @@
         <header class="dksh-chat-header">
             <div>
                 <strong>Trợ lý khách hàng</strong>
-                <span>Chuỗi khách sạn DHS</span>
+                <span>Chuỗi khách sạn DKS</span>
             </div>
-            <button type="button" id="dkshChatClose" class="dksh-chat-close" aria-label="Đóng chat">
-                <i class="fas fa-times"></i>
-            </button>
+            <div style="display:flex;gap:8px;align-items:center">
+                <button type="button" id="dkshChatClear" class="dksh-chat-clear"
+                        title="Xóa lịch sử chat" style="display:none">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button type="button" id="dkshChatClose" class="dksh-chat-close" aria-label="Đóng chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </header>
 
         <div class="dksh-chat-body" id="dkshChatBody">
-            <div class="dksh-chat-message dksh-chat-message-bot">
-                Chào bạn! Mình có thể giúp bạn với thông tin khách sạn, phòng trống và dịch vụ trong chuỗi DKS.
-            </div>
+            {{-- Lịch sử và lời chào sẽ được inject qua JS --}}
         </div>
 
         <form id="dkshChatForm" class="dksh-chat-form">
-            <input id="dkshChatInput" type="text" maxlength="500" placeholder="Hỏi về khách sạn, phòng trống, dịch vụ..." autocomplete="off">
+            <input id="dkshChatInput" type="text" maxlength="500"
+                   placeholder="Hỏi về khách sạn, phòng trống, dịch vụ..." autocomplete="off">
             <button type="submit" aria-label="Gửi tin nhắn">
                 <i class="fas fa-paper-plane"></i>
             </button>
@@ -38,87 +44,179 @@
         const toggle = document.getElementById('dkshChatToggle');
         const panel = document.getElementById('dkshChatPanel');
         const closeBtn = document.getElementById('dkshChatClose');
+        const clearBtn = document.getElementById('dkshChatClear');
         const form = document.getElementById('dkshChatForm');
         const input = document.getElementById('dkshChatInput');
         const body = document.getElementById('dkshChatBody');
 
-        const appendMessage = (type, text) => {
-            const message = document.createElement('div');
-            message.className = `dksh-chat-message dksh-chat-message-${type}`;
-            message.textContent = text;
-            body.appendChild(message);
-            body.scrollTop = body.scrollHeight;
-        };
+        let historyLoaded = false;
 
-        const togglePanel = () => {
-            const isHidden = !panel.classList.contains('active');
-            panel.classList.toggle('active', isHidden);
-            panel.setAttribute('aria-hidden', !isHidden);
+        // ── Thêm 1 message vào UI ────────────────────────────────────────────────
+        function appendMessage(type, text, timestamp) {
+            const wrap = document.createElement('div');
+            wrap.className = 'dksh-chat-msg-wrap dksh-chat-msg-wrap-' + type;
 
-            if (isHidden) {
-                input.focus();
+            const msg = document.createElement('div');
+            msg.className = 'dksh-chat-message dksh-chat-message-' + type;
+            msg.textContent = text;
+
+            wrap.appendChild(msg);
+
+            if (timestamp) {
+                const ts = document.createElement('span');
+                ts.className = 'dksh-chat-timestamp';
+                ts.textContent = timestamp;
+                wrap.appendChild(ts);
             }
-        };
 
-        toggle.addEventListener('click', function () {
-            togglePanel();
-        });
+            body.appendChild(wrap);
+            body.scrollTop = body.scrollHeight;
+        }
 
-        closeBtn.addEventListener('click', function () {
+        // ── Hiển thị loading indicator ───────────────────────────────────────────
+        function showTyping() {
+            const el = document.createElement('div');
+            el.id = 'dkshTyping';
+            el.className = 'dksh-chat-message dksh-chat-message-bot dksh-chat-typing';
+            el.textContent = '...';
+            body.appendChild(el);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function hideTyping() {
+            const el = document.getElementById('dkshTyping');
+            if (el) el.remove();
+        }
+
+        // ── Load lịch sử chat từ server ──────────────────────────────────────────
+        async function loadHistory() {
+            if (historyLoaded) return;
+            historyLoaded = true;
+            body.innerHTML = '';  // clear trước khi render
+
+            try {
+                const res = await fetch('/ChatBot/LoadHistory');
+                const data = await res.json();
+
+                if (data.messages && data.messages.length > 0) {
+                    // Cho nút xóa hiện ra nếu có lịch sử
+                    clearBtn.style.display = 'inline-flex';
+
+                    // Separator
+                    const sep = document.createElement('div');
+                    sep.className = 'dksh-chat-separator';
+                    sep.textContent = '— Lịch sử cuộc trò chuyện —';
+                    body.appendChild(sep);
+
+                    data.messages.forEach(function (m) {
+                        appendMessage(
+                            m.role === 'user' ? 'user' : 'bot',
+                            m.content,
+                            m.created_at ? m.created_at.substring(0, 16) : null
+                        );
+                    });
+
+                    const sep2 = document.createElement('div');
+                    sep2.className = 'dksh-chat-separator';
+                    sep2.textContent = '— Cuộc trò chuyện hiện tại —';
+                    body.appendChild(sep2);
+
+                } else {
+                    // Chưa có lịch sử → lời chào mặc định
+                    appendMessage('bot', 'Chào bạn! Mình có thể giúp bạn với thông tin khách sạn, phòng trống và dịch vụ trong chuỗi DKS.');
+                }
+
+            } catch (e) {
+                appendMessage('bot', 'Chào bạn! Mình có thể giúp bạn với thông tin khách sạn, phòng trống và dịch vụ trong chuỗi DKS.');
+                console.warn('[DKS Chat] Không tải được lịch sử:', e);
+            }
+
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // ── Toggle mở/đóng panel ────────────────────────────────────────────────
+        function openPanel() {
+            panel.classList.add('active');
+            panel.setAttribute('aria-hidden', 'false');
+            input.focus();
+            // Load lịch sử 1 lần duy nhất khi mở
+            loadHistory();
+        }
+
+        function closePanel() {
             panel.classList.remove('active');
             panel.setAttribute('aria-hidden', 'true');
+        }
+
+        toggle.addEventListener('click', function () {
+            if (panel.classList.contains('active')) {
+                closePanel();
+            } else {
+                openPanel();
+            }
         });
 
+        closeBtn.addEventListener('click', closePanel);
+
+        // ── Xóa lịch sử ─────────────────────────────────────────────────────────
+        clearBtn.addEventListener('click', async function () {
+            if (!confirm('Bạn có chắc muốn xóa toàn bộ lịch sử chat không?')) return;
+
+            try {
+                await fetch('/ChatBot/ClearHistory', { method: 'POST' });
+            } catch (e) { /* ignore */ }
+
+            historyLoaded = false;
+            clearBtn.style.display = 'none';
+            body.innerHTML = '';
+            appendMessage('bot', 'Lịch sử đã được xóa. Tôi có thể giúp gì cho bạn?');
+        });
+
+        // ── Gửi tin nhắn ────────────────────────────────────────────────────────
         form.addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const text = input.value.trim();
+            if (!text) return;
 
-            if (!text) {
-                return;
+            // Đảm bảo panel đã load lịch sử (nếu user gõ ngay khi panel đang mở)
+            if (!historyLoaded) {
+                await loadHistory();
             }
 
             appendMessage('user', text);
-
             input.value = '';
             input.disabled = true;
+            showTyping();
 
             try {
                 const response = await fetch('/ChatBot/Ask', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `message=${encodeURIComponent(text)}`
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'message=' + encodeURIComponent(text)
                 });
 
+                hideTyping();
+
                 const result = await response.json().catch(() => null);
-
-                if (!response.ok) {
-                    const serverReply = result && result.reply
-                        ? result.reply
-                        : 'Không thể kết nối máy chủ.';
-
-                    appendMessage('bot', serverReply);
-                    return;
-                }
-
-                const reply = result && result.reply
+                const reply = (result && result.reply)
                     ? result.reply
                     : 'Không nhận được phản hồi từ hệ thống.';
 
                 appendMessage('bot', reply);
-            }
-            catch (error) {
+
+                // Hiện nút xóa sau khi có cuộc trò chuyện
+                clearBtn.style.display = 'inline-flex';
+
+            } catch (error) {
+                hideTyping();
                 appendMessage('bot', 'Xin lỗi, hệ thống đang gặp sự cố. Bạn thử lại sau nhé.');
-                console.error(error);
-            }
-            finally {
+                console.error('[DKS Chat] Error:', error);
+            } finally {
                 input.disabled = false;
                 input.focus();
             }
         });
+
     })();
 </script>
-
-

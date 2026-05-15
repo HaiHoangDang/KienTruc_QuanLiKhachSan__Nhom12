@@ -304,7 +304,7 @@ INSERT INTO KHACHHANG
 (MKH, TKH, DiaChi, SDT, CMND_CCCD, TenDN, MatKhau, Email)
 VALUES
 (1,  N'Dang Hoang Hai',    N'TP Ho Chi Minh',          N'0374232805', N'074205001098', 'danghoanghai',    'danghoanghai',  '23248020102099@gmail.com'),
-(2,  N'Tran Van Hung',     N'TP Ho Chi Minh',  N'0912123456', N'0234567890', 'hungphan',      '20082005',  'midorima8726@@gmail.com'),
+(2,  N'Hoang Hai Test',     N'TP Ho Chi Minh',  N'0912123456', N'0234567890', 'test',      'danghoanghai',  'midorima8726@@gmail.com'),
 (3,  N'Le Thi Thu',        N'Da Nang',         N'0921122334', N'0345678901', 'lethithu3',         'kh3@123',  'thu@gmail.com'),
 (4,  N'Hoang Van Nam',     N'Hai Phong',       N'0939988776', N'0456789012', 'hoangvannam4',      'kh4@123',  'nam@gmail.com'),
 (5,  N'Pham Thi Huong',    N'Can Tho',         N'0946655443', N'0567890123', 'phamthihuong5',     'kh5@123',  'huong@gmail.com'),

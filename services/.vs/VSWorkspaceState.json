@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\booking-service\\Controllers",
-    "\\booking-service\\Services"
+    "\\ai-service",
+    "\\ai-service\\services"
   ],
-  "SelectedNode": "\\room-service",
+  "SelectedNode": "\\ai-service\\INTEGRATION_GUIDE.md",
   "PreviewInSolutionExplorer": false
 }
