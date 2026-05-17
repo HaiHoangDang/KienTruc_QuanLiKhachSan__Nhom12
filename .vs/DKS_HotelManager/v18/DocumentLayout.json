@@ -3,7 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|c:\\users\\administrator\\source\\repos\\kientruc_quanlikhachsan__nhom12\\dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|c:\\users\\administrator\\source\\repos\\kientruc_quanlikhachsan__nhom12\\dks_hotelmanager\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -29,16 +37,8 @@
       "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|c:\\users\\administrator\\source\\repos\\kientruc_quanlikhachsan__nhom12\\dks_hotelmanager\\controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|c:\\users\\administrator\\source\\repos\\kientruc_quanlikhachsan__nhom12\\dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
-      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\models\\db.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|solutionrelative:dks_hotelmanager\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B96C84C7-B595-4588-89DD-C6F20FB56FA9}|DKS_HotelManager\\DKS_HotelManager.csproj|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\dks_hotelmanager\\services\\apiclients\\notificationapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -114,53 +114,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChatBotController (1).cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\ChatBotController (1).cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\ChatBotController (1).cs",
-              "ToolTip": "C:\\Users\\Administrator\\Downloads\\ChatBotController (1).cs",
-              "RelativeToolTip": "..\\..\\..\\Downloads\\ChatBotController (1).cs",
-              "ViewState": "AgIAAGQBAAAAAAAAAAAiwIsBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-15T08:54:56.982Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ChatBotController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\ChatBotController.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\ChatBotController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\Downloads\\ChatBotController.cs",
-              "RelativeToolTip": "..\\..\\..\\Downloads\\ChatBotController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-15T08:51:25.12Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "db.edmx [Diagram1]",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Models\\db.edmx",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Models\\db.edmx",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Models\\db.edmx [Diagram1]",
               "RelativeToolTip": "DKS_HotelManager\\Models\\db.edmx [Diagram1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
-              "WhenOpened": "2026-05-15T06:34:57.001Z",
+              "WhenOpened": "2026-05-17T02:50:05.778Z",
               "EditorCaption": " [Diagram1]"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ChatBotController (1).cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\ChatBotController (1).cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\ChatBotController (1).cs",
+              "ToolTip": "C:\\Users\\Administrator\\Downloads\\ChatBotController (1).cs",
+              "RelativeToolTip": "..\\..\\..\\Downloads\\ChatBotController (1).cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T08:54:56.982Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
+              "Title": "ChatBotController.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\ChatBotController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Downloads\\ChatBotController.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Downloads\\ChatBotController.cs",
+              "RelativeToolTip": "..\\..\\..\\Downloads\\ChatBotController.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-15T08:51:25.12Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "HotelController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\HotelController.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Controllers\\HotelController.cs",
@@ -173,20 +165,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "ChatBotController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\ChatBotController.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Controllers\\ChatBotController.cs",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\ChatBotController.cs",
               "RelativeToolTip": "DKS_HotelManager\\Controllers\\ChatBotController.cs",
-              "ViewState": "AgIAAEcCAAAAAAAAAAAqwIsBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEoCAAAAAAAAAAAqwIsBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-11T04:33:04.835Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "AiApiClient.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Services\\ApiClients\\AiApiClient.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Services\\ApiClients\\AiApiClient.cs",
@@ -199,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Views\\Shared\\_Layout.cshtml",
@@ -212,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "_ChatBotPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Views\\Shared\\_ChatBotPartial.cshtml",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Views\\Shared\\_ChatBotPartial.cshtml",
@@ -225,7 +217,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Web.config",
+              "RelativeDocumentMoniker": "DKS_HotelManager\\Web.config",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Web.config",
+              "RelativeToolTip": "DKS_HotelManager\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-05-08T11:23:10.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AuthenticationController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Controllers\\AuthenticationController.cs",
               "RelativeDocumentMoniker": "DKS_HotelManager\\Controllers\\AuthenticationController.cs",
@@ -286,19 +291,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAiwCsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-14T09:46:50.355Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Web.config",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Web.config",
-              "RelativeDocumentMoniker": "DKS_HotelManager\\Web.config",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\DKS_HotelManager\\Web.config",
-              "RelativeToolTip": "DKS_HotelManager\\Web.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-05-08T11:23:10.834Z",
               "EditorCaption": ""
             },
             {

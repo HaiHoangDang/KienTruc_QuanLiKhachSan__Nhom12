@@ -2032,5 +2032,77 @@
     "HotelName": "Luxury Hanoi Hotel",
     "Details": null,
     "Timestamp": "2026-04-05T08:47:24.6260675Z"
+  },
+  {
+    "StaffId": 3,
+    "StaffName": "Dang Hoang Hai 2",
+    "Event": "Nhan vien le tan dang nhap",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T03:52:00.2067296Z"
+  },
+  {
+    "StaffId": 3,
+    "StaffName": "Dang Hoang Hai 2",
+    "Event": "Dang nhap he thong",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T03:52:04.227792Z"
+  },
+  {
+    "StaffId": 3,
+    "StaffName": "Dang Hoang Hai 2",
+    "Event": "Dang nhap he thong",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T03:58:13.7512009Z"
+  },
+  {
+    "StaffId": 1,
+    "StaffName": "Dang Hoang Hai",
+    "Event": "Dang nhap he thong",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T03:58:19.8947583Z"
+  },
+  {
+    "StaffId": 1,
+    "StaffName": "Dang Hoang Hai",
+    "Event": "Chọn chi nhánh lễ tân",
+    "HotelId": 20,
+    "HotelName": "Luxury Bac Lieu Melody",
+    "Details": null,
+    "Timestamp": "2026-05-17T04:12:58.0224728Z"
+  },
+  {
+    "StaffId": 1,
+    "StaffName": "Dang Hoang Hai",
+    "Event": "Dang nhap he thong",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T04:52:18.8766753Z"
+  },
+  {
+    "StaffId": 3,
+    "StaffName": "Dang Hoang Hai 2",
+    "Event": "Nhan vien le tan dang nhap",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T04:52:26.7407078Z"
+  },
+  {
+    "StaffId": 3,
+    "StaffName": "Dang Hoang Hai 2",
+    "Event": "Nhan vien le tan dang nhap",
+    "HotelId": null,
+    "HotelName": null,
+    "Details": null,
+    "Timestamp": "2026-05-17T05:23:44.7764784Z"
   }
 ]

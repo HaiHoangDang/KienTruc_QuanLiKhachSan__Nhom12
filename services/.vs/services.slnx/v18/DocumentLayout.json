@@ -3,120 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\INTEGRATION_GUIDE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\INTEGRATION_GUIDE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\main.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\main.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\chat_history.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\services\\chat_history.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\ai_client.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\services\\ai_client.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\api\\ds2api-main\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\data\\chat_history.db||{25834150-CD7E-11D0-92DF-00A0C9138C45}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\data\\chat_history.db||{25834150-CD7E-11D0-92DF-00A0C9138C45}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\examples\\AIChatBot.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\examples\\AIChatBot.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\context_builder.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\services\\context_builder.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\project_reader.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\services\\project_reader.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\__init__.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\services\\__init__.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\examples\\ai.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\examples\\ai.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Controllers\\RoomController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:room-service\\Controllers\\RoomController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Controllers\\BookingController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:booking-service\\Controllers\\BookingController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Services\\BookingService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:booking-service\\Services\\BookingService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\payment-service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\payment-service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\notification-vervice.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:notification-vervice\\notification-vervice.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\notification-vervice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:notification-vervice\\notification-vervice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\payment-service.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\payment-service.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:room-service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Services\\PaymentService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Services\\PaymentService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\chat_history.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ai-service\\services\\chat_history.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Controllers\\PaymentController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Controllers\\PaymentController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Services\\Interfaces\\IPaymentService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Services\\Interfaces\\IPaymentService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Data\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Data\\AppDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\DTOs\\PaymentResponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\DTOs\\PaymentResponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\DTOs\\PaymentRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\DTOs\\PaymentRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Models\\Booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Models\\Booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Models\\Payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:payment-service\\Models\\Payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\room-service.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
@@ -285,155 +184,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "INTEGRATION_GUIDE.md",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\INTEGRATION_GUIDE.md",
-              "RelativeDocumentMoniker": "ai-service\\INTEGRATION_GUIDE.md",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\INTEGRATION_GUIDE.md",
-              "RelativeToolTip": "ai-service\\INTEGRATION_GUIDE.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-15T07:09:53.59Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "README.md",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\README.md",
-              "RelativeDocumentMoniker": "ai-service\\README.md",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\README.md",
-              "RelativeToolTip": "ai-service\\README.md",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAAAGcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-05-15T07:01:59.604Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "context_builder.py",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\context_builder.py",
-              "RelativeDocumentMoniker": "ai-service\\services\\context_builder.py",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\context_builder.py",
-              "RelativeToolTip": "ai-service\\services\\context_builder.py",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAwDsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-15T07:01:36.873Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ai.ts",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\examples\\ai.ts",
-              "RelativeDocumentMoniker": "ai-service\\examples\\ai.ts",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\examples\\ai.ts",
-              "RelativeToolTip": "ai-service\\examples\\ai.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2026-05-15T07:00:50.781Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "BookingService.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Services\\BookingService.cs",
-              "RelativeDocumentMoniker": "booking-service\\Services\\BookingService.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Services\\BookingService.cs",
-              "RelativeToolTip": "booking-service\\Services\\BookingService.cs",
-              "ViewState": "AgIAAGsBAAAAAAAAAAAIwJQBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T08:12:49.944Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "notification-vervice.csproj",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\notification-vervice.csproj",
-              "RelativeDocumentMoniker": "notification-vervice\\notification-vervice.csproj",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\notification-vervice.csproj",
-              "RelativeToolTip": "notification-vervice\\notification-vervice.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-14T08:47:07.505Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "BookingController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Controllers\\BookingController.cs",
-              "RelativeDocumentMoniker": "booking-service\\Controllers\\BookingController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Controllers\\BookingController.cs",
-              "RelativeToolTip": "booking-service\\Controllers\\BookingController.cs",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAAAKMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T04:58:36.377Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "RoomController.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Controllers\\RoomController.cs",
-              "RelativeDocumentMoniker": "room-service\\Controllers\\RoomController.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Controllers\\RoomController.cs",
-              "RelativeToolTip": "room-service\\Controllers\\RoomController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:13:34.703Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ai_client.py",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\ai_client.py",
-              "RelativeDocumentMoniker": "ai-service\\services\\ai_client.py",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\ai_client.py",
-              "RelativeToolTip": "ai-service\\services\\ai_client.py",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAwNAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-11T08:04:06.116Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "chat_history.py",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\chat_history.py",
-              "RelativeDocumentMoniker": "ai-service\\services\\chat_history.py",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\chat_history.py",
-              "RelativeToolTip": "ai-service\\services\\chat_history.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAI0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-14T05:12:01.116Z",
+              "Title": "config.json",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\api\\ds2api-main\\config.json",
+              "RelativeDocumentMoniker": "..\\api\\ds2api-main\\config.json",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\api\\ds2api-main\\config.json",
+              "RelativeToolTip": "..\\api\\ds2api-main\\config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-17T04:39:54.889Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "main.py",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\main.py",
-              "RelativeDocumentMoniker": "ai-service\\main.py",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\main.py",
-              "RelativeToolTip": "ai-service\\main.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAK0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-14T05:11:01.646Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AIChatBot.tsx",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\examples\\AIChatBot.tsx",
-              "RelativeDocumentMoniker": "ai-service\\examples\\AIChatBot.tsx",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\examples\\AIChatBot.tsx",
-              "RelativeToolTip": "ai-service\\examples\\AIChatBot.tsx",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2026-05-15T07:01:47.952Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "chat_history.db",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\data\\chat_history.db",
               "RelativeDocumentMoniker": "ai-service\\data\\chat_history.db",
@@ -444,187 +207,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "__init__.py",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\__init__.py",
-              "RelativeDocumentMoniker": "ai-service\\services\\__init__.py",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\__init__.py",
-              "RelativeToolTip": "ai-service\\services\\__init__.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "chat_history.py",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\chat_history.py",
+              "RelativeDocumentMoniker": "ai-service\\services\\chat_history.py",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\chat_history.py",
+              "RelativeToolTip": "ai-service\\services\\chat_history.py",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAI0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-14T05:10:00.765Z"
+              "WhenOpened": "2026-05-14T05:12:01.116Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "project_reader.py",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\project_reader.py",
-              "RelativeDocumentMoniker": "ai-service\\services\\project_reader.py",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\services\\project_reader.py",
-              "RelativeToolTip": "ai-service\\services\\project_reader.py",
-              "ViewState": "AgIAALQAAAAAAAAAAAAAwMoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2026-05-14T05:10:03Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "notification-vervice.http",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\notification-vervice.http",
-              "RelativeDocumentMoniker": "notification-vervice\\notification-vervice.http",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\notification-vervice.http",
-              "RelativeToolTip": "notification-vervice\\notification-vervice.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2026-05-14T08:27:54.267Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PaymentService.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Services\\PaymentService.cs",
-              "RelativeDocumentMoniker": "payment-service\\Services\\PaymentService.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Services\\PaymentService.cs",
-              "RelativeToolTip": "payment-service\\Services\\PaymentService.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAAwGkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:39:07.087Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "IPaymentService.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Services\\Interfaces\\IPaymentService.cs",
-              "RelativeDocumentMoniker": "payment-service\\Services\\Interfaces\\IPaymentService.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Services\\Interfaces\\IPaymentService.cs",
-              "RelativeToolTip": "payment-service\\Services\\Interfaces\\IPaymentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:39:32.451Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\appsettings.json",
-              "RelativeDocumentMoniker": "payment-service\\appsettings.json",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\appsettings.json",
-              "RelativeToolTip": "payment-service\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-14T08:40:37.147Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "payment-service.http",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\payment-service.http",
-              "RelativeDocumentMoniker": "payment-service\\payment-service.http",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\payment-service.http",
-              "RelativeToolTip": "payment-service\\payment-service.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2026-05-14T08:41:58.526Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Program.cs",
-              "RelativeDocumentMoniker": "payment-service\\Program.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Program.cs",
-              "RelativeToolTip": "payment-service\\Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAwBMAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:48:48.075Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "payment-service.csproj",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\payment-service.csproj",
-              "RelativeDocumentMoniker": "payment-service\\payment-service.csproj",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\payment-service.csproj",
-              "RelativeToolTip": "payment-service\\payment-service.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-14T08:46:30.471Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "PaymentResponse.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\DTOs\\PaymentResponse.cs",
-              "RelativeDocumentMoniker": "payment-service\\DTOs\\PaymentResponse.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\DTOs\\PaymentResponse.cs",
-              "RelativeToolTip": "payment-service\\DTOs\\PaymentResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:38:37.783Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Booking.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Models\\Booking.cs",
-              "RelativeDocumentMoniker": "payment-service\\Models\\Booking.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Models\\Booking.cs",
-              "RelativeToolTip": "payment-service\\Models\\Booking.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:38:50.981Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "PaymentRequest.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\DTOs\\PaymentRequest.cs",
-              "RelativeDocumentMoniker": "payment-service\\DTOs\\PaymentRequest.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\DTOs\\PaymentRequest.cs",
-              "RelativeToolTip": "payment-service\\DTOs\\PaymentRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:38:24.055Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "payment-service\\Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "payment-service\\Data\\AppDbContext.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAwD8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:38:17.499Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\appsettings.json",
-              "RelativeDocumentMoniker": "room-service\\appsettings.json",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\appsettings.json",
-              "RelativeToolTip": "room-service\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-14T08:25:43.169Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Payment.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Models\\Payment.cs",
-              "RelativeDocumentMoniker": "payment-service\\Models\\Payment.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Models\\Payment.cs",
-              "RelativeToolTip": "payment-service\\Models\\Payment.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T08:38:44.709Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 3,
               "Title": "PaymentController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\payment-service\\Controllers\\PaymentController.cs",
               "RelativeDocumentMoniker": "payment-service\\Controllers\\PaymentController.cs",
@@ -636,7 +232,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\appsettings.json",
               "RelativeDocumentMoniker": "notification-vervice\\appsettings.json",
@@ -648,7 +244,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 4,
               "Title": "room-service.http",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\room-service.http",
               "RelativeDocumentMoniker": "room-service\\room-service.http",
@@ -660,7 +256,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 9,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\appsettings.Development.json",
               "RelativeDocumentMoniker": "booking-service\\appsettings.Development.json",
@@ -672,7 +268,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 10,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\appsettings.Development.json",
               "RelativeDocumentMoniker": "room-service\\appsettings.Development.json",
@@ -684,7 +280,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\Program.cs",
               "RelativeDocumentMoniker": "notification-vervice\\Program.cs",
@@ -696,7 +292,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 5,
               "Title": "NotificationService.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\Services\\NotificationService.cs",
               "RelativeDocumentMoniker": "notification-vervice\\Services\\NotificationService.cs",
@@ -708,7 +304,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 12,
               "Title": "NotificationController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\Controllers\\NotificationController.cs",
               "RelativeDocumentMoniker": "notification-vervice\\Controllers\\NotificationController.cs",
@@ -720,7 +316,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 13,
               "Title": "INotificationService.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\Services\\Interfaces\\INotificationService.cs",
               "RelativeDocumentMoniker": "notification-vervice\\Services\\Interfaces\\INotificationService.cs",
@@ -732,7 +328,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 8,
               "Title": "booking-service.http",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\booking-service.http",
               "RelativeDocumentMoniker": "booking-service\\booking-service.http",
@@ -744,7 +340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 14,
               "Title": "NotificationResponse.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\DTOs\\NotificationResponse.cs",
               "RelativeDocumentMoniker": "notification-vervice\\DTOs\\NotificationResponse.cs",
@@ -756,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 15,
               "Title": "NotificationRequest.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\notification-vervice\\DTOs\\NotificationRequest.cs",
               "RelativeDocumentMoniker": "notification-vervice\\DTOs\\NotificationRequest.cs",
@@ -768,7 +364,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Program.cs",
               "RelativeDocumentMoniker": "room-service\\Program.cs",
@@ -780,7 +376,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 11,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\appsettings.json",
               "RelativeDocumentMoniker": "booking-service\\appsettings.json",
@@ -792,7 +388,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 17,
               "Title": "RoomService.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Services\\RoomService.cs",
               "RelativeDocumentMoniker": "room-service\\Services\\RoomService.cs",
@@ -804,7 +400,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 18,
               "Title": "IRoomService.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Services\\Interfaces\\IRoomService.cs",
               "RelativeDocumentMoniker": "room-service\\Services\\Interfaces\\IRoomService.cs",
@@ -816,7 +412,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 19,
               "Title": "RoomType.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Models\\RoomType.cs",
               "RelativeDocumentMoniker": "room-service\\Models\\RoomType.cs",
@@ -828,7 +424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 20,
               "Title": "RoomStatus.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Models\\RoomStatus.cs",
               "RelativeDocumentMoniker": "room-service\\Models\\RoomStatus.cs",
@@ -840,7 +436,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 21,
               "Title": "Room.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Models\\Room.cs",
               "RelativeDocumentMoniker": "room-service\\Models\\Room.cs",
@@ -852,7 +448,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 22,
               "Title": "RoomResponse.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\DTOs\\RoomResponse.cs",
               "RelativeDocumentMoniker": "room-service\\DTOs\\RoomResponse.cs",
@@ -864,7 +460,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 23,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\room-service\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "room-service\\Data\\AppDbContext.cs",
@@ -876,7 +472,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 24,
               "Title": "BookingDetail.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Models\\BookingDetail.cs",
               "RelativeDocumentMoniker": "booking-service\\Models\\BookingDetail.cs",
@@ -888,7 +484,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 27,
               "Title": "BookingRequest.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\DTOs\\BookingRequest.cs",
               "RelativeDocumentMoniker": "booking-service\\DTOs\\BookingRequest.cs",
@@ -900,7 +496,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 30,
               "Title": "auth-service.csproj",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.csproj",
               "RelativeDocumentMoniker": "auth-service\\auth-service.csproj",
@@ -912,7 +508,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 29,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Program.cs",
               "RelativeDocumentMoniker": "booking-service\\Program.cs",
@@ -924,7 +520,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 28,
               "Title": "BookingResponse.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\DTOs\\BookingResponse.cs",
               "RelativeDocumentMoniker": "booking-service\\DTOs\\BookingResponse.cs",
@@ -936,7 +532,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 25,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "booking-service\\Data\\AppDbContext.cs",
@@ -948,7 +544,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 26,
               "Title": "Booking.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Models\\Booking.cs",
               "RelativeDocumentMoniker": "booking-service\\Models\\Booking.cs",
@@ -960,7 +556,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 31,
               "Title": "auth-service.http",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\auth-service.http",
               "RelativeDocumentMoniker": "auth-service\\auth-service.http",
@@ -972,7 +568,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 32,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\appsettings.json",
               "RelativeDocumentMoniker": "auth-service\\appsettings.json",
@@ -984,7 +580,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 33,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\auth-service\\Program.cs",
               "RelativeDocumentMoniker": "auth-service\\Program.cs",
@@ -996,7 +592,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 34,
               "Title": "ChatBotController_v3.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\solutions\\ChatBotController_v3.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Downloads\\solutions\\ChatBotController_v3.cs",
@@ -1008,7 +604,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 39,
               "Title": "Conversation.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Models\\Conversation.cs",
               "RelativeDocumentMoniker": "booking-service\\Models\\Conversation.cs",
@@ -1019,7 +615,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 38,
               "Title": "MessageLog.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Models\\MessageLog.cs",
               "RelativeDocumentMoniker": "booking-service\\Models\\MessageLog.cs",
@@ -1030,7 +626,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 37,
               "Title": "Message.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Models\\Message.cs",
               "RelativeDocumentMoniker": "booking-service\\Models\\Message.cs",
@@ -1041,7 +637,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 40,
               "Title": "PHONG.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Models\\PHONG.cs",
               "RelativeDocumentMoniker": "booking-service\\Models\\PHONG.cs",
@@ -1053,7 +649,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 35,
               "Title": "ChatController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\Controllers\\ChatController.cs",
               "RelativeDocumentMoniker": "booking-service\\Controllers\\ChatController.cs",
@@ -1064,7 +660,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 36,
               "Title": "ChatRequest.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\booking-service\\DTOs\\ChatRequest.cs",
               "RelativeDocumentMoniker": "booking-service\\DTOs\\ChatRequest.cs",
@@ -1075,7 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 41,
               "Title": "config.json",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\KienTruc_QuanLiKhachSan__Nhom12\\services\\ai-service\\config.json",
               "RelativeDocumentMoniker": "ai-service\\config.json",
@@ -1087,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 42,
               "Title": "ChatBotController.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Downloads\\ai-service-v2\\ChatBotController.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Downloads\\ai-service-v2\\ChatBotController.cs",
